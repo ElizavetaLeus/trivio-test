@@ -43,8 +43,10 @@ import icons from "@/assets/icons/icons.ts";
 .button {
   all: unset;
   cursor: pointer;
-  font: inherit;
-  color: inherit;
+  font-family: var(--font-family-secondary);
+  font-size: 14px;
+  line-height: 14px;
+  color: var(--color-primary);
 }
 .userLogo {
   --size: 36px;

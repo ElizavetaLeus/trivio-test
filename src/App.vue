@@ -1,6 +1,8 @@
 <template>
-  <div>
+  <div :class="$style.app">
     <TheHeader />
+    <RouterView />
+
   </div>
 </template>
 
@@ -10,5 +12,7 @@ import TheHeader from "@/components/TheHeader.vue";
 </script>
 
 <style module>
-
+.app {
+  background-color: var(--color-gray-light);
+}
 </style>

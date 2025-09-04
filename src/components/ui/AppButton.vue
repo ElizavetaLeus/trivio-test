@@ -30,7 +30,8 @@ const emitListener = () => {
 .button {
   --color-button: var(--color-primary);
   color: var(--color-white);
-  padding: 19px 44px;
+ display: flex;
+  align-items: center;
   border-radius: 5px;
   border: 1px solid var(--color-button);
   background-color: var(--color-button);

@@ -124,5 +124,6 @@ const closeDrawer = () => {
 }
 .footerButton {
   max-height: 40px;
+  padding: 12px 47px;
 }
 </style>

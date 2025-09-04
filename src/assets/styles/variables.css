@@ -17,4 +17,5 @@ body {
   --color-black: rgb(var(--color-black-base));
   --color-green: rgb(var(--color-green-base));
   /* цвета с прозрачностью */
+  --color-black-40: rgb(var(--color-black-base), 40%);
 }

@@ -73,6 +73,7 @@ const createTrip = () => {
 }
 .searchButton {
   height: 54px;
+  padding: 19px 44px;
 }
 .button {
   all: unset;

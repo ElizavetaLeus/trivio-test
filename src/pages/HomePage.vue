@@ -83,7 +83,6 @@ const createTrip = () => {
   line-height: 1;
   border-bottom: 1px dotted var(--color-primary);
   margin-top: 30px;
-  display: flex;
-  justify-content: center;
+  width: 131px;
 }
  </style>

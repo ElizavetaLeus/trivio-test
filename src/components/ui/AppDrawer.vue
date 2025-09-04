@@ -3,7 +3,10 @@
     <div :class="[$style.drawerWrap, isOpen && $style.open]">
       <header :class="$style.header">
         <div :class="$style.headerTitle"> Введите название поездки</div>
-        <button :class="$style.headerButton">
+        <button
+          :class="$style.headerButton"
+          @click="closeDrawer()"
+        >
           <AppIcon :icon="icons.cross" />
         </button>
       </header>
@@ -14,8 +17,7 @@
           placeholder="Введите название поездки"
           @input="setInputValue($event)"
         />
-        <div :class="$style.selectUsers">
-        </div>
+        <AppDrawerContent />
       </div>
       <footer :class="$style.footer">
         <AppButton
@@ -36,12 +38,16 @@ import icons from "@/assets/icons/icons";
 import InputText from "@/components/ui/InputText.vue";
 import {ref} from "vue";
 import AppButton from "@/components/ui/AppButton.vue";
+import AppDrawerContent from "@/components/AppDrawerContent.vue";
 
 const inputValue = ref("");
-const isOpen = ref(false);
+const isOpen = ref(true);
 const setInputValue = (value: string) => {
   inputValue.value = value;
   return inputValue.value;
+}
+const closeDrawer = () => {
+  isOpen.value = false;
 }
 </script>
 
@@ -96,6 +102,7 @@ const setInputValue = (value: string) => {
 .content {
   background-color: var(--color-gray-light);
   height: calc(100% - 122px);
+  padding-inline: 20px;
 }
 .inputText {
   font-weight: 700;

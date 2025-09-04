@@ -31,7 +31,6 @@ const handlerInput = (event: Event) => {
 <style module>
 .searchInput {
   width: 100%;
-  padding: 17px 20px 17px 50px;
   border: 1px solid transparent;
   border-radius: 5px;
   font-size: 14px;
@@ -40,6 +39,5 @@ const handlerInput = (event: Event) => {
 
 .searchInput:focus {
   outline: none;
-  border-color: var(--color-primary);
 }
 </style>

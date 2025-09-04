@@ -33,9 +33,6 @@ const setInputValue = (value: string) => {
   inputValue.value = value;
   return inputValue.value;
 }
-const createTrip = () => {
-  console.log('на меня ткнули')
-}
 </script>
 
  <style module>

@@ -1,29 +1,31 @@
 <template>
-  <div :class="$style.drawer">
-    <header :class="$style.header">
-      <div :class="$style.headerTitle"> Введите название поездки</div>
-      <button :class="$style.headerButton">
-        <AppIcon :icon="icons.cross" />
-      </button>
-    </header>
-    <div :class="$style.content">
-      <InputText
-        :class="$style.inputText"
-        :value="inputValue"
-        placeholder="Введите название поездки"
-        @input="setInputValue($event)"
-      />
-      <div :class="$style.selectUsers">
+  <div :class="[$style.drawer, isOpen && $style.open]">
+    <div :class="[$style.drawerWrap, isOpen && $style.open]">
+      <header :class="$style.header">
+        <div :class="$style.headerTitle"> Введите название поездки</div>
+        <button :class="$style.headerButton">
+          <AppIcon :icon="icons.cross" />
+        </button>
+      </header>
+      <div :class="$style.content">
+        <InputText
+          :class="$style.inputText"
+          :value="inputValue"
+          placeholder="Введите название поездки"
+          @input="setInputValue($event)"
+        />
+        <div :class="$style.selectUsers">
+        </div>
       </div>
+      <footer :class="$style.footer">
+        <AppButton
+          text="Создать"
+          :isActive="false"
+          :class="$style.footerButton"
+        >
+        </AppButton>
+      </footer>
     </div>
-    <footer :class="$style.footer">
-      <AppButton
-        text="Создать"
-        :isActive="false"
-        :class="$style.footerButton"
-      >
-      </AppButton>
-    </footer>
   </div>
 </template>
 
@@ -36,6 +38,7 @@ import {ref} from "vue";
 import AppButton from "@/components/ui/AppButton.vue";
 
 const inputValue = ref("");
+const isOpen = ref(false);
 const setInputValue = (value: string) => {
   inputValue.value = value;
   return inputValue.value;
@@ -46,12 +49,30 @@ const setInputValue = (value: string) => {
 .drawer {
   position: absolute;
   top: 0;
-  right: -400px;
-  max-width: 400px;
-  height: 100%;
-}
-.open .drawer {
   right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--color-black-40);
+  visibility: hidden;
+  opacity: 0;
+}
+.open.drawer {
+  opacity: 1;
+  visibility: visible;
+}
+.drawerWrap {
+  max-width: 400px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: -400px;
+  transition: 0.2s;
+}
+.open .drawerWrap {
+  right: 0;
+  opacity: 1;
 }
 .header {
   background-color: var(--color-white);
@@ -74,6 +95,7 @@ const setInputValue = (value: string) => {
 }
 .content {
   background-color: var(--color-gray-light);
+  height: calc(100% - 122px);
 }
 .inputText {
   font-weight: 700;
@@ -91,6 +113,7 @@ const setInputValue = (value: string) => {
   background-color: var(--color-white);
   border-top: 1px solid var(--color-gray);
   padding: 10px 20px;
+  height: 60px;
 }
 .footerButton {
   max-height: 40px;

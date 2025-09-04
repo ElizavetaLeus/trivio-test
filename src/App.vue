@@ -15,6 +15,6 @@ import AppDrawer from "@/components/ui/AppDrawer.vue";
 <style module>
 .app {
   background-color: var(--color-gray-light);
-  height: 100%;
+  height: 100vh;
 }
 </style>

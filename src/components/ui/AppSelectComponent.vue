@@ -14,6 +14,7 @@ padding: 10px 15px;
   border: none;
   border-radius: 5px;
   width: 100%;
+  color: var(--color-gray);
 }
 .selectLabel {}
 </style>

@@ -62,6 +62,7 @@ const createTrip = () => {
 }
 .inputText {
   max-width: 690px;
+  padding: 17px 20px 17px 50px;
 }
 .inputIcon {
   color: var(--color-primary);

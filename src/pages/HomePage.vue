@@ -18,7 +18,9 @@
         :class="$style.searchButton"
       />
     </div>
-    <button :class="$style.button">создать поездку</button>
+    <button :class="$style.button">
+      создать поездку
+    </button>
   </div>
 </template>
 <script setup lang="ts">
@@ -31,7 +33,7 @@ import AppButton from "@/components/ui/AppButton.vue";
 const inputValue = ref("");
 const setInputValue = (value: string) => {
   inputValue.value = value;
-  return inputValue.value;
+  console.log(inputValue.value);
 }
 </script>
 
@@ -58,7 +60,7 @@ const setInputValue = (value: string) => {
   margin-top: 20px;
 }
 .inputText {
-  max-width: 690px;
+  width: 100%;
   padding: 17px 20px 17px 50px;
 }
 .inputIcon {
@@ -82,5 +84,6 @@ const setInputValue = (value: string) => {
   border-bottom: 1px dotted var(--color-primary);
   margin-top: 30px;
   width: 131px;
+  margin-inline: auto;
 }
  </style>

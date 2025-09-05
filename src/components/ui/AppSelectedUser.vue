@@ -1,18 +1,19 @@
 <template>
   <div :class="$style.userContainer">
-    <div :class="$style.userName">{{ username }}</div>
+    <div :class="$style.userName">
+      {{ username }}
+    </div>
     <button :class="$style.closeButton">
       <AppIcon
         :icon="icons.closeCross"
         :class="$style.icon"
-        :size="16"
+        :style="16"
       />
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-
 import AppIcon from "@/components/ui/AppIcon.vue";
 import icons from "@/assets/icons/icons";
 
@@ -49,5 +50,4 @@ defineProps<Props>();
   align-items: center;
   cursor: pointer;
 }
-
 </style>

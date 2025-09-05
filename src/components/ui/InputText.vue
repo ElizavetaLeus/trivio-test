@@ -4,7 +4,8 @@
     :value="value"
     :class="$style.searchInput"
     :placeholder="placeholder"
-    @input="handlerInput($event)">
+    @input="handlerInput($event)"
+  >
 </template>
 
 <script setup lang="ts">
@@ -13,15 +14,15 @@ interface Props {
   value?: string;
 }
 interface Emits {
-  (event: 'click'): void;
+  (event: 'input'): void;
 }
+
 withDefaults(defineProps<Props>(), {
   placeholder: 'Введите название поездки или её номер',
   value: ''
 });
 
 const emits = defineEmits<Emits>();
-
 const handlerInput = (event: Event) => {
   const inputElement = event.target as HTMLInputElement;
   emits('input', inputElement.value)
@@ -36,7 +37,6 @@ const handlerInput = (event: Event) => {
   font-size: 14px;
   transition: border-color 0.2s;
 }
-
 .searchInput:focus {
   outline: none;
 }

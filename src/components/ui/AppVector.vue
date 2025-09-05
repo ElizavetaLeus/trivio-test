@@ -1,6 +1,5 @@
 <template>
-  <div v-html="vector">
-  </div>
+  <div v-html="vector"></div>
 </template>
 
 <script setup lang="ts">
@@ -9,7 +8,3 @@ interface Props {
 }
 defineProps<Props>();
 </script>
-
-<style module>
-
-</style>

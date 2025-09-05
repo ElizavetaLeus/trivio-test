@@ -1,8 +1,14 @@
 <template>
-  <div :class="[$style.drawer, isOpen && $style.open]">
-    <div :class="[$style.drawerWrap, isOpen && $style.open]">
+  <div
+    :class="[$style.drawer, isOpen && $style.open]"
+  >
+    <div
+      :class="[$style.drawerWrap, isOpen && $style.open]"
+    >
       <header :class="$style.header">
-        <div :class="$style.headerTitle"> Введите название поездки</div>
+        <div :class="$style.headerTitle">
+          Введите название поездки
+        </div>
         <button
           :class="$style.headerButton"
           @click="closeDrawer()"
@@ -32,7 +38,6 @@
 </template>
 
 <script setup lang="ts">
-
 import AppIcon from "@/components/ui/AppIcon.vue";
 import icons from "@/assets/icons/icons";
 import InputText from "@/components/ui/InputText.vue";
@@ -42,9 +47,10 @@ import AppDrawerContent from "@/components/AppDrawerContent.vue";
 
 const inputValue = ref("");
 const isOpen = ref(true);
+
 const setInputValue = (value: string) => {
   inputValue.value = value;
-  return inputValue.value;
+  console.log(value)
 }
 const closeDrawer = () => {
   isOpen.value = false;

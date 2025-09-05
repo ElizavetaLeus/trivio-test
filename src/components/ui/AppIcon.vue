@@ -1,7 +1,8 @@
 <template>
-  <div v-html="icon"
-       :class="$style.icon"
-       :size="`--size ${size}px`"
+  <div
+    v-html="icon"
+    :class="$style.icon"
+    :style="`--size ${size}px`"
   >
   </div>
 </template>

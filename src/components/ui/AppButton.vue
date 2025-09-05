@@ -16,7 +16,8 @@ interface Props {
 interface Emits {
   (event: 'click'): void;
 }
-const props = withDefaults(defineProps<Props>(), {
+
+withDefaults(defineProps<Props>(), {
   isActive: false,
 });
 
@@ -30,7 +31,7 @@ const emitListener = () => {
 .button {
   --color-button: var(--color-primary);
   color: var(--color-white);
- display: flex;
+  display: flex;
   align-items: center;
   border-radius: 5px;
   border: 1px solid var(--color-button);

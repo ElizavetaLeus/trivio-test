@@ -6,7 +6,9 @@
       </RouterLink>
       <div :class="$style.createTrip">
         <AppIcon :icon="icons.baggage" />
-        <button :class="$style.button">Создать поездку</button>
+        <button :class="$style.button">
+          Создать поездку
+        </button>
       </div>
     </div>
     <div :class="$style.userLogo">AA</div>

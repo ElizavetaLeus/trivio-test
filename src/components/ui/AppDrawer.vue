@@ -95,7 +95,6 @@ const closeDrawer = () => {
   border-bottom: 1px solid var(--color-gray);
 }
 .headerTitle {
-  font-family: var(--font-family-secondary);
   font-weight: 500;
   color: var(--color-black);
   line-height: 1;

@@ -77,7 +77,6 @@ const setInputValue = (value: string) => {
 .button {
   all: unset;
   cursor: pointer;
-  font-family: var(--font-family-secondary);
   color: var(--color-primary);
   font-size: 16px;
   line-height: 1;

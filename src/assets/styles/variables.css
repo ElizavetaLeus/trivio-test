@@ -1,7 +1,6 @@
 body {
   /* Шрифты */
   --font-family-primary: 'Roboto', sans-serif;
-  --font-family-secondary: 'Inter', sans-serif;
   /* базовые цвета */
   --color-white-base: 255, 255, 255;
   --color-gray-base: 179, 193, 209;
@@ -14,8 +13,10 @@ body {
   --color-gray: rgb(var(--color-gray-base));
   --color-gray-light: rgb(var(--color-gray-light-base));
   --color-primary: rgb(var(--color-primary-base));
-  --color-black: rgb(var(--color-black-base));
   --color-green: rgb(var(--color-green-base));
-  /* цвета с прозрачностью */
+
+  --color-black: rgb(var(--color-black-base));
   --color-black-40: rgb(var(--color-black-base), 40%);
+  --color-black-10: rgb(var(--color-black-base), 10%);
+  --color-black-20: rgb(var(--color-black-base), 20%);
 }

@@ -26,8 +26,7 @@ import icons from "@/assets/icons/icons.ts";
 .header {
   display: flex;
   align-items: center;
-  padding-inline: 94px;
-  padding-block: 10px;
+  padding-inline: 20px;
   justify-content: space-between;
   background: var(--color-white);
 }
@@ -45,7 +44,6 @@ import icons from "@/assets/icons/icons.ts";
 .button {
   all: unset;
   cursor: pointer;
-  font-family: var(--font-family-secondary);
   font-size: 14px;
   line-height: 14px;
   color: var(--color-primary);

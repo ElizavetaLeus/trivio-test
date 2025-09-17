@@ -16,10 +16,10 @@
 </template>
 
 <script setup lang="ts">
-import AppVector from "@/components/ui/AppVector.vue";
-import vectors from "@/assets/vectors/vectors.ts";
-import AppIcon from "@/components/ui/AppIcon.vue";
-import icons from "@/assets/icons/icons.ts";
+import AppVector from '@/components/ui/AppVector.vue';
+import vectors from '@/assets/vectors/vectors.ts';
+import AppIcon from '@/components/ui/AppIcon.vue';
+import icons from '@/assets/icons/icons.ts';
 </script>
 
 <style module>
@@ -61,4 +61,3 @@ import icons from "@/assets/icons/icons.ts";
   font-size: 14px;
 }
 </style>
-

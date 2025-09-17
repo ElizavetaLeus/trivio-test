@@ -3,4 +3,3 @@
     trip
   </div>
 </template>
-

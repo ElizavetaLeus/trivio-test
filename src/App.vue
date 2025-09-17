@@ -2,14 +2,17 @@
   <div :class="$style.app">
     <TheHeader />
     <RouterView />
-<AppDrawer />
+    <AppDrawer :isOpen="drawer.isOpen.value"/>
   </div>
 </template>
 
 <script setup lang="ts">
 
-import TheHeader from "@/components/TheHeader.vue";
-import AppDrawer from "@/components/ui/AppDrawer.vue";
+import TheHeader from '@/components/TheHeader.vue';
+import AppDrawer from '@/components/ui/AppDrawer.vue';
+import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip.ts';
+
+const drawer = useDrawerCreateTrip();
 </script>
 
 <style module>

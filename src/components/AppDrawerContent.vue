@@ -1,15 +1,13 @@
 <template>
   <div :class="$style.drawerContent">
     <AppSelectComponent />
-    <AppSelectedUser
-      username="Иванов Иван"
-    />
+    <AppSelectedUser username="Иванов Иван" />
   </div>
 </template>
 
 <script setup lang="ts">
-import AppSelectComponent from "@/components/ui/AppSelectComponent.vue";
-import AppSelectedUser from "@/components/ui/AppSelectedUser.vue";
+import AppSelectComponent from '@/components/ui/AppSelectComponent.vue';
+import AppSelectedUser from '@/components/ui/AppSelectedUser.vue';
 </script>
 
 <style module>

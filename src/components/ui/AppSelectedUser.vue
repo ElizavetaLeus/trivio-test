@@ -14,8 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import AppIcon from "@/components/ui/AppIcon.vue";
-import icons from "@/assets/icons/icons";
+import AppIcon from '@/components/ui/AppIcon.vue';
+import icons from '@/assets/icons/icons';
 
 interface Props {
   username: string;

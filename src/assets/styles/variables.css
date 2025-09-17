@@ -1,14 +1,14 @@
 body {
-  /* Шрифты */
+  /* Fonts */
   --font-family-primary: 'Roboto', sans-serif;
-  /* базовые цвета */
+  /* Colors base */
   --color-white-base: 255, 255, 255;
   --color-gray-base: 179, 193, 209;
   --color-gray-light-base: 246, 248, 252;
   --color-primary-base: 67, 97, 238;
   --color-black-base: 5, 5, 5;
   --color-green-base: 0, 179, 0;
-  /* цвета */
+  /* Colors */
   --color-white: rgb(var(--color-white-base));
   --color-gray: rgb(var(--color-gray-base));
   --color-gray-light: rgb(var(--color-gray-light-base));

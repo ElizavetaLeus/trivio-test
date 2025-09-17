@@ -1,7 +1,6 @@
 <template>
   <button
-    :class="$style.button"
-    :isActive="isActive"
+    :class="classList"
     @click="emitListener()"
   >
     {{ text }}
@@ -9,38 +8,71 @@
 </template>
 
 <script setup lang="ts">
+import { computed, useCssModule } from 'vue';
+
+type ButtonSize = 'large' | 'default' | 'small';
+type ButtonType = 'default' | 'text';
+
 interface Props {
-  text: string;
-  isActive?: boolean;
+  text: string,
+  type?:ButtonType,
+  size?: ButtonSize,
 }
 interface Emits {
   (event: 'click'): void;
 }
 
-withDefaults(defineProps<Props>(), {
-  isActive: false,
+const props = withDefaults(defineProps<Props>(), {
+  type: 'default',
+  size: 'default',
 });
-
 const emits = defineEmits<Emits>();
+const $style = useCssModule();
+
+const classList = computed(() => {
+  return [
+    $style.button,
+    props.size === 'large' && $style.buttonSizeLarge,
+    props.size === 'small' && $style.buttonSizeSmall,
+    props.type ==='text' && $style.buttonTypeText,
+  ];
+});
 const emitListener = () => {
+  console.log('трогала меня трогалаааа');
   emits('click');
-}
+};
 </script>
 
 <style module>
 .button {
-  --color-button: var(--color-primary);
   color: var(--color-white);
-  display: flex;
-  align-items: center;
+  background-color: var(--color-primary);
+  padding-block: 12px;
+  padding-inline: 44px;
   border-radius: 5px;
-  border: 1px solid var(--color-button);
-  background-color: var(--color-button);
-  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  width: 100%;
+  height: 40px;
   transition: 0.3s;
   line-height: 1;
 }
 .button:hover {
   opacity: 90%;
+}
+.buttonSizeLarge {
+  padding-block: 20px;
+  height: 54px;
+}
+.buttonSizeSmall {
+  padding-block: 9px;
+  height: 30px;
+}
+.buttonTypeText {
+  padding: 0;
+  background-color: transparent;
+  color: var(--color-black);
+  height: fit-content;
+  width: fit-content;
 }
 </style>

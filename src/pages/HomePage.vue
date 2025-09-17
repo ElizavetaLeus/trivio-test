@@ -6,7 +6,8 @@
         <InputText
           :class="$style.inputText"
           :value="inputValue"
-          @input="setInputValue($event)"/>
+          @input="setInputValue($event)"
+        />
         <AppIcon
           :icon="icons.search"
           :class="$style.inputIcon"
@@ -18,23 +19,33 @@
         :class="$style.searchButton"
       />
     </div>
-    <button :class="$style.button">
+    <button
+      :class="$style.button"
+      @click="openDrawer()"
+    >
       создать поездку
     </button>
   </div>
 </template>
 <script setup lang="ts">
-import AppIcon from "@/components/ui/AppIcon.vue";
-import icons from "@/assets/icons/icons";
-import InputText from "@/components/ui/InputText.vue";
-import {ref} from "vue";
-import AppButton from "@/components/ui/AppButton.vue";
+import AppIcon from '@/components/ui/AppIcon.vue';
+import icons from '@/assets/icons/icons';
+import InputText from '@/components/ui/InputText.vue';
+import { ref } from 'vue';
+import AppButton from '@/components/ui/AppButton.vue';
+import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
 
-const inputValue = ref("");
-const setInputValue = (value: string) => {
-  inputValue.value = value;
-  console.log(inputValue.value);
-}
+const inputValue = ref('');
+const drawer = useDrawerCreateTrip();
+const setInputValue = (value: string|undefined) => {
+  if (value) {
+    inputValue.value = value;
+    console.log(inputValue.value);
+  }
+};
+const openDrawer = () => {
+  drawer.openDrawer();
+};
 </script>
 
  <style module>

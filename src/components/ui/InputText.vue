@@ -14,19 +14,19 @@ interface Props {
   value?: string;
 }
 interface Emits {
-  (event: 'input'): void;
+  (event: 'input', value: string): void;
 }
 
 withDefaults(defineProps<Props>(), {
   placeholder: 'Введите название поездки или её номер',
-  value: ''
+  value: '',
 });
 
 const emits = defineEmits<Emits>();
 const handlerInput = (event: Event) => {
   const inputElement = event.target as HTMLInputElement;
-  emits('input', inputElement.value)
-}
+  emits('input', inputElement.value);
+};
 </script>
 
 <style module>

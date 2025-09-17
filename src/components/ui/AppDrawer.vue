@@ -1,9 +1,11 @@
 <template>
   <div
     :class="[$style.drawer, isOpen && $style.open]"
+    @click="closeDrawer()"
   >
     <div
-      :class="[$style.drawerWrap, isOpen && $style.open]"
+      :class="$style.drawerWrapper"
+      @click.stop
     >
       <header :class="$style.header">
         <div :class="$style.headerTitle">
@@ -21,93 +23,99 @@
           :class="$style.inputText"
           :value="inputValue"
           placeholder="Введите название поездки"
-          @input="setInputValue($event)"
         />
         <AppDrawerContent />
       </div>
       <footer :class="$style.footer">
-        <AppButton
-          text="Создать"
-          :isActive="false"
-          :class="$style.footerButton"
-        >
-        </AppButton>
+        <AppButton text="Создать" />
       </footer>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import AppIcon from "@/components/ui/AppIcon.vue";
-import icons from "@/assets/icons/icons";
-import InputText from "@/components/ui/InputText.vue";
-import {ref} from "vue";
-import AppButton from "@/components/ui/AppButton.vue";
-import AppDrawerContent from "@/components/AppDrawerContent.vue";
+import AppIcon from '@/components/ui/AppIcon.vue';
+import icons from '@/assets/icons/icons';
+import InputText from '@/components/ui/InputText.vue';
+import { ref } from 'vue';
+import AppButton from '@/components/ui/AppButton.vue';
+import AppDrawerContent from '@/components/AppDrawerContent.vue';
+import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
 
-const inputValue = ref("");
-const isOpen = ref(true);
-
-const setInputValue = (value: string) => {
-  inputValue.value = value;
-  console.log(value)
+interface Props {
+  isOpen: boolean,
 }
+
+defineProps<Props>();
+const inputValue = ref('');
+
+// const setInputValue = (value: string) => {
+//   inputValue.value = value;
+//   console.log(value);
+// };
+const drawer = useDrawerCreateTrip();
+
 const closeDrawer = () => {
-  isOpen.value = false;
-}
+  drawer.closeDrawer();
+  console.log('на меня жмали');
+};
 </script>
 
 <style module>
 .drawer {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
   background-color: var(--color-black-40);
   visibility: hidden;
   opacity: 0;
+  transition: 0.3s ease;
 }
 .open.drawer {
   opacity: 1;
   visibility: visible;
 }
-.drawerWrap {
-  max-width: 400px;
-  width: 100%;
+.drawerWrapper {
+  color: var(--color-white);
+  width: 400px;
   height: 100%;
   position: absolute;
   top: 0;
   right: -400px;
-  transition: 0.2s;
+  transition: 0.3s ease;
 }
-.open .drawerWrap {
+.open .drawerWrapper {
   right: 0;
-  opacity: 1;
 }
 .header {
+  height: 60px;
   background-color: var(--color-white);
-  padding: 20px;
+  border-bottom: 1px solid var(--color-black-10);
   display: flex;
+  padding-inline: 20px;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--color-gray);
 }
 .headerTitle {
   font-weight: 500;
   color: var(--color-black);
   line-height: 1;
+  font-size: 14px;
 }
 .headerButton {
-  all: unset;
-  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
   color: var(--color-gray);
 }
 .content {
   background-color: var(--color-gray-light);
   height: calc(100% - 122px);
   padding-inline: 20px;
+  overflow-y: auto;
 }
 .inputText {
   font-weight: 700;
@@ -123,12 +131,8 @@ const closeDrawer = () => {
 }
 .footer {
   background-color: var(--color-white);
-  border-top: 1px solid var(--color-gray);
+  border-top: 1px solid var(--color-black-10);
   padding: 10px 20px;
   height: 60px;
-}
-.footerButton {
-  max-height: 40px;
-  padding: 12px 47px;
 }
 </style>

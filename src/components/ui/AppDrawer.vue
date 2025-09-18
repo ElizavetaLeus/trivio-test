@@ -19,10 +19,11 @@
         </button>
       </header>
       <div :class="$style.content">
-        <InputText
+        <InputTransparent
           :class="$style.inputText"
           :value="inputValue"
           placeholder="Введите название поездки"
+          @input="setInputValue($event)"
         />
         <AppDrawerContent />
       </div>
@@ -36,7 +37,7 @@
 <script setup lang="ts">
 import AppIcon from '@/components/ui/AppIcon.vue';
 import icons from '@/assets/icons/icons';
-import InputText from '@/components/ui/InputText.vue';
+import InputTransparent from '@/components/ui/InputTransparent.vue';
 import { ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import AppDrawerContent from '@/components/AppDrawerContent.vue';
@@ -49,15 +50,14 @@ interface Props {
 defineProps<Props>();
 const inputValue = ref('');
 
-// const setInputValue = (value: string) => {
-//   inputValue.value = value;
-//   console.log(value);
-// };
+const setInputValue = (value: string) => {
+  inputValue.value = value;
+  console.log(value);
+};
 const drawer = useDrawerCreateTrip();
 
 const closeDrawer = () => {
   drawer.closeDrawer();
-  console.log('на меня жмали');
 };
 </script>
 

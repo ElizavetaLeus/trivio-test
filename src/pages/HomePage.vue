@@ -4,36 +4,31 @@
     <div :class="$style.searchContainer">
       <div :class="$style.searchInputContainer">
         <InputText
-          :class="$style.inputText"
-          :value="inputValue"
-          @input="setInputValue($event)"
-        />
-        <AppIcon
-          :icon="icons.search"
-          :class="$style.inputIcon"
+          v-model:value="inputValue"
+          :class="$style.inputTextSearch"
+          placeholder="Введите название поездки или её номер"
         />
       </div>
       <AppButton
         text="Найти"
-        :isActive="false"
+        size="large"
         :class="$style.searchButton"
+        @click="searchTrip()"
       />
     </div>
-    <button
-      :class="$style.button"
+    <AppButton
+      text="Создать поездку"
+      type="text"
+      :class="$style.buttonCreateTrip"
       @click="openDrawer()"
-    >
-      создать поездку
-    </button>
+    />
   </div>
 </template>
 <script setup lang="ts">
-import AppIcon from '@/components/ui/AppIcon.vue';
-import icons from '@/assets/icons/icons';
-import InputText from '@/components/ui/InputText.vue';
 import { ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
+import InputText from '@/components/ui/InputText.vue';
 
 const inputValue = ref('');
 const drawer = useDrawerCreateTrip();
@@ -45,6 +40,9 @@ const setInputValue = (value: string|undefined) => {
 };
 const openDrawer = () => {
   drawer.openDrawer();
+};
+const searchTrip = () => {
+  console.log('я шота нашел');
 };
 </script>
 
@@ -70,30 +68,18 @@ const openDrawer = () => {
   width: 100%;
   margin-top: 20px;
 }
-.inputText {
-  width: 100%;
-  padding: 17px 20px 17px 50px;
-}
-.inputIcon {
-  color: var(--color-primary);
-  background-color: var(--color-white);
-  position: absolute;
-  top: 14px;
-  left: 20px;
+.inputTextSearch {
+  padding-inline: 20px;
+  height: 54px;
 }
 .searchButton {
-  height: 54px;
-  padding: 19px 44px;
+  max-width: 130px;
 }
-.button {
-  all: unset;
-  cursor: pointer;
-  color: var(--color-primary);
+.buttonCreateTrip {
   font-size: 16px;
   line-height: 1;
-  border-bottom: 1px dotted var(--color-primary);
+  border-bottom: 1px dashed var(--color-primary);
   margin-top: 30px;
-  width: 131px;
   margin-inline: auto;
 }
  </style>

@@ -1,43 +1,63 @@
 <template>
-  <input
-    type="text"
-    :value="value"
-    :class="$style.searchInput"
-    :placeholder="placeholder"
-    @input="handlerInput($event)"
-  >
+  <div :class="$style.root">
+    <AppIcon
+      :icon="icons.search"
+      :class="$style.inputIcon"
+    />
+    <input
+      type="text"
+      :value="value"
+      :placeholder="placeholder"
+      :class="$style.input"
+      @input="onInput($event)"
+    >
+  </div>
 </template>
 
 <script setup lang="ts">
+import AppIcon from '@/components/ui/AppIcon.vue';
+import icons from '@/assets/icons/icons';
+
 interface Props {
-  placeholder?: string;
-  value?: string;
+  value: string,
+  placeholder: string,
 }
 interface Emits {
-  (event: 'input', value: string): void;
+  (event: 'update:value', value: string): void,
 }
 
 withDefaults(defineProps<Props>(), {
-  placeholder: 'Введите название поездки или её номер',
-  value: '',
+  iconName: undefined,
 });
-
 const emits = defineEmits<Emits>();
-const handlerInput = (event: Event) => {
-  const inputElement = event.target as HTMLInputElement;
-  emits('input', inputElement.value);
+
+const onInput = (event: Event) => {
+  const element = event.target as HTMLInputElement;
+
+  emits('update:value', element.value);
 };
 </script>
 
 <style module>
-.searchInput {
+.root {
   width: 100%;
-  border: 1px solid transparent;
+  background-color: var(--color-white);
   border-radius: 5px;
-  font-size: 14px;
-  transition: border-color 0.2s;
+  padding-inline: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.searchInput:focus {
+.input {
+  width: 100%;
+  border: none;
   outline: none;
+  min-height: 40px;
+  height: 100%;
+  padding: 0;
+}
+.inputIcon {
+  color: var(--color-primary);
+  background-color: var(--color-white);
 }
 </style>

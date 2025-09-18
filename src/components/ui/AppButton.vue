@@ -38,7 +38,6 @@ const classList = computed(() => {
   ];
 });
 const emitListener = () => {
-  console.log('трогала меня трогалаааа');
   emits('click');
 };
 </script>
@@ -71,7 +70,7 @@ const emitListener = () => {
 .buttonTypeText {
   padding: 0;
   background-color: transparent;
-  color: var(--color-black);
+  color: var(--color-primary);
   height: fit-content;
   width: fit-content;
 }

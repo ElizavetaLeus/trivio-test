@@ -6,9 +6,12 @@
       </RouterLink>
       <div :class="$style.createTrip">
         <AppIcon :icon="icons.baggage" />
-        <button :class="$style.button">
-          Создать поездку
-        </button>
+        <AppButton
+          text="Создать поездку"
+          type="text"
+          :class="$style.button"
+          @click="openDrawer()"
+        />
       </div>
     </div>
     <div :class="$style.userLogo">AA</div>
@@ -20,6 +23,13 @@ import AppVector from '@/components/ui/AppVector.vue';
 import vectors from '@/assets/vectors/vectors.ts';
 import AppIcon from '@/components/ui/AppIcon.vue';
 import icons from '@/assets/icons/icons.ts';
+import AppButton from '@/components/ui/AppButton.vue';
+import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
+
+const drawer = useDrawerCreateTrip();
+const openDrawer = () => {
+  drawer.openDrawer();
+};
 </script>
 
 <style module>
@@ -42,11 +52,8 @@ import icons from '@/assets/icons/icons.ts';
   color: var(--color-primary);
 }
 .button {
-  all: unset;
-  cursor: pointer;
   font-size: 14px;
   line-height: 14px;
-  color: var(--color-primary);
 }
 .userLogo {
   --size: 36px;

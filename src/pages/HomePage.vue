@@ -5,6 +5,7 @@
       <div :class="$style.searchInputContainer">
         <InputText
           v-model:value="inputValue"
+          iconName="search"
           :class="$style.inputTextSearch"
           placeholder="Введите название поездки или её номер"
         />

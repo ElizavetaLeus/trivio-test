@@ -1,17 +1,19 @@
 <template>
   <div
-    v-html="icon"
+    v-html="icons[name]"
     :class="$style.icon"
-    :style="`--size ${size}px`"
-  >
-  </div>
+    :style="`--size: ${size}px`"
+  ></div>
 </template>
 
 <script setup lang="ts">
+import { icons } from '@/assets/icons/icons.ts';
+
 interface Props {
-  icon: string,
+  name: keyof typeof icons,
   size?: number
 }
+
 withDefaults(defineProps<Props>(), {
   size: 20,
 });

@@ -15,7 +15,7 @@
           :class="$style.headerButton"
           @click="closeDrawer()"
         >
-          <AppIcon :icon="icons.cross" />
+          <AppIcon name="cross"/>
         </button>
       </header>
       <div :class="$style.content">
@@ -36,7 +36,6 @@
 
 <script setup lang="ts">
 import AppIcon from '@/components/ui/AppIcon.vue';
-import icons from '@/assets/icons/icons';
 import InputTransparent from '@/components/ui/InputTransparent.vue';
 import { ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';

@@ -5,9 +5,9 @@
     </div>
     <button :class="$style.closeButton">
       <AppIcon
-        :icon="icons.closeCross"
+        name="closeCross"
         :class="$style.icon"
-        :style="16"
+        :size="16"
       />
     </button>
   </div>
@@ -15,8 +15,6 @@
 
 <script setup lang="ts">
 import AppIcon from '@/components/ui/AppIcon.vue';
-import icons from '@/assets/icons/icons';
-
 interface Props {
   username: string;
 }

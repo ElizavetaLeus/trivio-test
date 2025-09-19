@@ -5,7 +5,7 @@
         <AppVector :vector="vectors.logo" />
       </RouterLink>
       <div :class="$style.createTrip">
-        <AppIcon :icon="icons.baggage" />
+        <AppIcon name="baggage" />
         <AppButton
           text="Создать поездку"
           type="text"
@@ -22,7 +22,6 @@
 import AppVector from '@/components/ui/AppVector.vue';
 import vectors from '@/assets/vectors/vectors.ts';
 import AppIcon from '@/components/ui/AppIcon.vue';
-import icons from '@/assets/icons/icons.ts';
 import AppButton from '@/components/ui/AppButton.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
 

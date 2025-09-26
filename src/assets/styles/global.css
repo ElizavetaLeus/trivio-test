@@ -1,3 +1,11 @@
 body {
-  font-family: var(--font-family-primary);
+  color: var(--color-black);
+  font-family: var(--font-family-primary), sans-serif;
+  background-color: var(--color-gray-light);
+}
+.container {
+  padding-inline: 60px;
+  max-width: 840px;
+  width: 100%;
+  margin-inline: auto;
 }

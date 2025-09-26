@@ -6,7 +6,6 @@
     <div :class="$style.deletePassenger">
       <AppIcon
         name="cross"
-        :class="$style.icon"
         :size="10"
       />
     </div>

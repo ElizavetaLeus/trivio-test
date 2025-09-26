@@ -1,13 +1,20 @@
 <template>
   <div :class="$style.drawerContent">
     <AppSelectComponent />
-    <AppSelectedUser username="Иванов Иван" />
+    <PassengerCard :passenger="passenger" />
   </div>
 </template>
 
 <script setup lang="ts">
 import AppSelectComponent from '@/components/ui/AppSelectComponent.vue';
-import AppSelectedUser from '@/components/ui/AppSelectedUser.vue';
+import PassengerCard from '@/components/elements/PassengerCard.vue';
+
+const passenger = {
+  'id': '1',
+  'first_name': 'Смирнов',
+  'second_name': 'Алексей',
+  'last_name': 'Сергеевич',
+};
 </script>
 
 <style module>

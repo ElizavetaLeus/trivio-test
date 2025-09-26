@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import AppIcon from '@/components/ui/AppIcon.vue';
-import InputTransparent from '@/components/ui/InputTransparent.vue';
+import InputTransparent from '@/components/elements/InputTransparent.vue';
 import { ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import AppDrawerContent from '@/components/AppDrawerContent.vue';

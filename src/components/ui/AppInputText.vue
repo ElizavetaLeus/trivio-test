@@ -9,7 +9,7 @@
       type="text"
       :value="value"
       :placeholder="placeholder"
-      :class="[$style.input, iconName && $style.inputWithIcon]"
+      :class="$style.input"
       @input="onInput($event)"
     >
   </div>
@@ -17,12 +17,12 @@
 
 <script setup lang="ts">
 import AppIcon from '@/components/ui/AppIcon.vue';
-import { icons } from '@/assets/icons/icons.ts';
+import { type IconKeys } from '@/assets/icons/icons.ts';
 
 interface Props {
   value: string,
   placeholder: string,
-  iconName?: keyof typeof icons,
+  iconName?: IconKeys,
 }
 interface Emits {
   (event: 'update:value', value: string): void,
@@ -62,8 +62,5 @@ const onInput = (event: Event) => {
   color: var(--color-primary);
   background-color: var(--color-white);
 }
-.inputWithIcon {
-  display: flex;
-  gap: 10px;
-}
+
 </style>

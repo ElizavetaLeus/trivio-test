@@ -3,7 +3,7 @@
     <h1 :class="$style.title">Поездки</h1>
     <div :class="$style.searchContainer">
       <div :class="$style.searchInputContainer">
-        <InputText
+        <AppInputText
           v-model:value="inputValue"
           iconName="search"
           :class="$style.inputTextSearch"
@@ -17,21 +17,25 @@
         @click="searchTrip()"
       />
     </div>
-    <AppButton
-      text="Создать поездку"
-      type="text"
-      :class="$style.buttonCreateTrip"
-      @click="openDrawer()"
-    />
+    <div v-if="tripList.length === 0" :class="$style.tripList">
+      <div>Список поездок пуст</div>
+      <AppButton
+        text="Создать поездку"
+        type="text"
+        :class="$style.buttonCreateTrip"
+        @click="openDrawer()"
+      />
+    </div>
   </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
-import InputText from '@/components/ui/InputText.vue';
+import AppInputText from '@/components/ui/AppInputText.vue';
 
 const inputValue = ref('');
+const tripList = ref([]);
 const drawer = useDrawerCreateTrip();
 const setInputValue = (value: string|undefined) => {
   if (value) {
@@ -80,7 +84,13 @@ const searchTrip = () => {
   font-size: 16px;
   line-height: 1;
   border-bottom: 1px dashed var(--color-primary);
-  margin-top: 30px;
   margin-inline: auto;
+}
+.tripList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin-top: 30px;
 }
  </style>

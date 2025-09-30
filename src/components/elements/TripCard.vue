@@ -1,116 +1,47 @@
 <template>
   <div :class="$style.root">
-    <div :class="$style.routeInformation">
-      <div :class="$style.routeTrip">
-        <AppIcon
-          name="airplane"
-          :size="16"
-        />
-        <div :class="$style.routeTripContent">
-          Санкт-Петербург ➝ Москва
-        </div>
+    <header :class="$style.header">
+      <div :class="$style.tripInformation">
+        <div :class="$style.tripId"> {{ dateToFormat(getStartTrip, 'DD.MM.YYYY') }} </div>
+        <div :class="$style.tripPrice"></div>
       </div>
-      <div :class="$style.carrier">
-        Перевозчик: S7
-      </div>
-    </div>
-    <div :class="$style.tripInformation">
-      <div :class="$style.departureInformation">
-        <div :class="$style.tripDate">27.08.2025</div>
-        <div :class="$style.tripTime">06:35 - 09:55</div>
-      </div>
-      <div :class="$style.tripPrice">92 345 ₽</div>
-    </div>
-    <div :class="$style.passengerList">
-<!--      TODO убрать из карточки пассажира кнопку-->
-      <PassengerCard
-        :passenger="passenger"
-        :class="$style.passengerCard"
-      />
-    </div>
+      <div :class="$style.tripRoute"> </div>
+    </header>
+    <AppButton
+      text="Перейти к поездке ➝"
+      type="text"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import AppIcon from '@/components/ui/AppIcon.vue';
-import PassengerCard from '@/components/elements/PassengerCard.vue';
+import AppButton from '@/components/ui/AppButton.vue';
+import { getStartTrip, dateToFormat } from '@/assets/helper/date-helper';
 
-const passenger = {
-  'id': '2',
-  'first_name': 'Петрова',
-  'second_name': 'Мария',
-  'last_name': 'Ивановна',
-};
 </script>
 
 <style module>
 .root {
-  background-color: var(--color-white);
-  padding: 20px;
-  border-radius: 10px;
-  max-height: 202px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
-.routeInformation {
+.header {
+  border-bottom: 1px solid var(--color-black-10);
   display: flex;
   flex-direction: column;
-  gap: 5px
-}
-.routeTrip {
-  color: var(--color-primary);
-  display: flex;
-  gap: 4px;
-}
-.routeTripContent {
-  color: var(--color-black);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 16px;
-}
-.carrier {
-  color: var(--color-gray);
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1;
 }
 .tripInformation {
   display: flex;
   justify-content: space-between;
-}
-.departureInformation{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.tripDate {
-  color: var(--color-black);
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1;
-}
-.tripTime {
-  color: var(--color-black);
-  font-weight: 400;
+  color: var(--color-primary);
   font-size: 12px;
   line-height: 1;
 }
-.tripPrice {
-  color: var(--color-black);
+.tripId {
+  color: var(--color-gray);
   font-weight: 500;
-  font-size: 14px;
-  line-height: 1;
 }
-.passengerList{
-  background-color: var(--color-gray-light);
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-}
-.passengerCard {
-  max-width: 128px;
-  max-height: 30px;
+.tripPrice {
+  font-weight: 700;
 }
 </style>

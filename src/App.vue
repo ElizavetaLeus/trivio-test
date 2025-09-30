@@ -1,7 +1,9 @@
 <template>
   <div :class="$style.app">
     <TheHeader />
-    <RouterView />
+    <div >
+      <RouterView :class="['container', $style.app]"/>
+    </div>
     <AppDrawer :isOpen="drawer.isOpen.value"/>
   </div>
 </template>

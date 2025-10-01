@@ -1,5 +1,3 @@
-import { computed } from 'vue';
-
 const trip =
   {
     id: 2,
@@ -63,7 +61,7 @@ const trip =
 const dateReverse = (date:string) => {
   return date.split('-').reverse().join('-');
 };
-export const getStartTrip = computed(() => {
+export const getStartTrip =() => {
   const allServices = trip.services;
   const dateTimes = allServices.map(service => {
     const dateTime = `${dateReverse(service.ticket.dateFrom)} ${service.ticket.timeFrom}`;
@@ -74,8 +72,9 @@ export const getStartTrip = computed(() => {
   });
   const sortedDateTimes = dateTimes.sort((a, b) => a.timeStamp - b.timeStamp);
   return sortedDateTimes[0].dateTime;
-});
-export const dateToFormat = (dateTime:string, format:string): string => {
+};
+
+export const dateToFormat = (dateTime: string, format: string): string => {
   const date = new Date(dateTime);
   if (isNaN(date.getTime())) {
     throw new Error(`${format} is not a valid date`);

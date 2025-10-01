@@ -27,12 +27,14 @@
       />
     </div>
   </div>
+  <TripCard />
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
 import AppInputText from '@/components/ui/AppInputText.vue';
+import TripCard from '@/components/elements/TripCard.vue';
 
 const inputValue = ref('');
 const tripList = ref([]);
@@ -53,7 +55,6 @@ const searchTrip = () => {
 
  <style module>
 .content {
-  margin-inline: 300px;
   display: flex;
   flex-direction: column;
 }

@@ -2,10 +2,10 @@
   <div :class="$style.root">
     <header :class="$style.header">
       <div :class="$style.tripInformation">
-        <div :class="$style.tripId"> {{ dateToFormat(getStartTrip, 'DD.MM.YYYY') }} </div>
-        <div :class="$style.tripPrice"></div>
+        <div :class="$style.tripId"> {{ getIDTrip(trip) }} </div>
+        <div :class="$style.tripPrice">{{ getCountPrice(trip) }}</div>
       </div>
-      <div :class="$style.tripRoute"> Поездка в анапу </div>
+      <div :class="$style.tripRoute"> {{ trip.name }} </div>
     </header>
     <AppButton
       text="Перейти к поездке ➝"
@@ -41,7 +41,7 @@ interface Trip {
   id: number,
   name: string,
   price: number,
-  passengers: User[],
+  passengers: passengers,
   services: Service[],
   status: string,
 }
@@ -105,6 +105,17 @@ const trip: Trip =
     ],
     status: 'ended',
   };
+
+const getIDTrip = (trip: Trip) => {
+  return `#${trip.id} от ${dateToFormat(getStartTrip(), 'DD.MM.YYYY')}`;
+};
+const getCountPrice = (trip: Trip) => {
+  const allServices = trip.services;
+  const price = allServices.map((service: Service) => {
+    return service.ticket.price;
+  }).reduce((acc, curr) => acc + curr, 0);
+  return new Intl.NumberFormat('ru-RU').format(price) + ' ₽';
+};
 </script>
 
 <style module>

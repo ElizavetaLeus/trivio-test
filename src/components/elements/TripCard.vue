@@ -3,7 +3,9 @@
     <header :class="[$style.header, $style.container]">
       <div :class="$style.tripInformation">
         <div :class="$style.tripId"> {{ getIDTrip(trip) }} </div>
-        <div :class="$style.tripPrice">{{ formatPrice(getCountPrice(trip)) }}</div>
+        <div :class="$style.tripPrice">
+          {{ formatPrice(getCountPrice(trip)) }}
+        </div>
       </div>
       <div :class="$style.tripRoute"> {{ trip.name }} </div>
     </header>
@@ -37,65 +39,10 @@ import {
 } from '@/helper/date-helper';
 import AppTrip from '@/components/ui/AppTrip.vue';
 
-const trip: Trip =
-  {
-    id: 2,
-    name: 'Поездка в Москву',
-    price: 10600,
-    passengers: [
-      {
-        id: 3,
-        first_name: 'Попов',
-        second_name: 'Михаил',
-        last_name: 'Андреевич',
-      },
-    ],
-    services: [
-      {
-        user: {
-          id: 3,
-          first_name: 'Попов',
-          second_name: 'Михаил',
-          last_name: 'Андреевич',
-        },
-        ticket: {
-          id: 3,
-          provider: 'Pobeda',
-          placeFrom: 'Казань',
-          placeTo: 'Москва',
-          dateFrom: '27-08-2025',
-          dateTo: '27-08-2025',
-          timeFrom: '07:12',
-          timerTo: '09:05',
-          iataFrom: 'KZN',
-          iataTo: 'DME',
-          price: 5100,
-        },
-      },
-      {
-        user: {
-          id: 3,
-          first_name: 'Попов',
-          second_name: 'Михаил',
-          last_name: 'Андреевич',
-        },
-        ticket: {
-          id: 4,
-          provider: 'Pobeda',
-          placeFrom: 'Москва',
-          placeTo: 'Казань',
-          dateFrom: '29-08-2025',
-          dateTo: '29-08-2025',
-          timeFrom: '07:15',
-          timerTo: '09:13',
-          iataFrom: 'KZN',
-          iataTo: 'DME',
-          price: 5500,
-        },
-      },
-    ],
-    status: 'ended',
-  };
+interface Props {
+  trip: Trip;
+}
+defineProps<Props>();
 const getIDTrip = (trip: Trip) => {
   return `#${trip.id} от ${dateToFormat(getStartTrip(trip)[0].dateTime, 'DD.MM.YYYY')}`;
 };

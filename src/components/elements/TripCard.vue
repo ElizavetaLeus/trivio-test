@@ -1,5 +1,9 @@
 <template>
   <div :class="$style.root">
+    <TripStatus
+      v-if="trip.status != ''"
+      :status="trip.status"
+    />
     <header :class="[$style.header, $style.container]">
       <div :class="$style.tripInformation">
         <div :class="$style.tripId"> {{ getIDTrip(trip) }} </div>
@@ -38,6 +42,7 @@ import {
   type Ticket,
 } from '@/helper/date-helper';
 import AppTrip from '@/components/ui/AppTrip.vue';
+import TripStatus from '@/components/elements/TripStatus.vue';
 
 interface Props {
   trip: Trip;
@@ -62,13 +67,14 @@ const getRoute = (ticket: Ticket) => {
 
 <style module>
 .container {
-  padding: 20px 30px;
+  padding: 30px 20px;
 }
 .root {
   background-color: var(--color-white);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .header {
   border-bottom: 1px solid var(--color-black-10);

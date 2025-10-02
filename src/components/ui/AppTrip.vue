@@ -5,8 +5,8 @@
         name="airplane"
         :size="14"
       />
-      <div :class="$style.tripPrice"> 4 145 ₽ </div>
-      <div :class="$style.tripRoute"> Санкт-Петербург ➝ Москва 24.08 </div>
+      <div :class="$style.tripPrice"> {{ price }} </div>
+      <div :class="$style.tripRoute"> {{ route }} </div>
     </div>
     <div :class="$style.passenger">
       {{ getPassengerName() }}
@@ -19,6 +19,8 @@ import UtilUser, { type User } from '@/utils/UtilUser';
 
 interface Props {
   passenger: User;
+  route: string;
+  price: string;
 }
 const props = defineProps<Props>();
 
@@ -33,6 +35,7 @@ const getPassengerName = () => {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  border-radius: 5px;
 }
 .tripInformation{
   display: flex;
@@ -41,6 +44,7 @@ const getPassengerName = () => {
   font-weight: 500;
   font-size: 12px;
   line-height: 1;
+  align-items: center;
 }
 .tripRoute{
   color:var(--color-black);

@@ -27,36 +27,15 @@
 
 <script setup lang="ts">
 import AppButton from '@/components/ui/AppButton.vue';
-import { getStartTrip, dateToFormat } from '@/assets/helper/date-helper';
-import { type User } from '@/utils/UtilUser';
+import {
+  getStartTrip,
+  dateToFormat,
+  dateReverse,
+  type Trip,
+  type Service,
+  type Ticket,
+} from '@/helper/date-helper';
 import AppTrip from '@/components/ui/AppTrip.vue';
-
-type passengers = Array<User>;
-interface Ticket {
-  id: number,
-  provider: string,
-  placeFrom: string,
-  placeTo: string,
-  dateFrom: string,
-  dateTo: string,
-  timeFrom: string,
-  timerTo: string,
-  iataFrom: string,
-  iataTo: string,
-  price: number,
-}
-interface Service {
-  user: User,
-  ticket: Ticket,
-}
-interface Trip {
-  id: number,
-  name: string,
-  price: number,
-  passengers: passengers,
-  services: Service[],
-  status: string,
-}
 
 const trip: Trip =
   {
@@ -103,8 +82,8 @@ const trip: Trip =
         ticket: {
           id: 4,
           provider: 'Pobeda',
-          placeFrom: 'Казань',
-          placeTo: 'Москва',
+          placeFrom: 'Москва',
+          placeTo: 'Казань',
           dateFrom: '29-08-2025',
           dateTo: '29-08-2025',
           timeFrom: '07:15',
@@ -118,21 +97,19 @@ const trip: Trip =
     status: 'ended',
   };
 const getIDTrip = (trip: Trip) => {
-  return `#${trip.id} от ${dateToFormat(getStartTrip(), 'DD.MM.YYYY')}`;
+  return `#${trip.id} от ${dateToFormat(getStartTrip(trip)[0].dateTime, 'DD.MM.YYYY')}`;
 };
 const getCountPrice = (trip: Trip) => {
   const allServices = trip.services;
-  const price = allServices.map((service: Service) => {
+  return allServices.map((service: Service) => {
     return service.ticket.price;
   }).reduce((acc, curr) => acc + curr, 0);
-
-  return price;
 };
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat('ru-RU').format(price) + ' ₽';
 };
 const getRoute = (ticket: Ticket) => {
-  return `${ticket.placeFrom} ➝ ${ticket.placeTo} ${dateToFormat(getStartTrip(), 'DD.MM')}`;
+  return `${ticket.placeFrom} ➝ ${ticket.placeTo} ${dateToFormat(dateReverse(ticket.dateFrom), 'DD.MM')}`;
 };
 </script>
 

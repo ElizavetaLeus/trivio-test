@@ -30,7 +30,7 @@ const getText = () => {
 .statusNew {
   --color: var(--color-primary);
   color: var(--color-white);
-  background-color: var(--color-primary);
+  background-color: var(--color);
   font-weight: 400;
   font-size: 12px;
   line-height: 1;

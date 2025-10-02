@@ -23,7 +23,7 @@ export interface Trip {
   price: number,
   passengers: passengers,
   services: Service[],
-  status: string,
+  status: 'ended' | 'new' | '',
 }
 
 export const dateReverse = (date:string) => {

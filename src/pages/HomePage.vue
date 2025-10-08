@@ -43,73 +43,17 @@ import AppButton from '@/components/ui/AppButton.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
 import AppInputText from '@/components/ui/AppInputText.vue';
 import TripCard from '@/components/elements/TripCard.vue';
+import HTTP from '@/helper/http';
 import { type Trip } from '@/types/Trip';
 
 const inputValue = ref('');
-const tripList: Trip[] = [
-  {
-    id: 2,
-    name: 'Поездка в Москву',
-    price: 10600,
-    passengers: [
-      {
-        id: 3,
-        first_name: 'Попов',
-        second_name: 'Михаил',
-        last_name: 'Андреевич',
-      },
-    ],
-    services: [
-      {
-        user: {
-          id: 3,
-          first_name: 'Попов',
-          second_name: 'Михаил',
-          last_name: 'Андреевич',
-        },
-        ticket: {
-          id: 3,
-          provider: 'Pobeda',
-          placeFrom: 'Казань',
-          placeTo: 'Москва',
-          dateFrom: '27-08-2025',
-          dateTo: '27-08-2025',
-          timeFrom: '07:12',
-          timerTo: '09:05',
-          iataFrom: 'KZN',
-          iataTo: 'DME',
-          price: 5100,
-        },
-      },
-      {
-        user: {
-          id: 3,
-          first_name: 'Попов',
-          second_name: 'Михаил',
-          last_name: 'Андреевич',
-        },
-        ticket: {
-          id: 4,
-          provider: 'Pobeda',
-          placeFrom: 'Москва',
-          placeTo: 'Казань',
-          dateFrom: '29-08-2025',
-          dateTo: '29-08-2025',
-          timeFrom: '07:15',
-          timerTo: '09:13',
-          iataFrom: 'KZN',
-          iataTo: 'DME',
-          price: 5500,
-        },
-      },
-    ],
-    status: 'ended',
-  },
-];
+const tripList = ref<Trip[]>([]);
+
+new HTTP().get('/trips').then(data => { tripList.value = data; });
 const drawer = useDrawerCreateTrip();
-const setInputValue = (value: string) => {
-  inputValue.value = value;
-};
+// const setInputValue = (value: string) => {
+//   inputValue.value = value;
+// };
 const openDrawer = () => {
   drawer.openDrawer();
 };

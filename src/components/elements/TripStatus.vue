@@ -11,11 +11,12 @@ const props = defineProps<Props>();
 
 const classList = computed(() => {
   return [
-    $style.statusNew,
-    props.status === 'ended' && $style.statusEnded,
+    style.status,
+    props.status === 'new' && style.statusNew,
+    props.status === 'ended' && style.statusEnded,
   ];
 });
-const $style = useCssModule();
+const style = useCssModule();
 const getText = () => {
   if (props.status === 'new') {
     return 'новая';
@@ -27,10 +28,9 @@ const getText = () => {
 };
 </script>
 <style module>
-.statusNew {
-  --color: var(--color-primary);
+.status {
   color: var(--color-white);
-  background-color: var(--color);
+  background-color: var(--background-color, transparent);
   font-weight: 400;
   font-size: 12px;
   line-height: 1;
@@ -41,7 +41,10 @@ const getText = () => {
   right: 0;
   top: 0;
 }
+.statusNew {
+  --background-color: var(--color-primary);
+}
 .statusEnded{
-  --color: var(--color-green);
+  --background-color: var(--color-green);
 }
 </style>

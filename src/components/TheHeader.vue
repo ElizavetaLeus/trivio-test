@@ -36,6 +36,7 @@ const openDrawer = () => {
   display: flex;
   align-items: center;
   padding-inline: 20px;
+  padding-block: 10px;
   justify-content: space-between;
   background: var(--color-white);
 }

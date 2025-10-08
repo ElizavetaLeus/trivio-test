@@ -8,7 +8,7 @@
       <div :class="$style.tripInformation">
         <div :class="$style.tripId"> {{ getIDTrip(trip) }} </div>
         <div :class="$style.tripPrice">
-          {{ formatPrice(getCountPrice(trip)) }}
+          {{ formatPrice(getCountPrice(trip.services)) }}
         </div>
       </div>
       <div :class="$style.tripRoute"> {{ trip.name }} </div>
@@ -33,41 +33,41 @@
 
 <script setup lang="ts">
 import AppButton from '@/components/ui/AppButton.vue';
-import {
-  getStartTrip,
-  dateToFormat,
-  dateReverse,
-  type Trip,
-  type Service,
-  type Ticket,
-} from '@/helper/date-helper';
 import AppTrip from '@/components/ui/AppTrip.vue';
 import TripStatus from '@/components/elements/TripStatus.vue';
+import { type Trip } from '@/types/Trip';
+import { type Service } from '@/types/Service';
+import { type Ticket } from '@/types/Ticket';
+import { dateToFormat, getStartTrip, dateReverse } from '@/helper/date-helper/index';
 
 interface Props {
   trip: Trip;
 }
 defineProps<Props>();
+
 const getIDTrip = (trip: Trip) => {
-  return `#${trip.id} от ${dateToFormat(getStartTrip(trip)[0].dateTime, 'DD.MM.YYYY')}`;
+  return `#${trip.id} от ${dateToFormat(getStartTrip(trip.services)[0].dateTime, 'DD.MM.YYYY')}`;
 };
-const getCountPrice = (trip: Trip) => {
-  const allServices = trip.services;
-  return allServices.map((service: Service) => {
-    return service.ticket.price;
-  }).reduce((acc, curr) => acc + curr, 0);
+const getCountPrice = (allServices: Service[]) => {
+  return allServices.reduce((acc, currentValue) => {
+    acc += currentValue.ticket.price;
+    return acc;
+  }, 0);
 };
 const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('ru-RU').format(price) + ' ₽';
+  return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0,
+    maximumFractionDigits: 0 }).format(price);
 };
 const getRoute = (ticket: Ticket) => {
-  return `${ticket.placeFrom} ➝ ${ticket.placeTo} ${dateToFormat(dateReverse(ticket.dateFrom), 'DD.MM')}`;
+  const route = `${ticket.placeFrom} ➝ ${ticket.placeTo}`;
+  const date = `${dateToFormat(dateReverse(ticket.dateFrom), 'DD.MM')}`;
+  return `${route} ${date}`;
 };
 </script>
 
 <style module>
 .container {
-  padding: 30px 20px;
+  padding: 20px;
 }
 .root {
   background-color: var(--color-white);
@@ -75,6 +75,8 @@ const getRoute = (ticket: Ticket) => {
   display: flex;
   flex-direction: column;
   position: relative;
+  padding-top: 10px;
+  margin-top: 30px;
 }
 .header {
   border-bottom: 1px solid var(--color-black-10);

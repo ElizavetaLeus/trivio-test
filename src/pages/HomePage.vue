@@ -17,7 +17,15 @@
         @click="searchTrip()"
       />
     </div>
-    <div v-if="tripList.length === 0" :class="$style.tripList">
+    <div v-if="tripList.length > 0" :class="$style.trips">
+      <TripCard
+        v-for="trip in tripList"
+        :key="trip.id"
+        :class="$style.trip"
+        :trip="trip"
+      />
+    </div>
+    <div v-else :class="$style.tripList">
       <div>Список поездок пуст</div>
       <AppButton
         text="Создать поездку"
@@ -26,14 +34,7 @@
         @click="openDrawer()"
       />
     </div>
-    <div :class="$style.trips">
-      <TripCard
-        v-for="trip in tripList"
-        :key="trip.id"
-        :class="$style.trip"
-        :trip="trip"
-      />
-    </div>
+
   </div>
 </template>
 <script setup lang="ts">
@@ -42,11 +43,11 @@ import AppButton from '@/components/ui/AppButton.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
 import AppInputText from '@/components/ui/AppInputText.vue';
 import TripCard from '@/components/elements/TripCard.vue';
-import { type Trip } from '@/helper/date-helper';
+import { type Trip } from '@/types/Trip';
 
 const inputValue = ref('');
-const tripList = ref<Array<Trip>>(
-  [ {
+const tripList: Trip[] = [
+  {
     id: 2,
     name: 'Поездка в Москву',
     price: 10600,
@@ -104,13 +105,10 @@ const tripList = ref<Array<Trip>>(
     ],
     status: 'ended',
   },
-  ]);
+];
 const drawer = useDrawerCreateTrip();
-const setInputValue = (value: string|undefined) => {
-  if (value) {
-    inputValue.value = value;
-    console.log(inputValue.value);
-  }
+const setInputValue = (value: string) => {
+  inputValue.value = value;
 };
 const openDrawer = () => {
   drawer.openDrawer();
@@ -165,8 +163,5 @@ const searchTrip = () => {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-.trip{
-  margin-top: 30px;
 }
  </style>

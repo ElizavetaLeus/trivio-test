@@ -5,7 +5,7 @@
       @change="selectPassenger($event)"
     />
     <PassengerCard
-      v-for="passenger in selectedUsers"
+      v-for="passenger in selectedPassengers"
       :key="passenger.id"
       :passenger="passenger"
     />
@@ -22,7 +22,7 @@ import PassengerCard from '@/components/elements/PassengerCard.vue';
 const http = new HTTP();
 
 const passengers = ref<User[]>([]);
-const selectedUsers = ref <User[]>([]);
+const selectedPassengers = ref <User[]>([]);
 
 const fetchUser = async () => {
   const response = await http.get<User[]>('/users');
@@ -31,7 +31,7 @@ const fetchUser = async () => {
   }
 };
 
-const userListCache = computed(() => {
+const passengerListCache = computed(() => {
   const initialValue: Record<string, User> = {};
 
   return passengers.value.reduce((acc, item) => {
@@ -41,7 +41,7 @@ const userListCache = computed(() => {
 });
 
 const selectPassenger = (id: string) => {
-  selectedUsers.value.push(userListCache.value[id]);
+  selectedPassengers.value.push(passengerListCache.value[id]);
 };
 fetchUser();
 </script>

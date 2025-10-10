@@ -1,34 +1,61 @@
-export interface Note {
-  id: string;
-  category: string;
-  text: string;
-  createdAt?:string;
+interface HttpResponse<T> {
+  data?: T;
+  error?: string;
 }
-export type NoteList = Array<Note>;
 
-export interface Http {
+interface Http {
   baseURL: string;
-  get: (endpoint: string) => Promise<NoteList>;
-  post: (endpoint: string, body: Omit<Note, 'id'>) => Promise<Note>;
-  delete: (endpoint: string, id: string) => void;
+  get<T>(endpoint: string): Promise<HttpResponse<T>>;
+  post<T, Body>(endpoint: string, body: Body): Promise<HttpResponse<T>>;
+  delete<T>(endpoint: string): Promise<HttpResponse<T>>;
 }
 
-class HTTP implements Http {
+export default class HTTP implements Http {
   baseURL = 'http://localhost:3000';
-  async get (endpoint: string) {
-    return await fetch(this.baseURL + endpoint).then((resp) => resp.json());
+
+  private async query<T>(endpoint: string, options: RequestInit): Promise<HttpResponse<T>> {
+    try {
+      const response = await fetch(this.baseURL + endpoint, {
+        headers: {
+          'content-type': 'application/json',
+        },
+        ...options,
+      });
+      if (!response.ok) {
+        const message = `Response error ${response.status} ${response.statusText}`;
+
+        return {
+          error: message,
+        };
+      }
+      const data: T= await response.json();
+      return {
+        data: data,
+      };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return {
+          error: error.message,
+        };
+      }
+      return {
+        error: 'Unknown error',
+      };
+    }
+  }
+
+  async get<T>(endpoint: string) {
+    return await this.query<T>(endpoint, { method: 'GET' });
   };
-  async post (endpoint: string, body: Omit<Note, 'id'>) {
-    return await fetch(this.baseURL + endpoint, {
+
+  async post<T, Body>(endpoint: string, body: Body) {
+    return await this.query<T>(endpoint, {
       method: 'POST',
       body: JSON.stringify(body),
-    }).then((resp) => resp.json());
-  };
-  async delete (endpoint: string, id: string) {
-    await fetch(this.baseURL + endpoint + id, {
-      method: 'DELETE',
     });
   };
-}
 
-export default HTTP;
+  async delete<T>(endpoint: string) {
+    return await this.query<T>(endpoint, { method: 'DELETE' });
+  }
+};

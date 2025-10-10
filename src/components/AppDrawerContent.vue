@@ -2,22 +2,48 @@
   <div :class="$style.drawerContent">
     <AppSelectComponent
       :passengers="passengers"
-      @click="searchUser($event, passengers)"
+      @change="selectPassenger($event)"
+    />
+    <PassengerCard
+      v-for="passenger in selectedUsers"
+      :key="passenger.id"
+      :passenger="passenger"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import AppSelectComponent from '@/components/ui/AppSelectComponent.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { type User } from '@/utils/UtilUser';
 import HTTP from '@/helper/http';
-import searchUser from '@/utils/UtilSearchUser';
+import PassengerCard from '@/components/elements/PassengerCard.vue';
+
+const http = new HTTP();
 
 const passengers = ref<User[]>([]);
+const selectedUsers = ref <User[]>([]);
 
-new HTTP().get('/users').then(data => { passengers.value = data; });
+const fetchUser = async () => {
+  const response = await http.get<User[]>('/users');
+  if (response.data) {
+    passengers.value = response.data;
+  }
+};
 
+const userListCache = computed(() => {
+  const initialValue: Record<string, User> = {};
+
+  return passengers.value.reduce((acc, item) => {
+    acc[item.id] = item;
+    return acc;
+  }, initialValue);
+});
+
+const selectPassenger = (id: string) => {
+  selectedUsers.value.push(userListCache.value[id]);
+};
+fetchUser();
 </script>
 
 <style module>

@@ -49,7 +49,14 @@ import { type Trip } from '@/types/Trip';
 const inputValue = ref('');
 const tripList = ref<Trip[]>([]);
 
-new HTTP().get('/trips').then(data => { tripList.value = data; });
+const http = new HTTP();
+
+const fetchUser = async () => {
+  const response = await http.get<Trip[]>('/trips');
+  if (response.data) {
+    tripList.value = response.data;
+  }
+};
 const drawer = useDrawerCreateTrip();
 // const setInputValue = (value: string) => {
 //   inputValue.value = value;
@@ -60,6 +67,7 @@ const openDrawer = () => {
 const searchTrip = () => {
   console.log('я шота нашел');
 };
+fetchUser();
 </script>
 
  <style module>

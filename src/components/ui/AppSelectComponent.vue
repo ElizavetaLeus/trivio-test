@@ -34,7 +34,8 @@ defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const handleOptionChange = (event: Event) => {
-  const userId = (event.target as HTMLSelectElement).value;
+  const selectElement = event.target as HTMLSelectElement;
+  const userId = selectElement.value;
   emits('change', userId);
 };
 </script>

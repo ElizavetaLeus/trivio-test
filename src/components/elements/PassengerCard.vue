@@ -3,7 +3,7 @@
     <div :class="$style.passengerCardContent">
       {{ getPassengerName() }}
     </div>
-    <div :class="$style.deletePassenger">
+    <div :class="$style.deletePassenger" @click="deletePassenger()">
       <AppIcon
         name="cross"
         :size="10"
@@ -14,16 +14,27 @@
 
 <script setup lang="ts">
 import AppIcon from '@/components/ui/AppIcon.vue';
-import UtilUser, { type User } from '@/utils/UtilUser';
+import UtilUser from '@/utils/UtilUser';
+import { type User } from '@/types/User';
 
 interface Props {
   passenger: User;
 }
+
+interface Emits {
+  (event: 'delete', id: string): void;
+}
+
 const props = defineProps<Props>();
+const emits = defineEmits<Emits>();
 
 const getPassengerName = () => {
   return UtilUser.getShortName(props.passenger);
 };
+const deletePassenger = () => {
+  emits('delete', props.passenger.id);
+};
+
 </script>s
 
 <style module>

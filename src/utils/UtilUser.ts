@@ -1,9 +1,4 @@
-export interface User {
-  id: number | string,
-  first_name: string,
-  second_name: string,
-  last_name: string,
-}
+import { type User } from '@/types/User';
 
 const getFullName = (user: User) => {
   return `${user.first_name} ${user.second_name} ${user.last_name}`;

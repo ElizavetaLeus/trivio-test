@@ -1,5 +1,5 @@
-import type { User } from '@/utils/UtilUser';
 import { type Service } from '@/types/Service';
+import { type User } from '@/types/User';
 
 export interface Trip {
   id: number,

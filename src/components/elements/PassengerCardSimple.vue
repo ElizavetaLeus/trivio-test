@@ -4,7 +4,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import UtilUser, { type User } from '@/utils/UtilUser';
+import UtilUser from '@/utils/UtilUser';
+import { type User } from '@/types/User';
 
 interface Props {
   passenger: User;

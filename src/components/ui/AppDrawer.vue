@@ -9,7 +9,7 @@
     >
       <header :class="$style.header">
         <div :class="$style.headerTitle">
-          Введите название поездки
+          Создание поездки
         </div>
         <button
           :class="$style.headerButton"
@@ -18,15 +18,7 @@
           <AppIcon name="cross"/>
         </button>
       </header>
-      <div :class="$style.content">
-        <InputTransparent
-          :class="$style.inputText"
-          :value="inputValue"
-          placeholder="Введите название поездки"
-          @input="setInputValue($event)"
-        />
-        <AppDrawerContent />
-      </div>
+      <AppDrawerContent />
       <footer :class="$style.footer">
         <AppButton text="Создать" />
       </footer>
@@ -36,8 +28,6 @@
 
 <script setup lang="ts">
 import AppIcon from '@/components/ui/AppIcon.vue';
-import InputTransparent from '@/components/elements/InputTransparent.vue';
-import { ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import AppDrawerContent from '@/components/AppDrawerContent.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
@@ -45,14 +35,8 @@ import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
 interface Props {
   isOpen: boolean,
 }
-
 defineProps<Props>();
-const inputValue = ref('');
 
-const setInputValue = (value: string) => {
-  inputValue.value = value;
-  console.log(value);
-};
 const drawer = useDrawerCreateTrip();
 
 const closeDrawer = () => {
@@ -109,24 +93,6 @@ const closeDrawer = () => {
   border: none;
   padding: 0;
   color: var(--color-gray);
-}
-.content {
-  background-color: var(--color-gray-light);
-  height: calc(100% - 122px);
-  padding-inline: 20px;
-  overflow-y: auto;
-}
-.inputText {
-  font-weight: 700;
-  line-height: 1px;
-  background-color: var(--color-gray-light);
-  text-align: center;
-  margin-top: 20px;
-  padding: 7px;
-}
-.inputText:focus {
-  outline: none;
-  border-bottom-color: var(--color-primary);
 }
 .footer {
   background-color: var(--color-white);

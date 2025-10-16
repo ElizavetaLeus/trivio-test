@@ -4,13 +4,15 @@
       <RouterLink to="/">
         <AppVector :vector="vectors.logo" />
       </RouterLink>
-      <div :class="$style.createTrip">
+      <div
+        :class="$style.createTrip"
+        @click="openDrawer()"
+      >
         <AppIcon name="baggage" />
         <AppButton
           text="Создать поездку"
           type="text"
           :class="$style.button"
-          @click="openDrawer()"
         />
       </div>
     </div>

@@ -14,7 +14,7 @@
       <div :class="$style.tripRoute"> {{ trip.name }} </div>
     </header>
     <div :class="[$style.container, $style.tripList]">
-      <AppTrip
+      <TripTicket
         v-for="service in trip.services"
         :key="service.ticket.id"
         :passenger="service.user"
@@ -33,7 +33,7 @@
 
 <script setup lang="ts">
 import AppButton from '@/components/ui/AppButton.vue';
-import AppTrip from '@/components/ui/AppTrip.vue';
+import TripTicket from '@/components/ui/TripTicket.vue';
 import TripStatus from '@/components/elements/TripStatus.vue';
 import { type Trip } from '@/types/Trip';
 import { type Service } from '@/types/Service';

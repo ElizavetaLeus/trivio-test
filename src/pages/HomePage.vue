@@ -43,19 +43,14 @@ import AppButton from '@/components/ui/AppButton.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
 import AppInputText from '@/components/ui/AppInputText.vue';
 import TripCard from '@/components/elements/TripCard.vue';
-import HTTP from '@/helper/http';
 import { type Trip } from '@/types/Trip';
+import { tripsApi } from '@/api/trips';
 
 const inputValue = ref('');
 const tripList = ref<Trip[]>([]);
 
-const http = new HTTP();
-
 const fetchUser = async () => {
-  const response = await http.get<Trip[]>('/trips');
-  if (response.data) {
-    tripList.value = response.data;
-  }
+  tripList.value = await tripsApi.getTrips();
 };
 const drawer = useDrawerCreateTrip();
 // const setInputValue = (value: string) => {

@@ -1,5 +1,5 @@
 <template>
-  <div>
-    trip
-  </div>
+  <div>Trip</div>
 </template>
+<script setup lang="ts">
+</script>

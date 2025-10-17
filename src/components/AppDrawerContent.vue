@@ -33,15 +33,23 @@ const passengers = ref<User[]>([]);
 const selectedPassengers = ref <User[]>([]);
 const inputValue = ref('');
 
+interface Emits {
+  (event: 'update', selectedPassengers: User[]): void;
+  (event:'updateInputValue', inputValue: string): void;
+}
+const emits = defineEmits<Emits>();
+
 const fetchUser = async () => {
   passengers.value = await usersApi.getUsers();
 };
 const setInputValue = (value: string) => {
   inputValue.value = value;
-  console.log(value);
+  emits('updateInputValue', inputValue.value);
+
 };
 const deletePassenger = (id: string) => {
   selectedPassengers.value = selectedPassengers.value.filter((passenger) => passenger.id !== id);
+  updateSelectedPassengers();
 };
 const passengerListCache = computed(() => {
   const initialValue: Record<string, User> = {};
@@ -54,7 +62,12 @@ const passengerListCache = computed(() => {
 
 const selectPassenger = (id: string) => {
   selectedPassengers.value.push(passengerListCache.value[id]);
+  updateSelectedPassengers();
 };
+const updateSelectedPassengers = () => {
+  emits('update', selectedPassengers.value);
+};
+
 fetchUser();
 </script>
 

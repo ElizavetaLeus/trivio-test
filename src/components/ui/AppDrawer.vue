@@ -18,9 +18,12 @@
           <AppIcon name="cross"/>
         </button>
       </header>
-      <AppDrawerContent />
+      <AppDrawerContent
+        @update="getSelectedPassenger($event)"
+        @updateInputValue="getInputValue($event)"
+      />
       <footer :class="$style.footer">
-        <AppButton text="Создать" />
+        <AppButton text="Создать" @click="goToTrip()" />
       </footer>
     </div>
   </div>
@@ -31,16 +34,55 @@ import AppIcon from '@/components/ui/AppIcon.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import AppDrawerContent from '@/components/AppDrawerContent.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
+import type { User } from '@/types/User';
+import { tripsApi } from '@/api/trips';
+import type { Trip } from '@/types/Trip';
+import { useRouter } from 'vue-router';
+
+type TripWithoutId = Omit<Trip, 'id'> & {id?: Trip['id']};
+
+const router = useRouter();
+let passengerList: User[];
+let inputValue = '';
 
 interface Props {
   isOpen: boolean,
 }
+
 defineProps<Props>();
 
 const drawer = useDrawerCreateTrip();
 
 const closeDrawer = () => {
   drawer.closeDrawer();
+};
+const getSelectedPassenger = (passengers:User[]) => {
+  passengerList = passengers;
+  console.log(passengerList, passengers);
+};
+const getInputValue = (value: string) => {
+  inputValue = value;
+};
+const goToTrip = async () => {
+  const trip: TripWithoutId = {
+    name: inputValue,
+    price: 0,
+    passengers: passengerList,
+    services: [],
+    status: 'new',
+  };
+  if (inputValue.length === 0 || passengerList.length === 0) {
+    alert('Заполните данные для создания поездки');
+    return;
+  }
+  const createdTrip = await tripsApi.createTrip<TripWithoutId>(trip);
+  if (createdTrip) {
+    const tripId = createdTrip.id;
+    closeDrawer();
+    router.push({ name: 'trip', params: { id: tripId } });
+  } else {
+    alert('Ошибка создания поездки');
+  }
 };
 </script>
 

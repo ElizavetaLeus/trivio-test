@@ -4,7 +4,7 @@
       v-if="trip.status != ''"
       :status="trip.status"
     />
-    <header :class="[$style.header, $style.container]">
+    <header :class="$style.header">
       <div :class="$style.tripInformation">
         <div :class="$style.tripId"> {{ getIDTrip(trip) }} </div>
         <div :class="$style.tripPrice">
@@ -13,7 +13,10 @@
       </div>
       <div :class="$style.tripRoute"> {{ trip.name }} </div>
     </header>
-    <div :class="[$style.container, $style.tripList]">
+    <div
+      v-if="trip.services.length > 0"
+      :class="$style.tripList"
+    >
       <TripTicket
         v-for="service in trip.services"
         :key="service.ticket.id"
@@ -22,10 +25,11 @@
         :price="formatPrice(service.ticket.price)"
       />
     </div>
-    <footer :class="[$style.footer, $style.container]">
+    <footer :class="$style.footer">
       <AppButton
         text="Перейти к поездке ➝"
         type="text"
+        @click = "routeToTrip()"
       />
     </footer>
   </div>
@@ -39,14 +43,22 @@ import { type Trip } from '@/types/Trip';
 import { type Service } from '@/types/Service';
 import { type Ticket } from '@/types/Ticket';
 import { dateToFormat, getStartTrip, dateReverse } from '@/helper/date-helper/index';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 interface Props {
   trip: Trip;
 }
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const getIDTrip = (trip: Trip) => {
-  return `#${trip.id} от ${dateToFormat(getStartTrip(trip.services)[0].dateTime, 'DD.MM.YYYY')}`;
+  let date = '';
+  if(trip.services.length) {
+    const startDate = getStartTrip(trip.services)[0].dateTime;
+    date = `#${trip.id} от ${dateToFormat(startDate, 'DD.MM.YYYY')}`;
+  }
+  return `${trip.id} ${date}`;
 };
 const getCountPrice = (allServices: Service[]) => {
   return allServices.reduce((acc, currentValue) => {
@@ -63,12 +75,13 @@ const getRoute = (ticket: Ticket) => {
   const date = `${dateToFormat(dateReverse(ticket.dateFrom), 'DD.MM')}`;
   return `${route} ${date}`;
 };
+
+const routeToTrip = () => {
+  router.push({ name: 'trip', params: { id: props.trip.id } });
+};
 </script>
 
 <style module>
-.container {
-  padding: 20px;
-}
 .root {
   background-color: var(--color-white);
   border-radius: 10px;
@@ -79,11 +92,10 @@ const getRoute = (ticket: Ticket) => {
   margin-top: 30px;
 }
 .header {
-  border-bottom: 1px solid var(--color-black-10);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-bottom: 20px;
+  padding: 20px;
 }
 .tripInformation {
   display: flex;
@@ -105,13 +117,15 @@ const getRoute = (ticket: Ticket) => {
   line-height: 1;
 }
 .tripList {
+  border-top: 1px solid var(--color-black-10);
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 20px;
 }
 .footer {
   border-top: 1px solid var(--color-black-10);
-  padding-top: 20px;
+  padding: 20px;
   display: flex;
   justify-content: flex-end;
 }

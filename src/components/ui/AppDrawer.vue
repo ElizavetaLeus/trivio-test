@@ -58,7 +58,6 @@ const closeDrawer = () => {
 };
 const getSelectedPassenger = (passengers:User[]) => {
   passengerList = passengers;
-  console.log(passengerList, passengers);
 };
 const getInputValue = (value: string) => {
   inputValue = value;

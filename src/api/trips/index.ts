@@ -11,4 +11,11 @@ export const tripsApi = {
     }
     return [];
   },
+  async createTrip<Body>(body: Body) {
+    const response = await http.post<Trip, Body>('/trips', body);
+    if (response.data) {
+      return response.data;
+    }
+    return null;
+  },
 };

@@ -13,6 +13,7 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import AppIcon from '@/components/ui/AppIcon.vue';
 import UtilUser from '@/utils/UtilUser';
@@ -29,6 +30,7 @@ const getPassengerName = () => {
   return UtilUser.getShortName(props.passenger);
 };
 </script>
+
 <style module>
 .root {
   padding: 10px;

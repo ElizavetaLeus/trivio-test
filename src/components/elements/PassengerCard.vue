@@ -35,7 +35,7 @@ const deletePassenger = () => {
   emits('delete', props.passenger.id);
 };
 
-</script>s
+</script>
 
 <style module>
 .passengerCard {

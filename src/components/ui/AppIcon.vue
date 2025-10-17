@@ -3,7 +3,7 @@
     v-html="icons[name]"
     :class="$style.icon"
     :style="`--size: ${size}px`"
-  ></div>
+  />
 </template>
 
 <script setup lang="ts">

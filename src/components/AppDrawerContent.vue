@@ -7,7 +7,7 @@
       @input="setInputValue($event)"
     />
     <div :class="$style.selectContent">
-      <AppSelectComponent
+      <AppSelect
         :passengers="passengers"
         @change="selectPassenger($event)"
       />
@@ -22,29 +22,30 @@
 </template>
 
 <script setup lang="ts">
-import AppSelectComponent from '@/components/ui/AppSelectComponent.vue';
+import AppSelect from '@/components/ui/AppSelect.vue';
 import { computed, ref } from 'vue';
 import PassengerCard from '@/components/elements/PassengerCard.vue';
 import { type User } from '@/types/User';
 import InputTransparent from '@/components/elements/InputTransparent.vue';
 import { usersApi } from '@/api/users';
 
+interface Emits {
+  (event: 'updatePassengerList', selectedPassengers: User[]): void;
+  (event:'updateTripName', tripName: string): void;
+}
+
+const emits = defineEmits<Emits>();
+
 const passengers = ref<User[]>([]);
 const selectedPassengers = ref <User[]>([]);
 const inputValue = ref('');
 
-interface Emits {
-  (event: 'update', selectedPassengers: User[]): void;
-  (event:'updateInputValue', inputValue: string): void;
-}
-const emits = defineEmits<Emits>();
-
 const fetchUser = async () => {
   passengers.value = await usersApi.getUsers();
 };
-const setInputValue = (value: string) => {
-  inputValue.value = value;
-  emits('updateInputValue', inputValue.value);
+const setInputValue = (tripName: string) => {
+  inputValue.value = tripName;
+  emits('updateTripName', inputValue.value);
 
 };
 const deletePassenger = (id: string) => {
@@ -59,13 +60,12 @@ const passengerListCache = computed(() => {
     return acc;
   }, initialValue);
 });
-
 const selectPassenger = (id: string) => {
   selectedPassengers.value.push(passengerListCache.value[id]);
   updateSelectedPassengers();
 };
 const updateSelectedPassengers = () => {
-  emits('update', selectedPassengers.value);
+  emits('updatePassengerList', selectedPassengers.value);
 };
 
 fetchUser();

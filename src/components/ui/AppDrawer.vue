@@ -19,11 +19,11 @@
         </button>
       </header>
       <AppDrawerContent
-        @update="getSelectedPassenger($event)"
-        @updateInputValue="getInputValue($event)"
+        @updatePassengerList="setPassengerList($event)"
+        @updateTripName="setITripName($event)"
       />
       <footer :class="$style.footer">
-        <AppButton text="Создать" @click="goToTrip()" />
+        <AppButton text="Создать" @click="createTrip()" />
       </footer>
     </div>
   </div>
@@ -38,12 +38,9 @@ import type { User } from '@/types/User';
 import { tripsApi } from '@/api/trips';
 import type { Trip } from '@/types/Trip';
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
-type TripWithoutId = Omit<Trip, 'id'> & {id?: Trip['id']};
-
-const router = useRouter();
-let passengerList: User[];
-let inputValue = '';
+type TripWithoutId = Omit<Trip, 'id'> & { id?: Trip['id'] };
 
 interface Props {
   isOpen: boolean,
@@ -52,28 +49,38 @@ interface Props {
 defineProps<Props>();
 
 const drawer = useDrawerCreateTrip();
+const router = useRouter();
+
+const passengerList = ref<User[]>([]);
+const tripName = ref<string>('');
 
 const closeDrawer = () => {
   drawer.closeDrawer();
 };
-const getSelectedPassenger = (passengers:User[]) => {
-  passengerList = passengers;
+const setPassengerList = (passengers: User[]) => {
+  passengerList.value = passengers;
 };
-const getInputValue = (value: string) => {
-  inputValue = value;
+const setITripName = (value: string) => {
+  tripName.value = value;
 };
-const goToTrip = async () => {
+const createTrip = async () => {
+  if (tripName.value.length === 0) {
+    alert('Укажите название поездки');
+    return;
+  }
+  if (passengerList.value.length === 0) {
+    alert('Выьерите хотя бы одного пассажира');
+    return;
+  }
+
   const trip: TripWithoutId = {
-    name: inputValue,
+    name: tripName.value,
     price: 0,
-    passengers: passengerList,
+    passengers: passengerList.value,
     services: [],
     status: 'new',
   };
-  if (inputValue.length === 0 || passengerList.length === 0) {
-    alert('Заполните данные для создания поездки');
-    return;
-  }
+
   const createdTrip = await tripsApi.createTrip<TripWithoutId>(trip);
   if (createdTrip) {
     const tripId = createdTrip.id;

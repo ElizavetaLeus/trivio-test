@@ -62,5 +62,4 @@ const onInput = (event: Event) => {
   color: var(--color-primary);
   background-color: var(--color-white);
 }
-
 </style>

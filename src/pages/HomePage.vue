@@ -34,9 +34,9 @@
         @click="openDrawer()"
       />
     </div>
-
   </div>
 </template>
+
 <script setup lang="ts">
 import { ref } from 'vue';
 import AppButton from '@/components/ui/AppButton.vue';
@@ -46,22 +46,21 @@ import TripCard from '@/components/elements/TripCard.vue';
 import { type Trip } from '@/types/Trip';
 import { tripsApi } from '@/api/trips';
 
+const drawer = useDrawerCreateTrip();
 const inputValue = ref('');
 const tripList = ref<Trip[]>([]);
 
 const fetchUser = async () => {
   tripList.value = await tripsApi.getTrips();
 };
-const drawer = useDrawerCreateTrip();
-// const setInputValue = (value: string) => {
-//   inputValue.value = value;
-// };
+
 const openDrawer = () => {
   drawer.openDrawer();
 };
 const searchTrip = () => {
   console.log('я шота нашел');
 };
+
 fetchUser();
 </script>
 

@@ -3,6 +3,7 @@
     {{ getPassengerName() }}
   </div>
 </template>
+
 <script setup lang="ts">
 import UtilUser from '@/utils/UtilUser';
 import { type User } from '@/types/User';
@@ -16,6 +17,7 @@ const getPassengerName = () => {
   return UtilUser.getShortName(props.passenger);
 };
 </script>
+
 <style module>
 .passengerCard {
   height: 30px;

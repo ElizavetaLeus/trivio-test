@@ -75,7 +75,6 @@ const getRoute = (ticket: Ticket) => {
   const date = `${dateToFormat(dateReverse(ticket.dateFrom), 'DD.MM')}`;
   return `${route} ${date}`;
 };
-
 const routeToTrip = () => {
   router.push({ name: 'trip', params: { id: props.trip.id } });
 };

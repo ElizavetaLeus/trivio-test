@@ -1,6 +1,7 @@
 <template>
   <div :class="classList">{{ getText() }}</div>
 </template>
+
 <script setup lang="ts">
 import { computed, useCssModule } from 'vue';
 
@@ -27,6 +28,7 @@ const getText = () => {
   return;
 };
 </script>
+
 <style module>
 .status {
   color: var(--color-white);

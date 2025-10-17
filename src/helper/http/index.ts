@@ -28,7 +28,7 @@ export default class HTTP implements Http {
           error: message,
         };
       }
-      const data: T= await response.json();
+      const data: T = await response.json();
       return {
         data: data,
       };

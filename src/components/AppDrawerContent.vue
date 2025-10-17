@@ -31,7 +31,7 @@ import { usersApi } from '@/api/users';
 
 interface Emits {
   (event: 'updatePassengerList', selectedPassengers: User[]): void;
-  (event:'updateTripName', tripName: string): void;
+  (event: 'updateTripName', tripName: string): void;
 }
 
 const emits = defineEmits<Emits>();

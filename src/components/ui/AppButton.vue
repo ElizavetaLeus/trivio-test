@@ -15,7 +15,7 @@ type ButtonType = 'default' | 'text';
 
 interface Props {
   text: string,
-  type?:ButtonType,
+  type?: ButtonType,
   size?: ButtonSize,
 }
 interface Emits {
@@ -34,7 +34,7 @@ const classList = computed(() => {
     $style.button,
     props.size === 'large' && $style.buttonSizeLarge,
     props.size === 'small' && $style.buttonSizeSmall,
-    props.type ==='text' && $style.buttonTypeText,
+    props.type === 'text' && $style.buttonTypeText,
   ];
 });
 const emitListener = () => {

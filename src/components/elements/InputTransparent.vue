@@ -5,7 +5,7 @@
     :class="$style.searchInput"
     :placeholder="placeholder"
     @input="handlerInput($event)"
-  >
+  />
 </template>
 
 <script setup lang="ts">

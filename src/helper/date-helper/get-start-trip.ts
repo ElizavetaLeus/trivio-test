@@ -1,7 +1,7 @@
 import type { Service } from '@/types/Service';
 import { dateReverse } from '@/helper/date-helper/index';
 
-const getStartTrip =(allServices: Service[]) => {
+const getStartTrip = (allServices: Service[]) => {
   const dateTimes = allServices.map(service => {
     const dateTime = `${dateReverse(service.ticket.dateFrom)} ${service.ticket.timeFrom}`;
     return {

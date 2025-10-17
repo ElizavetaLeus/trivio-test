@@ -11,7 +11,7 @@
       :placeholder="placeholder"
       :class="$style.input"
       @input="onInput($event)"
-    >
+    />
   </div>
 </template>
 

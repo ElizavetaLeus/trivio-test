@@ -7,11 +7,11 @@
           :size="16"
         />
         <div :class="$style.routeTripContent">
-          Санкт-Петербург ➝ Москва
+          {{ service.ticket.placeFrom }} ➝ {{ service.ticket.placeTo }}
         </div>
       </div>
       <div :class="$style.carrier">
-        Перевозчик: S7
+        Перевозчик: {{ service.ticket.provider }}
       </div>
     </div>
     <div :class="$style.tripInformation">
@@ -30,13 +30,13 @@
 <script setup lang="ts">
 import AppIcon from '@/components/ui/AppIcon.vue';
 import PassengerCardSimple from '@/components/elements/PassengerCardSimple.vue';
+import { type Service } from '@/types/Service';
 
-const passenger = {
-  'id': '2',
-  'first_name': 'Петрова',
-  'second_name': 'Мария',
-  'last_name': 'Ивановна',
-};
+interface Props {
+  service: Service;
+}
+const props = defineProps<Props>();
+const passenger = props.service.user;
 </script>
 
 <style module>

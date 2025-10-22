@@ -21,6 +21,8 @@
       <AppDrawerContent
         @updatePassengerList="setPassengerList($event)"
         @updateTripName="setITripName($event)"
+        :isTripNameInvalid="isTripNameInvalid"
+        :isSelectInvalid="isSelectInvalid"
       />
       <footer :class="$style.footer">
         <AppButton text="Создать" @click="createTrip()" />
@@ -53,6 +55,8 @@ const router = useRouter();
 
 const passengerList = ref<User[]>([]);
 const tripName = ref<string>('');
+const isTripNameInvalid = ref(false);
+const isSelectInvalid = ref(false);
 
 const closeDrawer = () => {
   drawer.closeDrawer();
@@ -63,13 +67,26 @@ const setPassengerList = (passengers: User[]) => {
 const setITripName = (value: string) => {
   tripName.value = value;
 };
-const createTrip = async () => {
+const checkValid = () => {
   if (tripName.value.length === 0) {
+    isTripNameInvalid.value = true;
     alert('Укажите название поездки');
-    return;
+    return false;
   }
+  isTripNameInvalid.value = false;
+
   if (passengerList.value.length === 0) {
-    alert('Выьерите хотя бы одного пассажира');
+    isSelectInvalid.value = true;
+    alert('Выберите хотя бы одного пассажира');
+    return false;
+  }
+  isSelectInvalid.value = false;
+
+  return true;
+};
+
+const createTrip = async () => {
+  if (!checkValid()) {
     return;
   }
 

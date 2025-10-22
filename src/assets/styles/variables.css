@@ -8,12 +8,14 @@ body {
   --color-primary-base: 67, 97, 238;
   --color-black-base: 5, 5, 5;
   --color-green-base: 0, 179, 0;
+  --color-red-base: 255, 0, 0, 1;
   /* Colors */
   --color-white: rgb(var(--color-white-base));
   --color-gray: rgb(var(--color-gray-base));
   --color-gray-light: rgb(var(--color-gray-light-base));
   --color-primary: rgb(var(--color-primary-base));
   --color-green: rgb(var(--color-green-base));
+  --color-red: rgb(var(--color-red-base));
 
   --color-black: rgb(var(--color-black-base));
   --color-black-40: rgb(var(--color-black-base), 40%);

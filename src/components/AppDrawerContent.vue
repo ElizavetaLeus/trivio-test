@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.content">
     <InputTransparent
-      :class="$style.inputText"
+      :class="[$style.inputText, isTripNameInvalid && $style.inputTextInvalid]"
       :value="inputValue"
       placeholder="Введите название поездки"
       @input="setInputValue($event)"
@@ -10,6 +10,7 @@
       <AppSelect
         :passengers="passengers"
         @change="selectPassenger($event)"
+        :class="[$style.select, isSelectInvalid && $style.selectInvalid]"
       />
       <PassengerCard
         v-for="passenger in selectedPassengers"
@@ -29,11 +30,16 @@ import { type User } from '@/types/User';
 import InputTransparent from '@/components/elements/InputTransparent.vue';
 import { usersApi } from '@/api/users';
 
+interface Props {
+  isTripNameInvalid: boolean;
+  isSelectInvalid: boolean;
+}
 interface Emits {
   (event: 'updatePassengerList', selectedPassengers: User[]): void;
   (event: 'updateTripName', tripName: string): void;
 }
 
+defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const passengers = ref<User[]>([]);
@@ -90,10 +96,19 @@ fetchUser();
   outline: none;
   border-bottom-color: var(--color-primary);
 }
+.inputTextInvalid {
+  border-color: var(--color-red);
+}
 .selectContent {
   display: flex;
   flex-direction: column;
   gap: 15px;
   margin-top: 20px;
+}
+.select {
+  border: 1px solid transparent;
+}
+.selectInvalid {
+  border-color: var(--color-red);
 }
 </style>

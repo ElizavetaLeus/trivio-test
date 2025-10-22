@@ -58,7 +58,7 @@ const getIDTrip = (trip: Trip) => {
     const startDate = getStartTrip(trip.services)[0].dateTime;
     date = `#${trip.id} от ${dateToFormat(startDate, 'DD.MM.YYYY')}`;
   }
-  return `${trip.id} ${date}`;
+  return `${date}`;
 };
 const getCountPrice = (allServices: Service[]) => {
   return allServices.reduce((acc, currentValue) => {

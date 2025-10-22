@@ -1,5 +1,49 @@
 <template>
-  <div>Trip</div>
+  <div  v-if="trip" :class="$style.root">
+    <h1 :class="$style.tripName">{{ trip.name }}</h1>
+    <div :class="$style.content">
+      <div v-if="trip.services.length === 0">
+        Список услуг пуст
+      </div>
+      <div v-else>
+        <TicketCard
+          v-for="service in trip.services"
+          :service="service"
+          :key="service.ticket.id"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
+import { tripsApi } from '@/api/trips';
+import { ref } from 'vue';
+import { type Trip } from '@/types/Trip';
+import TicketCard from '@/components/elements/TicketCard.vue';
+
+const route = useRoute();
+const trip = ref<Trip | null>(null);
+
+const getTripById = async () => {
+  trip.value = await tripsApi.getTripById(route.params.id);
+};
+
+getTripById();
 </script>
+
+<style module>
+.root {
+margin-top: 50px;
+}
+.tripName {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-primary);
+  text-align: center;
+}
+.content{
+  margin-top: 30px;
+}
+</style>

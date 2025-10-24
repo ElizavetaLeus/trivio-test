@@ -1,9 +1,9 @@
 <template>
   <header :class="$style.header">
+    <RouterLink to="/">
+      <AppVector :vector="vectors.logo" />
+    </RouterLink>
     <div :class="$style.navigation">
-      <RouterLink to="/">
-        <AppVector :vector="vectors.logo" />
-      </RouterLink>
       <div
         v-if="isShownOnTripPage"
         :class="$style.completeTrip"

@@ -8,4 +8,5 @@ const getStartTrip = (allServices: Service[]) => {
   });
   return dateTimes.sort((a, b) => a.timeStamp - b.timeStamp);
 };
+
 export default getStartTrip;

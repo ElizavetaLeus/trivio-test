@@ -12,4 +12,5 @@ const dateToFormat = (dateTime: string, format: string): string => {
     .replace('MM', mm)
     .replace('YYYY', yyyy);
 };
+
 export default dateToFormat;

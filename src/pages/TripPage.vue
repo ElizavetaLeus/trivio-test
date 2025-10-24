@@ -1,5 +1,5 @@
 <template>
-  <div  v-if="trip" :class="$style.root">
+  <div v-if="trip" :class="$style.root">
     <h1 :class="$style.tripName">{{ trip.name }}</h1>
     <div :class="$style.content">
       <div v-if="trip.services.length === 0">
@@ -14,7 +14,9 @@
       </div>
     </div>
   </div>
+  <div v-else>Loading...</div>
 </template>
+
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { tripsApi } from '@/api/trips';

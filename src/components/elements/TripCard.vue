@@ -45,6 +45,7 @@ import { type Ticket } from '@/types/Ticket';
 import { dateToFormat, getStartTrip, dateReverse } from '@/helper/date-helper/index';
 import { useRouter } from 'vue-router';
 import { priceFormatter } from '@/helper/price';
+import { EnumRouteName } from '@/router/types';
 
 const router = useRouter();
 
@@ -57,9 +58,9 @@ const getIDTrip = (trip: Trip) => {
   let date = '';
   if(trip.services.length) {
     const startDate = getStartTrip(trip.services)[0].dateTime;
-    date = `#${trip.id} от ${dateToFormat(startDate, 'DD.MM.YYYY')}`;
+    date = `от ${dateToFormat(startDate, 'DD.MM.YYYY')}`;
   }
-  return `${date}`;
+  return `#${trip.id} ${date}`;
 };
 const getCountPrice = (allServices: Service[]) => {
   return allServices.reduce((acc, currentValue) => {
@@ -73,7 +74,7 @@ const getRoute = (ticket: Ticket) => {
   return `${route} ${date}`;
 };
 const routeToTrip = () => {
-  router.push({ name: 'trip', params: { id: props.trip.id } });
+  router.push({ name: EnumRouteName.TRIP, params: { id: props.trip.id } });
 };
 </script>
 

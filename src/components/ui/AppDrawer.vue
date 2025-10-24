@@ -41,6 +41,7 @@ import { tripsApi } from '@/api/trips';
 import type { Trip } from '@/types/Trip';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { EnumRouteName } from '@/router/types';
 
 type TripWithoutId = Omit<Trip, 'id'> & { id?: Trip['id'] };
 
@@ -102,7 +103,7 @@ const createTrip = async () => {
   if (createdTrip) {
     const tripId = createdTrip.id;
     closeDrawer();
-    router.push({ name: 'trip', params: { id: tripId } });
+    router.push({ name: EnumRouteName.TRIP, params: { id: tripId } });
   } else {
     alert('Ошибка создания поездки');
   }

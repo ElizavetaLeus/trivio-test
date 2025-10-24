@@ -7,4 +7,5 @@ const dateFormat = (date: string, time: string) => {
     timeStamp: new Date(dateTime).getTime(),
   };
 };
+
 export default dateFormat;

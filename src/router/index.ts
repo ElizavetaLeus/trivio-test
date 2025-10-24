@@ -1,16 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { EnumRouteName } from '@/router/types';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: EnumRouteName.HOME,
       component: () => import('@/pages/HomePage.vue'),
     },
     {
       path: '/trip/:id',
-      name: 'trip',
+      name: EnumRouteName.TRIP,
       component: () => import('@/pages/TripPage.vue'),
     },
   ],

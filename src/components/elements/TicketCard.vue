@@ -16,10 +16,14 @@
     </div>
     <div :class="$style.tripInformation">
       <div :class="$style.departureInformation">
-        <div :class="$style.tripDate">27.08.2025</div>
-        <div :class="$style.tripTime">06:35 - 09:55</div>
+        <div :class="$style.tripDate"> {{ formatDate }}</div>
+        <div :class="$style.tripTime">
+          {{ service.ticket.timeFrom }} - {{ service.ticket.timerTo }}
+        </div>
       </div>
-      <div :class="$style.tripPrice">92 345 ₽</div>
+      <div :class="$style.tripPrice">
+        {{ priceFormatter(service.ticket.price) }}
+      </div>
     </div>
     <div :class="$style.passengerList">
       <PassengerCardSimple :passenger="passenger"/>
@@ -31,12 +35,20 @@
 import AppIcon from '@/components/ui/AppIcon.vue';
 import PassengerCardSimple from '@/components/elements/PassengerCardSimple.vue';
 import { type Service } from '@/types/Service';
+import { priceFormatter } from '@/helper/price';
+import { computed } from 'vue';
+import { dateFormat, dateToFormat } from '@/helper/date-helper';
 
 interface Props {
   service: Service;
 }
 const props = defineProps<Props>();
 const passenger = props.service.user;
+
+const formatDate = computed(() => {
+  const dateTimeIso = dateFormat(props.service.ticket.dateFrom, props.service.ticket.timeFrom);
+  return dateToFormat(dateTimeIso.dateTime, 'DD.MM.YYYY');
+});
 </script>
 
 <style module>

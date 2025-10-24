@@ -8,7 +8,7 @@
       <div :class="$style.tripInformation">
         <div :class="$style.tripId"> {{ getIDTrip(trip) }} </div>
         <div :class="$style.tripPrice">
-          {{ formatPrice(getCountPrice(trip.services)) }}
+          {{ priceFormatter(getCountPrice(trip.services)) }}
         </div>
       </div>
       <div :class="$style.tripRoute"> {{ trip.name }} </div>
@@ -22,7 +22,7 @@
         :key="service.ticket.id"
         :passenger="service.user"
         :route="getRoute(service.ticket)"
-        :price="formatPrice(service.ticket.price)"
+        :price="priceFormatter(service.ticket.price)"
       />
     </div>
     <footer :class="$style.footer">
@@ -44,6 +44,7 @@ import { type Service } from '@/types/Service';
 import { type Ticket } from '@/types/Ticket';
 import { dateToFormat, getStartTrip, dateReverse } from '@/helper/date-helper/index';
 import { useRouter } from 'vue-router';
+import { priceFormatter } from '@/helper/price';
 
 const router = useRouter();
 
@@ -65,10 +66,6 @@ const getCountPrice = (allServices: Service[]) => {
     acc += currentValue.ticket.price;
     return acc;
   }, 0);
-};
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0,
-    maximumFractionDigits: 0 }).format(price);
 };
 const getRoute = (ticket: Ticket) => {
   const route = `${ticket.placeFrom} ➝ ${ticket.placeTo}`;

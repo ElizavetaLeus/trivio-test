@@ -5,6 +5,19 @@
         <AppVector :vector="vectors.logo" />
       </RouterLink>
       <div
+        v-if="isShownOnTripPage"
+        :class="$style.completeTrip"
+      >
+        <AppIcon name="airplane" />
+        <AppButton
+          text="завершить поездку"
+          type="default"
+          size="small"
+          :class="$style.button"
+        />
+      </div>
+      <div
+        v-if="isShownOnTripListPage"
         :class="$style.createTrip"
         @click="openDrawer()"
       >
@@ -26,11 +39,23 @@ import vectors from '@/assets/vectors/vectors.ts';
 import AppIcon from '@/components/ui/AppIcon.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
+import { useRoute } from 'vue-router';
+import { computed } from 'vue';
+import { EnumRouteName } from '@/router/types';
 
 const drawer = useDrawerCreateTrip();
+const route = useRoute();
+
 const openDrawer = () => {
   drawer.openDrawer();
 };
+
+const isShownOnTripPage = computed(() => {
+  return route.name === EnumRouteName.TRIP;
+});
+const isShownOnTripListPage = computed(() => {
+  return route.name === EnumRouteName.HOME;
+});
 </script>
 
 <style module>
@@ -44,7 +69,7 @@ const openDrawer = () => {
 }
 .navigation {
   display: flex;
-  gap: 24px;
+  gap: 20px;
 }
 .createTrip {
   display: flex;
@@ -52,6 +77,13 @@ const openDrawer = () => {
   gap: 15px;
   margin-inline-start: 20px;
   color: var(--color-primary);
+}
+.completeTrip {
+  color: var(--color-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 .button {
   font-size: 14px;

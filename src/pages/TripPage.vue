@@ -23,12 +23,17 @@ import { tripsApi } from '@/api/trips';
 import { ref } from 'vue';
 import { type Trip } from '@/types/Trip';
 import TicketCard from '@/components/elements/TicketCard.vue';
+import router from '@/router';
+import { EnumRouteName } from '@/router/types';
 
 const route = useRoute();
 const trip = ref<Trip | null>(null);
 
 const getTripById = async () => {
   trip.value = await tripsApi.getTripById(route.params.id);
+  if (trip.value === null) {
+    router.push({ name: EnumRouteName.HOME });
+  }
 };
 
 getTripById();

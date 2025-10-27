@@ -26,9 +26,6 @@ export const tripsApi = {
     if (response.data) {
       return response.data;
     }
-    if (response.error || response.data === undefined) {
-      router.push({ name: EnumRouteName.HOME });
-    }
     return null;
   },
 };

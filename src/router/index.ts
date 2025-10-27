@@ -15,6 +15,9 @@ const router = createRouter({
       component: () => import('@/pages/TripPage.vue'),
     },
   ],
+  scrollBehavior() {
+    return { top: 0 };
+  },
 });
 
 export default router;

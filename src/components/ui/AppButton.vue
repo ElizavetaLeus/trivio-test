@@ -2,6 +2,7 @@
   <button
     :class="classList"
     @click="emitListener()"
+    :style="styleList"
   >
     {{ text }}
   </button>
@@ -17,6 +18,7 @@ interface Props {
   text: string,
   type?: ButtonType,
   size?: ButtonSize,
+  maxWidth?: number,
 }
 interface Emits {
   (event: 'click'): void;
@@ -25,6 +27,7 @@ interface Emits {
 const props = withDefaults(defineProps<Props>(), {
   type: 'default',
   size: 'default',
+  maxWidth: 0,
 });
 const emits = defineEmits<Emits>();
 const $style = useCssModule();
@@ -37,6 +40,11 @@ const classList = computed(() => {
     props.type === 'text' && $style.buttonTypeText,
   ];
 });
+const styleList = computed(() => {
+  return {
+    '--max-width': props.maxWidth > 0 ? `${props.maxWidth}px` : '100%',
+  };
+});
 const emitListener = () => {
   emits('click');
 };
@@ -47,7 +55,7 @@ const emitListener = () => {
   color: var(--color-white);
   background-color: var(--color-primary);
   padding-block: 12px;
-  padding-inline: 44px;
+  padding-inline: 30px;
   border-radius: 5px;
   border: none;
   font-size: 14px;
@@ -55,6 +63,7 @@ const emitListener = () => {
   height: 40px;
   transition: 0.3s;
   line-height: 1;
+  max-width: var(--max-width, 100%);
 }
 .button:hover {
   opacity: 90%;

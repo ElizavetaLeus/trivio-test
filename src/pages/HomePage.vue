@@ -68,12 +68,13 @@ fetchUser();
 .content {
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
+  padding-bottom: 50px;
 }
 .title {
   font-weight: 700;
   font-size: 26px;
   line-height: 1;
-  margin-top: 50px;
 }
 .searchContainer {
   display: flex;

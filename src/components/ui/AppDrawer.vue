@@ -25,7 +25,11 @@
         :isSelectInvalid="isSelectInvalid"
       />
       <footer :class="$style.footer">
-        <AppButton text="Создать" @click="createTrip()" />
+        <AppButton
+          text="Создать"
+          :class="$style.footerButton"
+          @click="createTrip()"
+        />
       </footer>
     </div>
   </div>
@@ -165,5 +169,8 @@ const createTrip = async () => {
   border-top: 1px solid var(--color-black-10);
   padding: 10px 20px;
   height: 60px;
+}
+.footerButton {
+  max-width: 150px;
 }
 </style>

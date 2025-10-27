@@ -5,18 +5,6 @@
     </RouterLink>
     <div :class="$style.navigation">
       <div
-        v-if="isShownOnTripPage"
-        :class="$style.completeTrip"
-      >
-        <AppIcon name="airplane" />
-        <AppButton
-          text="завершить поездку"
-          type="default"
-          size="small"
-          :class="$style.button"
-        />
-      </div>
-      <div
         v-if="isShownOnTripListPage"
         :class="$style.createTrip"
         @click="openDrawer()"
@@ -26,6 +14,19 @@
           text="Создать поездку"
           type="text"
           :class="$style.button"
+        />
+      </div>
+      <div
+        v-if="isShownOnTripPage"
+        :class="$style.completeTrip"
+      >
+        <AppIcon name="airplane" />
+        <AppButton
+          text="завершить поездку"
+          type="default"
+          size="small"
+          :class="$style.button"
+          :max-width="182"
         />
       </div>
     </div>
@@ -62,21 +63,25 @@ const isShownOnTripListPage = computed(() => {
 .header {
   display: flex;
   align-items: center;
-  padding-inline: 20px;
+  padding-inline: 94px;
   padding-block: 10px;
   justify-content: space-between;
   background: var(--color-white);
+  height: 64px;
 }
 .navigation {
   display: flex;
   gap: 20px;
+  width: 100%;
+  height: 100%;
 }
 .createTrip {
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-inline-start: 20px;
+  margin-inline-start: 24px;
   color: var(--color-primary);
+  cursor: pointer;
 }
 .completeTrip {
   color: var(--color-primary);
@@ -84,10 +89,12 @@ const isShownOnTripListPage = computed(() => {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-inline: 20px 50px;
 }
 .button {
   font-size: 14px;
-  line-height: 14px;
+  line-height: 1;
+  font-weight: 400;
 }
 .userLogo {
   --size: 36px;

@@ -18,23 +18,34 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { tripsApi } from '@/api/trips';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { type Trip } from '@/types/Trip';
 import TicketCard from '@/components/elements/TicketCard.vue';
-import router from '@/router';
 import { EnumRouteName } from '@/router/types';
+import { useTripStore } from '@/stores/tripStore';
 
 const route = useRoute();
 const trip = ref<Trip | null>(null);
+const router = useRouter();
+const tripStore = useTripStore();
 
 const getTripById = async () => {
   trip.value = await tripsApi.getTripById(route.params.id);
+
   if (trip.value === null) {
     router.push({ name: EnumRouteName.HOME });
   }
+  else {
+    tripStore.setTrip(trip.value);
+  }
 };
+
+onMounted( () => {
+  tripStore.$reset();
+  tripStore.$dispose();
+});
 
 getTripById();
 </script>

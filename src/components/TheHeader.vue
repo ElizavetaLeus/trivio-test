@@ -22,6 +22,7 @@
       >
         <AppIcon name="airplane" />
         <AppButton
+          v-if="tripStore.isShownButtonCloseTrip"
           text="завершить поездку"
           type="default"
           size="small"
@@ -43,9 +44,11 @@ import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
 import { EnumRouteName } from '@/router/types';
+import { useTripStore } from '@/stores/tripStore';
 
 const drawer = useDrawerCreateTrip();
 const route = useRoute();
+const tripStore = useTripStore();
 
 const openDrawer = () => {
   drawer.openDrawer();

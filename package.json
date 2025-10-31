@@ -17,6 +17,7 @@
     "dependencies": {
         "@stylistic/eslint-plugin": "^5.4.0",
         "eslint-define-config": "^2.1.0",
+        "pinia": "^3.0.3",
         "typescript-eslint": "^8.46.1",
         "vue": "^3.5.18",
         "vue-router": "^4.5.1"

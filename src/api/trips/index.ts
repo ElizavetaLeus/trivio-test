@@ -1,10 +1,7 @@
 import HTTP from '@/helper/http';
 import { type Trip } from '@/types/Trip';
-import { useRouter } from 'vue-router';
-import { EnumRouteName } from '@/router/types';
 
 const http = new HTTP();
-const router = useRouter();
 
 export const tripsApi = {
   async getTrips() {

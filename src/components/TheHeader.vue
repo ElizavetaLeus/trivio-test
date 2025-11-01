@@ -20,7 +20,9 @@
         v-if="isShownOnTripPage"
         :class="$style.completeTrip"
       >
-        <AppIcon name="airplane" />
+        <div :class="$style.airplane">
+          <AppIcon name="airplane" />
+        </div>
         <AppButton
           v-if="tripStore.isShownButtonCloseTrip"
           text="завершить поездку"
@@ -93,6 +95,16 @@ const isShownOnTripListPage = computed(() => {
   align-items: center;
   width: 100%;
   margin-inline: 20px 50px;
+}
+.airplane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: var(--color-gray-light);
+  color: var(--color-primary);
 }
 .button {
   font-size: 14px;

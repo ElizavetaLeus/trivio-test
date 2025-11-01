@@ -44,7 +44,6 @@ const getTripById = async () => {
 
 onMounted( () => {
   tripStore.$reset();
-  tripStore.$dispose();
 });
 
 getTripById();

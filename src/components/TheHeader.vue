@@ -29,7 +29,7 @@
           type="default"
           size="small"
           :class="$style.button"
-          :max-width="182"
+          :max-width="189"
         />
       </div>
     </div>

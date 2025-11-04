@@ -6,7 +6,7 @@
     />
     <header :class="$style.header">
       <div :class="$style.tripInformation">
-        <div :class="$style.tripId"> {{ getIDTrip(trip) }} </div>
+        <div :class="$style.tripId"> {{ tripStore.getTripID }} </div>
         <div :class="$style.tripPrice">
           {{ priceFormatter(getCountPrice(trip.services)) }}
         </div>
@@ -42,26 +42,20 @@ import TripStatus from '@/components/elements/TripStatus.vue';
 import { type Trip } from '@/types/Trip';
 import { type Service } from '@/types/Service';
 import { type Ticket } from '@/types/Ticket';
-import { dateToFormat, getStartTrip, dateReverse } from '@/helper/date-helper/index';
+import { dateToFormat, dateReverse } from '@/helper/date-helper/index';
 import { useRouter } from 'vue-router';
 import { priceFormatter } from '@/helper/price';
 import { EnumRouteName } from '@/router/types';
+import { useTripStore } from '@/stores/tripStore';
 
 const router = useRouter();
+const tripStore = useTripStore();
 
 interface Props {
   trip: Trip;
 }
 const props = defineProps<Props>();
 
-const getIDTrip = (trip: Trip) => {
-  let date = '';
-  if(trip.services.length) {
-    const startDate = getStartTrip(trip.services)[0].dateTime;
-    date = `от ${dateToFormat(startDate, 'DD.MM.YYYY')}`;
-  }
-  return `#${trip.id} ${date}`;
-};
 const getCountPrice = (allServices: Service[]) => {
   return allServices.reduce((acc, currentValue) => {
     acc += currentValue.ticket.price;

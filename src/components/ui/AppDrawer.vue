@@ -46,6 +46,7 @@ import type { Trip } from '@/types/Trip';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 import { EnumRouteName } from '@/router/types';
+import { notification } from '@/libs/notification';
 
 type TripWithoutId = Omit<Trip, 'id'> & { id?: Trip['id'] };
 
@@ -75,14 +76,14 @@ const setITripName = (value: string) => {
 const checkValid = () => {
   if (tripName.value.length === 0) {
     isTripNameInvalid.value = true;
-    alert('Укажите название поездки');
+    notification.warning('Укажите название поездки');
     return false;
   }
   isTripNameInvalid.value = false;
 
   if (passengerList.value.length === 0) {
     isSelectInvalid.value = true;
-    alert('Выберите хотя бы одного пассажира');
+    notification.warning('Выберите хотя бы одного пассажира');
     return false;
   }
   isSelectInvalid.value = false;
@@ -109,7 +110,7 @@ const createTrip = async () => {
     closeDrawer();
     router.push({ name: EnumRouteName.TRIP, params: { id: tripId } });
   } else {
-    alert('Ошибка создания поездки');
+    notification.error('Ошибка создания поездки');
   }
 };
 </script>

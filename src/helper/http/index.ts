@@ -7,6 +7,7 @@ interface Http {
   baseURL: string;
   get<T>(endpoint: string): Promise<HttpResponse<T>>;
   post<T, Body>(endpoint: string, body: Body): Promise<HttpResponse<T>>;
+  patch<T, Body>(endpoint: string, body: Body): Promise<HttpResponse<T>>;
   delete<T>(endpoint: string): Promise<HttpResponse<T>>;
 }
 
@@ -54,6 +55,13 @@ export default class HTTP implements Http {
       body: JSON.stringify(body),
     });
   };
+
+  async patch<T, Body>(endpoint: string, body: Body) {
+    return await this.query<T>(endpoint, {
+      method: 'PATCH',
+      body: JSON.stringify(body),
+    });
+  }
 
   async delete<T>(endpoint: string) {
     return await this.query<T>(endpoint, { method: 'DELETE' });

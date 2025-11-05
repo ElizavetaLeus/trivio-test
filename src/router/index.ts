@@ -14,6 +14,11 @@ const router = createRouter({
       name: EnumRouteName.TRIP,
       component: () => import('@/pages/TripPage.vue'),
     },
+    {
+      path: '/search',
+      name: EnumRouteName.SEARCH,
+      component: () => import('@/pages/SearchPage.vue'),
+    },
   ],
   scrollBehavior() {
     return { top: 0 };

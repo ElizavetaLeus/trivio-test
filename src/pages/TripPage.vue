@@ -2,8 +2,17 @@
   <div v-if="trip" :class="$style.root">
     <h1 :class="$style.tripName">{{ trip.name }}</h1>
     <div :class="$style.content">
-      <div v-if="trip.services.length === 0">
-        Список услуг пуст
+      <div
+        v-if="trip.services.length === 0"
+        :class="$style.emptyService"
+      >
+        <div :class="$style.serviceList">Список услуг пуст</div>
+        <AppButton
+          text="поиск авиа"
+          type="text"
+          :class="$style.searchButton"
+          @click="goToSearch()"
+        />
       </div>
       <div v-else>
         <TicketCard
@@ -25,6 +34,7 @@ import { type Trip } from '@/types/Trip';
 import TicketCard from '@/components/elements/TicketCard.vue';
 import { EnumRouteName } from '@/router/types';
 import { useTripStore } from '@/stores/tripStore';
+import AppButton from '@/components/ui/AppButton.vue';
 
 const route = useRoute();
 const trip = ref<Trip | null>(null);
@@ -40,6 +50,9 @@ const getTripById = async () => {
   else {
     tripStore.setTrip(trip.value);
   }
+};
+const goToSearch = () => {
+  router.push({ name: EnumRouteName.SEARCH });
 };
 
 onUnmounted( () => {
@@ -63,5 +76,23 @@ margin-top: 50px;
 }
 .content{
   margin-top: 30px;
+}
+.emptyService{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.serviceList {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+}
+.searchButton {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px dashed var(--color-primary);
 }
 </style>

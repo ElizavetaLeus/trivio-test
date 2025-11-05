@@ -1,5 +1,6 @@
 import HTTP from '@/helper/http';
 import { type Trip } from '@/types/Trip';
+import { notification } from '@/libs/notification';
 
 const http = new HTTP();
 
@@ -20,6 +21,17 @@ export const tripsApi = {
   },
   async getTripById(id: string | string[]) {
     const response = await http.get<Trip>(`/trips/${id}`);
+    if (response.data) {
+      return response.data;
+    }
+    return null;
+  },
+
+  async completeTripById<Body>(id: string, body: Body) {
+    const response = await http.patch<Trip, Body>(`/trips/${id}`, body);
+    if (response.error) {
+      notification.error('Ошибка обновления статуса поездки');
+    }
     if (response.data) {
       return response.data;
     }

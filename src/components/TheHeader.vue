@@ -20,7 +20,10 @@
         v-if="isShownOnTripPage"
         :class="$style.completeTrip"
       >
-        <div :class="$style.airplane">
+        <div
+          :class="$style.airplane"
+          @click="goToSearch"
+        >
           <AppIcon name="airplane" />
         </div>
         <AppButton
@@ -31,6 +34,16 @@
           :class="$style.button"
           :max-width="189"
           @click="tripStore.completeTrip"
+        />
+      </div>
+      <div v-if="isShownOnSearchPagePage">
+        <AppButton
+          text="вернуться в поездку"
+          type="default"
+          size="small"
+          :max-width="196"
+          :class="[$style.button, $style.goToTripButton]"
+          @click="routeToTrip()"
         />
       </div>
     </div>
@@ -44,7 +57,7 @@ import vectors from '@/assets/vectors/vectors.ts';
 import AppIcon from '@/components/ui/AppIcon.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { computed } from 'vue';
 import { EnumRouteName } from '@/router/types';
 import { useTripStore } from '@/stores/tripStore';
@@ -52,17 +65,26 @@ import { useTripStore } from '@/stores/tripStore';
 const drawer = useDrawerCreateTrip();
 const route = useRoute();
 const tripStore = useTripStore();
+const router = useRouter();
 
 const openDrawer = () => {
   drawer.openDrawer();
 };
-
+const goToSearch = () => {
+  router.push({ name: EnumRouteName.SEARCH });
+};
 const isShownOnTripPage = computed(() => {
   return route.name === EnumRouteName.TRIP;
 });
 const isShownOnTripListPage = computed(() => {
   return route.name === EnumRouteName.HOME;
 });
+const isShownOnSearchPagePage = computed(() => {
+  return route.name === EnumRouteName.SEARCH;
+});
+const routeToTrip = () => {
+  router.push({ name: EnumRouteName.TRIP, params: { id: tripStore.getTripRouterId } });
+};
 </script>
 
 <style module>
@@ -80,6 +102,7 @@ const isShownOnTripListPage = computed(() => {
   gap: 20px;
   width: 100%;
   height: 100%;
+  align-items: center;
 }
 .createTrip {
   display: flex;
@@ -111,6 +134,11 @@ const isShownOnTripListPage = computed(() => {
   font-size: 14px;
   line-height: 1;
   font-weight: 400;
+}
+.goToTripButton {
+  background-color: var(--color-gray-light);
+  color: var(--color-black);
+  margin-inline: 20px;
 }
 .userLogo {
   --size: 36px;

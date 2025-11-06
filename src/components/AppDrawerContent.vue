@@ -7,74 +7,36 @@
       @input="setInputValue($event)"
     />
     <div :class="$style.selectContent">
-      <AppSelect
-        :passengers="passengers"
-        @change="selectPassenger($event)"
-        :class="[$style.select, isSelectInvalid && $style.selectInvalid]"
-      />
-      <PassengerCard
-        v-for="passenger in selectedPassengers"
-        :key="passenger.id"
-        :passenger="passenger"
-        @delete="deletePassenger($event)"
+      <UserSelect
+        :isSelectInvalid="isSelectInvalid"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import AppSelect from '@/components/ui/AppSelect.vue';
-import { computed, ref } from 'vue';
-import PassengerCard from '@/components/elements/PassengerCard.vue';
-import { type User } from '@/types/User';
+import { ref } from 'vue';
 import InputTransparent from '@/components/elements/InputTransparent.vue';
-import { usersApi } from '@/api/users';
+import UserSelect from '@/components/elements/UserSelect.vue';
 
 interface Props {
   isTripNameInvalid: boolean;
   isSelectInvalid: boolean;
 }
 interface Emits {
-  (event: 'updatePassengerList', selectedPassengers: User[]): void;
   (event: 'updateTripName', tripName: string): void;
 }
 
 defineProps<Props>();
 const emits = defineEmits<Emits>();
 
-const passengers = ref<User[]>([]);
-const selectedPassengers = ref <User[]>([]);
 const inputValue = ref('');
 
-const fetchUser = async () => {
-  passengers.value = await usersApi.getUsers();
-};
 const setInputValue = (tripName: string) => {
   inputValue.value = tripName;
   emits('updateTripName', inputValue.value);
 
 };
-const deletePassenger = (id: string) => {
-  selectedPassengers.value = selectedPassengers.value.filter((passenger) => passenger.id !== id);
-  updateSelectedPassengers();
-};
-const passengerListCache = computed(() => {
-  const initialValue: Record<string, User> = {};
-
-  return passengers.value.reduce((acc, item) => {
-    acc[item.id] = item;
-    return acc;
-  }, initialValue);
-});
-const selectPassenger = (id: string) => {
-  selectedPassengers.value.push(passengerListCache.value[id]);
-  updateSelectedPassengers();
-};
-const updateSelectedPassengers = () => {
-  emits('updatePassengerList', selectedPassengers.value);
-};
-
-fetchUser();
 </script>
 
 <style module>
@@ -104,11 +66,5 @@ fetchUser();
   flex-direction: column;
   gap: 15px;
   margin-top: 20px;
-}
-.select {
-  border: 1px solid transparent;
-}
-.selectInvalid {
-  border-color: var(--color-red);
 }
 </style>

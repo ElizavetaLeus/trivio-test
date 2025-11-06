@@ -49,6 +49,7 @@ const handleOptionChange = (event: Event) => {
   width: 100%;
   color: var(--color-gray);
   outline: none;
+  max-height: 40px;
 }
 .selectContainer:focus {
   border-color: transparent;

@@ -24,7 +24,9 @@ export const useTripStore = defineStore( 'trip', {
       }
       return `#${state?.trip?.id} ${date}`;
     },
-
+    getTripRouterId:(state) => {
+      return state?.trip?.id || '';
+    },
   },
   actions: {
     setTrip(tripData: Trip) {

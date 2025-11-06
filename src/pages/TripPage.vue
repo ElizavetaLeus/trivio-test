@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
 import { tripsApi } from '@/api/trips';
-import { onUnmounted, ref } from 'vue';
+import { ref } from 'vue';
 import { type Trip } from '@/types/Trip';
 import TicketCard from '@/components/elements/TicketCard.vue';
 import { EnumRouteName } from '@/router/types';
@@ -54,11 +54,6 @@ const getTripById = async () => {
 const goToSearch = () => {
   router.push({ name: EnumRouteName.SEARCH });
 };
-
-onUnmounted( () => {
-  tripStore.$reset();
-  tripStore.$dispose();
-});
 
 getTripById();
 </script>

@@ -16,14 +16,6 @@ export const useTripStore = defineStore( 'trip', {
   getters: {
     isShownButtonCloseTrip: (state) => (state?.trip?.status ?? null) !== 'ended',
 
-    getTripID: (state) => {
-      let date = '';
-      if (state?.trip?.services.length) {
-        const startDate = getStartTrip(state?.trip?.services)[0].dateTime;
-        date = `от ${dateToFormat(startDate, 'DD.MM.YYYY')}`;
-      }
-      return `#${state?.trip?.id} ${date}`;
-    },
     getTripRouterId:(state) => {
       return state?.trip?.id || '';
     },

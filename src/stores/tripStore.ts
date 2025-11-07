@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { type Trip } from '@/types/Trip';
-import { dateToFormat, getStartTrip } from '@/helper/date-helper';
 import { tripsApi } from '@/api/trips';
 
 interface TripState {

@@ -9,6 +9,7 @@
     <div :class="$style.selectContent">
       <UserSelect
         :isSelectInvalid="isSelectInvalid"
+        @updatePassengerList="updateSelectedPassengers($event)"
       />
     </div>
   </div>
@@ -18,6 +19,7 @@
 import { ref } from 'vue';
 import InputTransparent from '@/components/elements/InputTransparent.vue';
 import UserSelect from '@/components/elements/UserSelect.vue';
+import type { User } from '@/types/User';
 
 interface Props {
   isTripNameInvalid: boolean;
@@ -25,17 +27,22 @@ interface Props {
 }
 interface Emits {
   (event: 'updateTripName', tripName: string): void;
+  (event: 'updatePassengerList', selectedPassengers: User[]): void;
 }
 
 defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const inputValue = ref('');
+const selectedPassengers = ref <User[]>([]);
 
 const setInputValue = (tripName: string) => {
   inputValue.value = tripName;
   emits('updateTripName', inputValue.value);
-
+};
+const updateSelectedPassengers = (passengers: User[]) => {
+  selectedPassengers.value = passengers;
+  emits('updatePassengerList', selectedPassengers.value);
 };
 </script>
 
@@ -62,9 +69,6 @@ const setInputValue = (tripName: string) => {
   border-color: var(--color-red);
 }
 .selectContent {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
   margin-top: 20px;
 }
 </style>

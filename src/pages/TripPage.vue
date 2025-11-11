@@ -2,6 +2,7 @@
   <div v-if="trip" :class="$style.root">
     <h1 :class="$style.tripName">{{ trip.name }}</h1>
     <div :class="$style.content">
+
       <div
         v-if="trip.services.length === 0"
         :class="$style.emptyService"
@@ -11,9 +12,10 @@
           text="поиск авиа"
           type="text"
           :class="$style.searchButton"
-          @click="goToSearch()"
+          @click="goToSearchPage()"
         />
       </div>
+
       <div v-else>
         <TicketCard
           v-for="service in trip.services"
@@ -21,6 +23,7 @@
           :key="service.ticket.id"
         />
       </div>
+
     </div>
   </div>
   <div v-else>Loading...</div>
@@ -51,7 +54,7 @@ const getTripById = async () => {
     tripStore.setTrip(trip.value);
   }
 };
-const goToSearch = () => {
+const goToSearchPage = () => {
   router.push({ name: EnumRouteName.SEARCH });
 };
 
@@ -69,10 +72,10 @@ margin-top: 50px;
   color: var(--color-primary);
   text-align: center;
 }
-.content{
+.content {
   margin-top: 30px;
 }
-.emptyService{
+.emptyService {
   display: flex;
   flex-direction: column;
   justify-content: center;

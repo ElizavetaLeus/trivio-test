@@ -40,7 +40,7 @@ const getPassengerName = () => {
   gap: 10px;
   border-radius: 5px;
 }
-.tripInformation{
+.tripInformation {
   display: flex;
   gap: 5px;
   color: var(--color-primary);
@@ -49,7 +49,7 @@ const getPassengerName = () => {
   line-height: 1;
   align-items: center;
 }
-.tripRoute{
+.tripRoute {
   color:var(--color-black);
 }
 .passenger {

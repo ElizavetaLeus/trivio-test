@@ -4,6 +4,7 @@
       <AppVector :vector="vectors.logo" />
     </RouterLink>
     <div :class="$style.navigation">
+
       <div
         v-if="isShownOnTripListPage"
         :class="$style.createTrip"
@@ -16,13 +17,14 @@
           :class="$style.button"
         />
       </div>
+
       <div
         v-if="isShownOnTripPage"
         :class="$style.completeTrip"
       >
         <div
           :class="$style.airplane"
-          @click="goToSearch"
+          @click="goToSearchPage"
         >
           <AppIcon name="airplane" />
         </div>
@@ -36,6 +38,7 @@
           @click="tripStore.completeTrip"
         />
       </div>
+
       <div v-if="isShownOnSearchPagePage">
         <AppButton
           text="вернуться в поездку"
@@ -43,9 +46,10 @@
           size="small"
           :max-width="196"
           :class="[$style.button, $style.goToTripButton]"
-          @click="routeToTrip()"
+          @click="goToTripPage()"
         />
       </div>
+
     </div>
     <div :class="$style.userLogo">AA</div>
   </header>
@@ -70,8 +74,11 @@ const router = useRouter();
 const openDrawer = () => {
   drawer.openDrawer();
 };
-const goToSearch = () => {
+const goToSearchPage = () => {
   router.push({ name: EnumRouteName.SEARCH });
+};
+const goToTripPage = () => {
+  router.push({ name: EnumRouteName.TRIP, params: { id: tripStore.getTripRouterId } });
 };
 const isShownOnTripPage = computed(() => {
   return route.name === EnumRouteName.TRIP;
@@ -82,9 +89,6 @@ const isShownOnTripListPage = computed(() => {
 const isShownOnSearchPagePage = computed(() => {
   return route.name === EnumRouteName.SEARCH;
 });
-const routeToTrip = () => {
-  router.push({ name: EnumRouteName.TRIP, params: { id: tripStore.getTripRouterId } });
-};
 </script>
 
 <style module>

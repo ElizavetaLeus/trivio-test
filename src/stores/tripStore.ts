@@ -14,10 +14,6 @@ export const useTripStore = defineStore( 'trip', {
   },
   getters: {
     isShownButtonCloseTrip: (state) => (state?.trip?.status ?? null) !== 'ended',
-
-    getTripRouterId:(state) => {
-      return state?.trip?.id || '';
-    },
   },
   actions: {
     setTrip(tripData: Trip) {

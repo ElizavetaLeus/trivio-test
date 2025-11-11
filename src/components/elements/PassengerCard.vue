@@ -43,7 +43,6 @@ const deletePassenger = () => {
   position: relative;
 }
 .passengerCardContent {
-
   height: 40px;
   padding-inline: 15px;
   background-color: var(--color-white);

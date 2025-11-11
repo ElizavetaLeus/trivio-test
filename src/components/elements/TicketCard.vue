@@ -87,7 +87,7 @@ const formatDate = computed(() => {
   display: flex;
   justify-content: space-between;
 }
-.departureInformation{
+.departureInformation {
   display: flex;
   flex-direction: column;
   gap: 5px;

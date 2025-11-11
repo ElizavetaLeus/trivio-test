@@ -55,7 +55,12 @@ const getTripById = async () => {
   }
 };
 const goToSearchPage = () => {
-  router.push({ name: EnumRouteName.SEARCH });
+  router.push({
+    name: EnumRouteName.SEARCH,
+    query: {
+      orderId: trip.value?.id,
+    },
+  });
 };
 
 onUnmounted( () => {

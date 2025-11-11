@@ -78,7 +78,10 @@ const goToSearchPage = () => {
   router.push({ name: EnumRouteName.SEARCH });
 };
 const goToTripPage = () => {
-  router.push({ name: EnumRouteName.TRIP, params: { id: tripStore.getTripRouterId } });
+  const orderId = String(route.query.orderId);
+  router.push({
+    name: EnumRouteName.TRIP,
+    params: { id: orderId } });
 };
 const isShownOnTripPage = computed(() => {
   return route.name === EnumRouteName.TRIP;

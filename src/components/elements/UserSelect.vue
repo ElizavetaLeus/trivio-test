@@ -1,16 +1,17 @@
 <template>
-  <AppSelect
-    :passengers="passengers"
-    :class="[$style.select, isSelectInvalid && $style.selectInvalid, ]"
-    :style="styleList"
-    @change="selectPassenger($event)"
-  />
-  <PassengerCard
-    v-for="passenger in selectedPassengers"
-    :key="passenger.id"
-    :passenger="passenger"
-    @delete="deletePassenger($event)"
-  />
+  <div :class="$style.root" :style="{ '--count-column': gridCountColumn }">
+    <AppSelect
+      :passengers="passengers"
+      :class="[$style.select, isSelectInvalid && $style.selectInvalid, ]"
+      @change="selectPassenger($event)"
+    />
+    <PassengerCard
+      v-for="passenger in selectedPassengers"
+      :key="passenger.id"
+      :passenger="passenger"
+      @delete="deletePassenger($event)"
+    />
+  </div>
 </template>
 <script setup lang="ts">
 import AppSelect from '@/components/ui/AppSelect.vue';
@@ -21,7 +22,7 @@ import { usersApi } from '@/api/users';
 
 interface Props {
   isSelectInvalid?: boolean;
-  maxWidth?: number,
+  gridCountColumn?: number,
 }
 interface Emits {
   (event: 'updatePassengerList', selectedPassengers: User[]): void;
@@ -29,7 +30,7 @@ interface Emits {
 const emits = defineEmits<Emits>();
 const props = withDefaults(defineProps<Props>(), {
   isSelectInvalid: false,
-  maxWidth: 0,
+  gridCountColumn: 1,
 });
 
 const passengers = ref<User[]>([]);
@@ -50,11 +51,7 @@ const passengerListCache = computed(() => {
     return acc;
   }, initialValue);
 });
-const styleList = computed(() => {
-  return {
-    '--max-width': props.maxWidth > 0 ? `${props.maxWidth}px` : '100%',
-  };
-});
+
 const selectPassenger = (id: string) => {
   selectedPassengers.value.push(passengerListCache.value[id]);
   updateSelectedPassengers();
@@ -67,9 +64,14 @@ fetchUser();
 </script>
 
 <style module>
+.root {
+  --count-column: 3;
+  display: grid;
+  grid-template-columns: repeat(var(--count-column), 1fr);
+  gap: 20px;
+}
 .select {
   border: 1px solid transparent;
-  max-width: var(--max-width, 100%);
 }
 .selectInvalid {
   border-color: var(--color-red);

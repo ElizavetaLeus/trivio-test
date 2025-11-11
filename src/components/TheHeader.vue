@@ -35,7 +35,7 @@
           size="small"
           :class="$style.button"
           :max-width="189"
-          @click="tripStore.completeTrip"
+          @click="tripStore.completeTrip()"
         />
       </div>
 

@@ -39,7 +39,6 @@ const deletePassenger = () => {
 
 <style module>
 .passengerCard {
-  padding-top: 8px;
   position: relative;
 }
 .passengerCardContent {
@@ -59,7 +58,7 @@ const deletePassenger = () => {
   background-color: var(--color-gray);
   color: var(--color-white);
   position: absolute;
-  top: 0;
+  top: -8px;
   right: 5px;
   display: flex;
   justify-content: center;

@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <UserSelect :maxWidth="250"/>
+    <UserSelect :gridCountColumn="3"/>
   </div>
 </template>
 
@@ -11,8 +11,5 @@ import UserSelect from '@/components/elements/UserSelect.vue';
 <style module>
 .root {
   margin-top: 50px;
-  display: flex;
-  gap: 21px;
-  align-items: center;
 }
 </style>

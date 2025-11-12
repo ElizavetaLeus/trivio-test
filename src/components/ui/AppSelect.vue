@@ -42,13 +42,13 @@ const handleOptionChange = (event: Event) => {
 
 <style module>
 .selectContainer {
-  padding: 10px 15px;
   background-color: var(--color-white);
-  border: none;
-  border-radius: 5px;
-  width: 100%;
   color: var(--color-gray);
+  border: none;
   outline: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  width: 100%;
   max-height: 40px;
 }
 .selectContainer:focus {

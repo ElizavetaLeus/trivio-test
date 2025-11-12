@@ -28,7 +28,7 @@ interface Emits {
   (event: 'updatePassengerList', selectedPassengers: User[]): void;
 }
 const emits = defineEmits<Emits>();
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   isSelectInvalid: false,
   gridCountColumn: 1,
 });

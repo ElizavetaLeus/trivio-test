@@ -10,6 +10,12 @@
         :cities="cities"
         :text="'Город прилета'"
       />
+      <input
+        type="date"
+        id="calendar-input"
+        value="Туда"
+        :class="$style.calendar"
+      />
     </div>
   </div>
 </template>
@@ -39,5 +45,15 @@ fetchCity();
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+}
+.calendar {
+  height: 40px;
+  background-color: var(--color-gray-light);
+  color: var(--color-gray);
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
 }
 </style>

@@ -5,16 +5,28 @@
       <CitiesSelect
         :cities="cities"
         :text="'Город вылета'"
+        :class="$style.citySelect"
       />
       <CitiesSelect
         :cities="cities"
         :text="'Город прилета'"
+        :class="$style.citySelect"
       />
       <input
         type="date"
         id="calendar-input"
         value="Туда"
         :class="$style.calendar"
+      />
+      <input
+        type="date"
+        id="calendar-input"
+        value="Туда"
+        :class="$style.calendar"
+      />
+      <AppButton
+        text="Найти"
+        :class="$style.buttonSearch"
       />
     </div>
   </div>
@@ -25,6 +37,7 @@ import UserSelect from '@/components/elements/UserSelect.vue';
 import CitiesSelect from '@/components/elements/CitiesSelect.vue';
 import { ref } from 'vue';
 import { cityApi } from '@/api/cities';
+import AppButton from '@/components/ui/AppButton.vue';
 
 const cities = ref<string[]>([]);
 const fetchCity = async () => {
@@ -43,8 +56,12 @@ fetchCity();
   padding: 20px;
   border-radius: 10px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 10px;
+  align-items: end;
+}
+.citySelect {
+  grid-column: span 1;
 }
 .calendar {
   height: 40px;
@@ -55,5 +72,9 @@ fetchCity();
   border: none;
   padding: 10px;
   cursor: pointer;
+}
+.buttonSearch {
+  grid-column: 4;
+  margin-top: 10px;
 }
 </style>

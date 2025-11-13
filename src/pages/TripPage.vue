@@ -17,7 +17,7 @@
       </div>
 
       <div v-else>
-        <TicketCard
+        <UserTicketCard
           v-for="service in trip.services"
           :service="service"
           :key="service.ticket.id"
@@ -34,7 +34,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { tripsApi } from '@/api/trips';
 import { onUnmounted, ref } from 'vue';
 import { type Trip } from '@/types/Trip';
-import TicketCard from '@/components/elements/TicketCard.vue';
+import UserTicketCard from '@/components/elements/UserTicketCard.vue';
 import { EnumRouteName } from '@/router/types';
 import { useTripStore } from '@/stores/tripStore';
 import AppButton from '@/components/ui/AppButton.vue';

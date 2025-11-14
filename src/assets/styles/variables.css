@@ -11,14 +11,16 @@ body {
   --color-red-base: 255, 0, 0, 1;
   /* Colors */
   --color-white: rgb(var(--color-white-base));
-  --color-gray: rgb(var(--color-gray-base));
   --color-gray-light: rgb(var(--color-gray-light-base));
   --color-primary: rgb(var(--color-primary-base));
   --color-green: rgb(var(--color-green-base));
   --color-red: rgb(var(--color-red-base));
 
+  --color-gray: rgb(var(--color-gray-base));
+  --color-gray-50: rgb(var(--color-gray-base), 50%);
+
   --color-black: rgb(var(--color-black-base));
   --color-black-40: rgb(var(--color-black-base), 40%);
-  --color-black-10: rgb(var(--color-black-base), 10%);
   --color-black-20: rgb(var(--color-black-base), 20%);
+  --color-black-10: rgb(var(--color-black-base), 10%);
 }

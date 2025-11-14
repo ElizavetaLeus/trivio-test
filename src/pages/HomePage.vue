@@ -21,7 +21,6 @@
       <TripCard
         v-for="trip in tripList"
         :key="trip.id"
-        :class="$style.trip"
         :trip="trip"
       />
     </div>

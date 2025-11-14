@@ -41,7 +41,7 @@ import AppButton from '@/components/ui/AppButton.vue';
 
 const cities = ref<string[]>([]);
 const fetchCity = async () => {
-  cities.value = await cityApi.getUsers();
+  cities.value = await cityApi.getCities();
 };
 fetchCity();
 </script>

@@ -1,5 +1,5 @@
 export interface Ticket {
-  id: number,
+  id: string,
   provider: string,
   placeFrom: string,
   placeTo: string,

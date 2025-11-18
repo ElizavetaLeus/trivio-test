@@ -8,11 +8,11 @@
       Выберите сотрудников
     </option>
     <option
-      v-for="passenger in passengers"
-      :key="passenger.id"
-      :value="passenger.id"
+      v-for="option in options"
+      :key="option.id"
+      :value="option.id"
     >
-      {{ UtilUser.getShortName(passenger) }}
+      {{ UtilUser.getShortName(option) }}
     </option>
   </select>
 </template>
@@ -22,7 +22,7 @@ import UtilUser from '@/utils/UtilUser';
 import { type User } from '@/types/User';
 
 interface Props {
-  passengers: User[];
+  options: User[];
 }
 
 interface Emits {

@@ -38,24 +38,36 @@
 <script setup lang="ts">
 import UserSelect from '@/components/elements/UserSelect.vue';
 import CitiesSelect from '@/components/elements/CitiesSelect.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { cityApi } from '@/api/cities';
 import AppButton from '@/components/ui/AppButton.vue';
-import type { User } from '@/types/User';
-import { usersApi } from '@/api/users';
+import { type Trip } from '@/types/Trip';
+import { tripsApi } from '@/api/trips';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const cities = ref<string[]>([]);
-const passengers = ref <User[]>([]);
+const trip = ref<Trip | null>(null);
+
+const passengers = computed(() => {
+  if (trip.value) {
+    return trip.value.passengers;
+  }
+  return [];
+});
+
+const getTripById = async () => {
+  const orderId = String(route.query.orderId);
+  trip.value = await tripsApi.getTripById(orderId);
+};
 
 const fetchCity = async () => {
   cities.value = await cityApi.getCities();
 };
-const fetchUser = async () => {
-  passengers.value = await usersApi.getUsers();
-};
 
+getTripById();
 fetchCity();
-fetchUser();
 </script>
 
 <style module>

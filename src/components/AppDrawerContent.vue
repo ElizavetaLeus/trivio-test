@@ -8,6 +8,7 @@
     />
     <div :class="$style.selectContent">
       <UserSelect
+        :options="passengers"
         :isSelectInvalid="isSelectInvalid"
         @updatePassengerList="updateSelectedPassengers($event)"
       />
@@ -20,6 +21,7 @@ import { ref } from 'vue';
 import InputTransparent from '@/components/elements/InputTransparent.vue';
 import UserSelect from '@/components/elements/UserSelect.vue';
 import type { User } from '@/types/User';
+import { usersApi } from '@/api/users';
 
 interface Props {
   isTripNameInvalid: boolean;
@@ -35,7 +37,11 @@ const emits = defineEmits<Emits>();
 
 const inputValue = ref('');
 const selectedPassengers = ref <User[]>([]);
+const passengers = ref <User[]>([]);
 
+const fetchUser = async () => {
+  passengers.value = await usersApi.getUsers();
+};
 const setInputValue = (tripName: string) => {
   inputValue.value = tripName;
   emits('updateTripName', inputValue.value);
@@ -44,6 +50,8 @@ const updateSelectedPassengers = (passengers: User[]) => {
   selectedPassengers.value = passengers;
   emits('updatePassengerList', selectedPassengers.value);
 };
+
+fetchUser();
 </script>
 
 <style module>

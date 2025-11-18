@@ -1,6 +1,9 @@
 <template>
   <div :class="$style.root">
-    <UserSelect :gridCountColumn="3"/>
+    <UserSelect
+      :options="passengers"
+      :gridCountColumn="3"
+    />
     <div :class="$style.filters">
       <CitiesSelect
         :cities="cities"
@@ -38,12 +41,21 @@ import CitiesSelect from '@/components/elements/CitiesSelect.vue';
 import { ref } from 'vue';
 import { cityApi } from '@/api/cities';
 import AppButton from '@/components/ui/AppButton.vue';
+import type { User } from '@/types/User';
+import { usersApi } from '@/api/users';
 
 const cities = ref<string[]>([]);
+const passengers = ref <User[]>([]);
+
 const fetchCity = async () => {
   cities.value = await cityApi.getCities();
 };
+const fetchUser = async () => {
+  passengers.value = await usersApi.getUsers();
+};
+
 fetchCity();
+fetchUser();
 </script>
 
 <style module>

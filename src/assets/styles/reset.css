@@ -16,11 +16,5 @@ button {
   font: inherit;
 }
  input[type="date"]::-webkit-calendar-picker-indicator {
-   opacity: 0;
-   display: none;
- }
- input[type="date"] {
-   appearance: none;
-   -webkit-appearance: none;
-   -moz-appearance: textfield;
+   filter: invert(27%) sepia(88%) saturate(2583%) hue-rotate(225deg) brightness(95%) contrast(93%);
  }

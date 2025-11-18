@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.root" :style="{ '--count-column': gridCountColumn }">
     <AppSelect
-      :passengers="passengers"
+      :options="options"
       :class="[$style.select, isSelectInvalid && $style.selectInvalid, ]"
       @change="selectPassenger($event)"
     />
@@ -18,27 +18,23 @@ import AppSelect from '@/components/ui/AppSelect.vue';
 import PassengerCard from '@/components/elements/PassengerCard.vue';
 import { computed, ref } from 'vue';
 import type { User } from '@/types/User';
-import { usersApi } from '@/api/users';
 
 interface Props {
   isSelectInvalid?: boolean;
   gridCountColumn?: number,
+  options: User[],
 }
 interface Emits {
   (event: 'updatePassengerList', selectedPassengers: User[]): void;
 }
-const emits = defineEmits<Emits>();
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   isSelectInvalid: false,
   gridCountColumn: 1,
 });
+const emits = defineEmits<Emits>();
 
-const passengers = ref<User[]>([]);
 const selectedPassengers = ref <User[]>([]);
 
-const fetchUser = async () => {
-  passengers.value = await usersApi.getUsers();
-};
 const deletePassenger = (id: string) => {
   selectedPassengers.value = selectedPassengers.value.filter((passenger) => passenger.id !== id);
   updateSelectedPassengers();
@@ -46,7 +42,7 @@ const deletePassenger = (id: string) => {
 const passengerListCache = computed(() => {
   const initialValue: Record<string, User> = {};
 
-  return passengers.value.reduce((acc, item) => {
+  return props.options.reduce((acc, item) => {
     acc[item.id] = item;
     return acc;
   }, initialValue);
@@ -59,8 +55,6 @@ const selectPassenger = (id: string) => {
 const updateSelectedPassengers = () => {
   emits('updatePassengerList', selectedPassengers.value);
 };
-
-fetchUser();
 </script>
 
 <style module>

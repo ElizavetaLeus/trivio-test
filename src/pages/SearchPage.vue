@@ -33,8 +33,10 @@
       />
     </div>
     <AviaVariants
-      :isChecked="isChecked"
-      @change="toggleCheckbox()"
+      :isCheckedExpensive="isCheckedExpensive"
+      :isCheckedCheap="isCheckedCheap"
+      @update:CheckedExpensive="toggleRadioButtonExpensive()"
+      @update:CheckedCheap="toggleRadioButtonCheap()"
     />
   </div>
 </template>
@@ -54,7 +56,8 @@ const route = useRoute();
 
 const cities = ref<string[]>([]);
 const trip = ref<Trip | null>(null);
-const isChecked = ref(false);
+const isCheckedExpensive = ref(false);
+const isCheckedCheap = ref(false);
 
 const passengers = computed(() => {
   if (trip.value) {
@@ -67,8 +70,11 @@ const getTripById = async () => {
   const orderId = String(route.query.orderId);
   trip.value = await tripsApi.getTripById(orderId);
 };
-const toggleCheckbox = () => {
-  isChecked.value = !isChecked.value;
+const toggleRadioButtonExpensive = () => {
+  isCheckedExpensive.value = !isCheckedExpensive.value;
+};
+const toggleRadioButtonCheap = () => {
+  isCheckedCheap.value = !isCheckedCheap.value;
 };
 
 const fetchCity = async () => {

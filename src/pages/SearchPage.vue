@@ -32,6 +32,10 @@
         :class="$style.buttonSearch"
       />
     </div>
+    <AviaVariants
+      :isChecked="isChecked"
+      @change="toggleCheckbox()"
+    />
   </div>
 </template>
 
@@ -44,11 +48,13 @@ import AppButton from '@/components/ui/AppButton.vue';
 import { type Trip } from '@/types/Trip';
 import { tripsApi } from '@/api/trips';
 import { useRoute } from 'vue-router';
+import AviaVariants from '@/components/AviaVariants.vue';
 
 const route = useRoute();
 
 const cities = ref<string[]>([]);
 const trip = ref<Trip | null>(null);
+const isChecked = ref(false);
 
 const passengers = computed(() => {
   if (trip.value) {
@@ -60,6 +66,9 @@ const passengers = computed(() => {
 const getTripById = async () => {
   const orderId = String(route.query.orderId);
   trip.value = await tripsApi.getTripById(orderId);
+};
+const toggleCheckbox = () => {
+  isChecked.value = !isChecked.value;
 };
 
 const fetchCity = async () => {

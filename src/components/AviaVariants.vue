@@ -3,59 +3,75 @@
     <h1 :class="$style.title">
       Найдено
       <span :class="$style.sumVariants">349</span>
-      Вариантов
+      вариантов
     </h1>
-    <div :class="$style.filterVariant">
-      <CustomCheckBox
-        :isChecked="isChecked"
-        @update:isChecked="handleUpdate()"
+    <div :class="$style.filterVariants">
+      <CustomRadioButton
+        :isChecked="isCheckedCheap"
+        @update:isChecked="handleUpdateCheap()"
+        label="Сначала дешёвые"
       />
+      <CustomRadioButton
+        :isChecked="isCheckedExpensive"
+        @update:isChecked="handleUpdateExpensive()"
+        label="Сначала дорогие"
+      />
+    </div>
+    <div :class="$style.aviaVariantWrapper">
+      <AviaVariantCard />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import CustomCheckBox from '@/components/ui/CustomCheckBox.vue';
+import CustomRadioButton from '@/components/ui/CustomRadioButton.vue';
+import AviaVariantCard from '@/components/elements/AviaVariantCard.vue';
 
 interface Props {
-  isChecked: boolean;
+  isCheckedExpensive: boolean;
+  isCheckedCheap: boolean;
 }
 interface Emits {
-  (event: 'update:Checked'): void;
+  (event: 'update:CheckedExpensive'): void;
+  (event: 'update:CheckedCheap'): void;
 }
 defineProps<Props>();
 const emits = defineEmits<Emits>();
-const handleUpdate = (): void => {
-  emits('update:Checked');
+const handleUpdateExpensive = (): void => {
+  emits('update:CheckedExpensive');
+};
+const handleUpdateCheap = (): void => {
+  emits('update:CheckedCheap');
 };
 </script>
 
 <style module>
-.originCheckbox {
-  display: none;
+.root {
+  margin-top: 50px;
 }
-.originCheckbox:checked + .fakeCheckbox::before {
-  background-color: var(--color-primary);
+.title {
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--color-black);
 }
-.fakeCheckbox {
-  --size: 10px;
-  width: var(--size);
-  height: var(--size);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+.sumVariants {
+  color: var(--color-primary);
+}
+.filterVariants {
+  margin-top: 20px;
   background-color: var(--color-white);
-  border: 1px solid var(--color-primary);
-  transition: all 0.3s ease;
-}
-.fakeCheckbox::before {
-  content: '';
-  --size: 6px;
-  width: var(--size);
-  height: var(--size);
+  border-radius: 10px;
+  padding: 20px 10px;
   display: flex;
-  background-color: transparent;
-  border-radius: 50%;
+  gap: 20px;
+  max-width: 420px;
+  width: 100%;
+}
+.aviaVariantWrapper {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 </style>

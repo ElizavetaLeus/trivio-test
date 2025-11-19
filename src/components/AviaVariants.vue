@@ -6,30 +6,27 @@
       Вариантов
     </h1>
     <div :class="$style.filterVariant">
-      <label>
-        <input
-          type="checkbox"
-          :class="$style.originCheckbox"
-          :checked="isChecked"
-          @change="handleChange()"
-        />
-        <span :class="$style.fakeCheckbox"></span>
-      </label>
+      <CustomCheckBox
+        :isChecked="isChecked"
+        @update:isChecked="handleUpdate()"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import CustomCheckBox from '@/components/ui/CustomCheckBox.vue';
+
 interface Props {
   isChecked: boolean;
 }
 interface Emits {
-  (event: 'change'): void;
+  (event: 'update:Checked'): void;
 }
 defineProps<Props>();
 const emits = defineEmits<Emits>();
-const handleChange = (): void => {
-  emits('change');
+const handleUpdate = (): void => {
+  emits('update:Checked');
 };
 </script>
 

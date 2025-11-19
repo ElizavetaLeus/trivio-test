@@ -1,17 +1,19 @@
 <template>
-  <label>
+  <label :class="$style.root">
     <input
-      type="checkbox"
-      :class="$style.originCheckbox"
+      type="radio"
+      :class="$style.originRadioButton"
       :checked="isChecked"
       @change="handleChange()"
     />
-    <span :class="$style.fakeCheckbox"></span>
+    <span :class="$style.fakeRadioButton"></span>
+    <span :class="$style.labelText">{{ label }}</span>
   </label>
 </template>
 <script setup lang="ts">
 interface Props {
   isChecked: boolean;
+  label: string;
 }
 interface Emits {
   (event: 'update:isChecked'): void;
@@ -23,13 +25,18 @@ const handleChange = (): void => {
 };
 </script>
 <style module>
-.originCheckbox {
+.root {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.originRadioButton {
   display: none;
 }
-.originCheckbox:checked + .fakeCheckbox::before {
+.originRadioButton:checked + .fakeRadioButton::before {
   background-color: var(--color-primary);
 }
-.fakeCheckbox {
+.fakeRadioButton {
   --size: 10px;
   width: var(--size);
   height: var(--size);
@@ -41,7 +48,7 @@ const handleChange = (): void => {
   border: 1px solid var(--color-primary);
   transition: all 0.3s ease;
 }
-.fakeCheckbox::before {
+.fakeRadioButton::before {
   content: '';
   --size: 6px;
   width: var(--size);
@@ -49,5 +56,11 @@ const handleChange = (): void => {
   display: flex;
   background-color: transparent;
   border-radius: 50%;
+}
+.labelText {
+  color: var(--color-black);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
 }
 </style>

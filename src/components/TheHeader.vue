@@ -71,6 +71,16 @@ const route = useRoute();
 const tripStore = useTripStore();
 const router = useRouter();
 
+const isShownOnTripPage = computed(() => {
+  return route.name === EnumRouteName.TRIP;
+});
+const isShownOnTripListPage = computed(() => {
+  return route.name === EnumRouteName.HOME;
+});
+const isShownOnSearchPagePage = computed(() => {
+  return route.name === EnumRouteName.SEARCH;
+});
+
 const openDrawer = () => {
   drawer.openDrawer();
 };
@@ -81,17 +91,9 @@ const goToTripPage = () => {
   const orderId = String(route.query.orderId);
   router.push({
     name: EnumRouteName.TRIP,
-    params: { id: orderId } });
+    params: { id: orderId },
+  });
 };
-const isShownOnTripPage = computed(() => {
-  return route.name === EnumRouteName.TRIP;
-});
-const isShownOnTripListPage = computed(() => {
-  return route.name === EnumRouteName.HOME;
-});
-const isShownOnSearchPagePage = computed(() => {
-  return route.name === EnumRouteName.SEARCH;
-});
 </script>
 
 <style module>

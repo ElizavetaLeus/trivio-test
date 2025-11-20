@@ -17,16 +17,8 @@
             :text="'Город прилета'"
             :class="$style.citySelect"
           />
-          <input
-            type="date"
-            id="calendar-input"
-            :class="$style.calendar"
-          />
-          <input
-            type="date"
-            id="calendar-input"
-            :class="$style.calendar"
-          />
+          <AppDatePicker id="calendar-input"/>
+          <AppDatePicker id="calendar-input"/>
           <AppButton
             text="Найти"
             :class="$style.buttonSearch"
@@ -59,6 +51,7 @@ import { type Trip } from '@/types/Trip';
 import { tripsApi } from '@/api/trips';
 import { useRoute } from 'vue-router';
 import AviaVariants from '@/components/AviaVariants.vue';
+import AppDatePicker from '@/components/ui/AppDatePicker.vue';
 
 const route = useRoute();
 
@@ -129,23 +122,10 @@ fetchCity();
 .citySelect {
   grid-column: span 1;
 }
-
-.calendar {
-  height: 40px;
-  background-color: var(--color-gray-light);
-  color: var(--color-gray);
-  border-radius: 5px;
-  width: 100%;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-}
-
 .buttonSearch {
   grid-column: 4;
   margin-top: 10px;
 }
-
 .aviaVariants {
   position: absolute;
   top: 0;

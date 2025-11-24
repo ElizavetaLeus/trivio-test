@@ -43,7 +43,7 @@ defineProps<Props>();
   pointer-events: none;
 }
 .citiesSelect {
-  color: var(--color-gray);
+  color: var(--color-black);
   background-color: var(--color-gray-light);
   outline: none;
   border: none;

@@ -105,6 +105,8 @@ const goToTripPage = () => {
   justify-content: space-between;
   background: var(--color-white);
   height: 64px;
+  position: relative;
+  z-index: 20;
 }
 .navigation {
   display: flex;

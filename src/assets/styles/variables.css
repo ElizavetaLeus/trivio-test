@@ -3,15 +3,19 @@ body {
   --font-family-primary: 'Roboto', sans-serif;
   /* Colors base */
   --color-white-base: 255, 255, 255;
+  --color-white-smoke-base: 245, 245. 245;
   --color-gray-base: 179, 193, 209;
   --color-gray-light-base: 246, 248, 252;
+  --color-gray-bright-base: 233, 233, 233;
   --color-primary-base: 67, 97, 238;
   --color-black-base: 5, 5, 5;
   --color-green-base: 0, 179, 0;
   --color-red-base: 255, 0, 0, 1;
   /* Colors */
   --color-white: rgb(var(--color-white-base));
+  --color-white-smoke: rgb(var(--color-white-smoke-base));
   --color-gray-light: rgb(var(--color-gray-light-base));
+  --color-gray-bright: rgb(var(--color-gray-bright-base));
   --color-primary: rgb(var(--color-primary-base));
   --color-green: rgb(var(--color-green-base));
   --color-red: rgb(var(--color-red-base));

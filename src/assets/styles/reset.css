@@ -12,9 +12,6 @@ h1, h2, h3, h4, h6, p {
   margin: 0;
 }
 button {
-  cursor: pointer;
-  font: inherit;
+  position: relative;
+  padding-inline-start: 40px ;
 }
- input[type="date"]::-webkit-calendar-picker-indicator {
-   filter: invert(27%) sepia(88%) saturate(2583%) hue-rotate(225deg) brightness(95%) contrast(93%);
- }

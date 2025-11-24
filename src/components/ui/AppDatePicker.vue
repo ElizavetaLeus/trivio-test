@@ -36,7 +36,7 @@ import AppIcon from '@/components/ui/AppIcon.vue';
 .calendar {
   height: 40px;
   background-color: var(--color-gray-light);
-  color: var(--color-gray);
+  color: var(--color-black);
   border-radius: 5px;
   width: 100%;
   border: none;

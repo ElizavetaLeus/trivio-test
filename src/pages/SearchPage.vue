@@ -17,8 +17,8 @@
             :text="'Город прилета'"
             :class="$style.citySelect"
           />
-          <AppDatePicker id="calendar-input"/>
-          <AppDatePicker id="calendar-input"/>
+          <AppDatePicker />
+          <AppDatePicker />
           <AppButton
             text="Найти"
             :class="$style.buttonSearch"

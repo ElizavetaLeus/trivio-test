@@ -2,29 +2,11 @@
   <div :class="$style.root">
     <Transition name="slide-up-out">
       <div v-if="!isShownAviaVariants" :class="$style.formContainer">
-        <UserSelect
+        <SearchForm
+          :cities="cities"
           :options="passengers"
-          :grid-count-column="3"
+          @open="showAviaVariants()"
         />
-        <div :class="$style.filters">
-          <CitiesSelect
-            :cities="cities"
-            :text="'Город вылета'"
-            :class="$style.citySelect"
-          />
-          <CitiesSelect
-            :cities="cities"
-            :text="'Город прилета'"
-            :class="$style.citySelect"
-          />
-          <AppDatePicker />
-          <AppDatePicker />
-          <AppButton
-            text="Найти"
-            :class="$style.buttonSearch"
-            @click="showAviaVariants()"
-          />
-        </div>
       </div>
     </Transition>
 
@@ -49,17 +31,14 @@
 </template>
 
 <script setup lang="ts">
-import UserSelect from '@/components/elements/UserSelect.vue';
-import CitiesSelect from '@/components/elements/CitiesSelect.vue';
 import { computed, ref } from 'vue';
 import { cityApi } from '@/api/cities';
-import AppButton from '@/components/ui/AppButton.vue';
 import { type Trip } from '@/types/Trip';
 import { tripsApi } from '@/api/trips';
 import { useRoute } from 'vue-router';
 import AviaVariants from '@/components/AviaVariants.vue';
-import AppDatePicker from '@/components/ui/AppDatePicker.vue';
 import ModalWindow from '@/components/elements/ModalWindow.vue';
+import SearchForm from '@/components/SearchForm.vue';
 
 const route = useRoute();
 
@@ -94,7 +73,6 @@ const toggleRadioButtonCheap = () => {
   isCheckedCheap.value = !isCheckedCheap.value;
 };
 const openModal = () => {
-  console.log('работает', isOpen.value);
   isOpen.value = true;
 };
 const closeModal = () => {
@@ -115,32 +93,12 @@ fetchCity();
   position: relative;
   min-height: 500px;
 }
-
 .formContainer {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 10;
-}
-
-.filters {
-  background-color: var(--color-white);
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 10px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 10px;
-  align-items: end;
-}
-
-.citySelect {
-  grid-column: span 1;
-}
-.buttonSearch {
-  grid-column: 4;
-  margin-top: 10px;
 }
 .aviaVariants {
   position: absolute;

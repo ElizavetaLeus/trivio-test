@@ -1,25 +1,25 @@
 <template>
   <div :class="$style.root">
-    <div :class="$style.carrier">Перевозчик: S7</div>
+    <div :class="$style.carrier">Перевозчик: {{ aviaVariant.provider }}</div>
     <div :class="$style.tripContent">
       <div :class="$style.dateTime">
-        <div :class="$style.time">06:35</div>
-        <div :class="$style.date">26.08</div>
+        <div :class="$style.time">{{ aviaVariant.timeFrom }}</div>
+        <div :class="$style.date">{{ DateFormatter(aviaVariant).dateFrom }}</div>
       </div>
       <div :class="$style.roadMap">
         <div :class="$style.cities">
-          <div>Сочи</div>
-          <div>Москва</div>
+          <div>{{ aviaVariant.placeFrom }}</div>
+          <div>{{ aviaVariant.placeTo }}</div>
         </div>
         <div :class="$style.border"></div>
         <div :class="$style.iata">
-          <div>AER</div>
-          <div>DME</div>
+          <div>{{ aviaVariant.iataFrom }}</div>
+          <div>{{ aviaVariant.iataTo }}</div>
         </div>
       </div>
       <div :class="$style.dateTime">
-        <div :class="$style.time">10:22</div>
-        <div :class="$style.date">27.08</div>
+        <div :class="$style.time">{{ aviaVariant.timerTo }}</div>
+        <div :class="$style.date">{{ DateFormatter(aviaVariant).dateTo }}</div>
       </div>
     </div>
     <footer :class="$style.footer">
@@ -34,13 +34,27 @@
 
 <script setup lang="ts">
 import AppButton from '@/components/ui/AppButton.vue';
+import { type Ticket } from '@/types/Ticket';
+import { dateReverse, dateToFormat } from '@/helper/date-helper';
+interface Props {
+  aviaVariant: Ticket;
+}
 interface Emits {
   (event: 'open'): void;
 }
+defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const openModal = () => {
   emits('open');
+};
+const DateFormatter = (ticket: Ticket) => {
+  const dateFrom = `${dateToFormat(dateReverse(ticket.dateFrom), 'DD.MM')}`;
+  const dateTo = `${dateToFormat(dateReverse(ticket.dateTo), 'DD.MM')}`;
+  return {
+    dateFrom,
+    dateTo,
+  };
 };
 </script>
 

@@ -140,6 +140,7 @@ const goToTripPage = () => {
   height: 30px;
   background-color: var(--color-gray-light);
   color: var(--color-primary);
+  cursor: pointer;
 }
 .button {
   font-size: 14px;

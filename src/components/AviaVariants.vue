@@ -18,7 +18,8 @@
       />
     </div>
     <div :class="$style.aviaVariantWrapper">
-      <AviaVariantCard />
+      <AviaVariantCard @open="openModal()"/>
+      <SkeletonAviaVariantCard />
     </div>
   </div>
 </template>
@@ -26,6 +27,7 @@
 <script setup lang="ts">
 import CustomRadioButton from '@/components/ui/CustomRadioButton.vue';
 import AviaVariantCard from '@/components/elements/AviaVariantCard.vue';
+import SkeletonAviaVariantCard from '@/components/elements/SkeletonAviaVariantCard.vue';
 
 interface Props {
   isCheckedExpensive: boolean;
@@ -34,6 +36,7 @@ interface Props {
 interface Emits {
   (event: 'update:CheckedExpensive'): void;
   (event: 'update:CheckedCheap'): void;
+  (event: 'update:Open'): void;
 }
 defineProps<Props>();
 const emits = defineEmits<Emits>();
@@ -42,6 +45,9 @@ const handleUpdateExpensive = (): void => {
 };
 const handleUpdateCheap = (): void => {
   emits('update:CheckedCheap');
+};
+const openModal = () => {
+  emits('update:Open');
 };
 </script>
 

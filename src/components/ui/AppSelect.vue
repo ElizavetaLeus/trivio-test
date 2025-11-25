@@ -49,7 +49,7 @@ const handleOptionChange = (event: Event) => {
   border-radius: 5px;
   padding: 10px 15px;
   width: 100%;
-  max-height: 40px;
+  height: 40px;
 }
 .selectContainer:focus {
   border-color: transparent;

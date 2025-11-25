@@ -29,14 +29,21 @@
     </Transition>
 
     <Transition name="slide-up-in">
-      <AviaVariants
-        v-if="isShownAviaVariants"
-        :is-checked-expensive="isCheckedExpensive"
-        :is-checked-cheap="isCheckedCheap"
-        @update:checked-expensive="toggleRadioButtonExpensive"
-        @update:checked-cheap="toggleRadioButtonCheap"
-        :class="$style.aviaVariants"
-      />
+      <div>
+        <AviaVariants
+          v-if="isShownAviaVariants"
+          :is-checked-expensive="isCheckedExpensive"
+          :is-checked-cheap="isCheckedCheap"
+          :class="$style.aviaVariants"
+          @update:checked-expensive="toggleRadioButtonExpensive"
+          @update:checked-cheap="toggleRadioButtonCheap"
+          @update:Open="openModal()"
+        />
+        <ModalWindow
+          :isOpen="isOpen"
+          @close="closeModal()"
+        />
+      </div>
     </Transition>
   </div>
 </template>
@@ -52,6 +59,7 @@ import { tripsApi } from '@/api/trips';
 import { useRoute } from 'vue-router';
 import AviaVariants from '@/components/AviaVariants.vue';
 import AppDatePicker from '@/components/ui/AppDatePicker.vue';
+import ModalWindow from '@/components/elements/ModalWindow.vue';
 
 const route = useRoute();
 
@@ -60,6 +68,7 @@ const trip = ref<Trip | null>(null);
 const isCheckedExpensive = ref(false);
 const isCheckedCheap = ref(false);
 const isShownAviaVariants = ref(false);
+const isOpen = ref(false);
 
 const passengers = computed(() => {
   if (trip.value) {
@@ -83,6 +92,13 @@ const toggleRadioButtonExpensive = () => {
 
 const toggleRadioButtonCheap = () => {
   isCheckedCheap.value = !isCheckedCheap.value;
+};
+const openModal = () => {
+  console.log('работает', isOpen.value);
+  isOpen.value = true;
+};
+const closeModal = () => {
+  isOpen.value = false;
 };
 
 const fetchCity = async () => {

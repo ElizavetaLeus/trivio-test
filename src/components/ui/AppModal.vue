@@ -4,34 +4,26 @@
     @click="closeModal()"
   >
     <div :class="$style.modalWrapper" @click.stop>
-      <div :class="$style.modalContent">
-        <div :class="$style.text"> Вы точно хотите забронировать? </div>
+      <div :class="$style.modalHeader">
+        <div :class="$style.text"> {{ text }} </div>
         <button
           :class="$style.crossButton"
           @click="closeModal()">
           <AppIcon name="cross"/>
         </button>
       </div>
-      <div :class="$style.selectionPart">
-        <AppButton
-          text="Нет"
-          :maxWidth="85"
-          @click="closeModal()"
-        />
-        <AppButton
-          text="Да"
-          :maxWidth="79"
-        />
+      <div>
+        <slot name="content">content</slot>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import AppButton from '@/components/ui/AppButton.vue';
 import AppIcon from '@/components/ui/AppIcon.vue';
 interface Props {
   isOpen: boolean;
+  text: string;
 }
 interface Emits {
   (event: 'close'): void;
@@ -80,7 +72,7 @@ const closeModal = () => {
   transform: translateY(0);
   opacity: 1;
 }
-.modalContent {
+.modalHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -96,10 +88,5 @@ const closeModal = () => {
   border: none;
   padding: 0;
   color: var(--color-gray);
-}
-.selectionPart {
-  display: flex;
-  justify-content: flex-start;
-  gap: 15px;
 }
 </style>

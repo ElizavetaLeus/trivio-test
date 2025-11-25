@@ -21,8 +21,9 @@
           @update:checked-cheap="toggleRadioButtonCheap"
           @update:Open="openModal()"
         />
-        <AppModal
+        <BuyTicketModal
           :isOpen="isOpen"
+          text="Вы точно хотите забронировать?"
           @close="closeModal()"
         />
       </div>
@@ -37,8 +38,8 @@ import { type Trip } from '@/types/Trip';
 import { tripsApi } from '@/api/trips';
 import { useRoute } from 'vue-router';
 import AviaVariants from '@/components/AviaVariants.vue';
-import AppModal from '@/components/ui/AppModal.vue';
 import SearchForm from '@/components/SearchForm.vue';
+import BuyTicketModal from '@/components/elements/BuyTicketModal.vue';
 
 const route = useRoute();
 

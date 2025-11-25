@@ -6,12 +6,12 @@
       вариантов
     </h1>
     <div :class="$style.filterVariants">
-      <CustomRadioButton
+      <AppRadioButton
         :isChecked="isCheckedCheap"
         @update:isChecked="handleUpdateCheap()"
         label="Сначала дешёвые"
       />
-      <CustomRadioButton
+      <AppRadioButton
         :isChecked="isCheckedExpensive"
         @update:isChecked="handleUpdateExpensive()"
         label="Сначала дорогие"
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import CustomRadioButton from '@/components/ui/CustomRadioButton.vue';
+import AppRadioButton from '@/components/ui/AppRadioButton.vue';
 import AviaVariantCard from '@/components/elements/AviaVariantCard.vue';
 import SkeletonAviaVariantCard from '@/components/elements/SkeletonAviaVariantCard.vue';
 

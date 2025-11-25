@@ -21,7 +21,7 @@
           @update:checked-cheap="toggleRadioButtonCheap"
           @update:Open="openModal()"
         />
-        <ModalWindow
+        <AppModal
           :isOpen="isOpen"
           @close="closeModal()"
         />
@@ -37,7 +37,7 @@ import { type Trip } from '@/types/Trip';
 import { tripsApi } from '@/api/trips';
 import { useRoute } from 'vue-router';
 import AviaVariants from '@/components/AviaVariants.vue';
-import ModalWindow from '@/components/elements/ModalWindow.vue';
+import AppModal from '@/components/ui/AppModal.vue';
 import SearchForm from '@/components/SearchForm.vue';
 
 const route = useRoute();

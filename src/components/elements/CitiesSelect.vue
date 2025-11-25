@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.selectWrapper">
     <div :class="$style.iconWrapper">
-      <AppIcon name="airplane" />
+      <AppIcon name="airplane"/>
     </div>
     <select :class="$style.citiesSelect">
       <option>{{ text }}</option>

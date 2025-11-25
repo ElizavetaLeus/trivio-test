@@ -26,6 +26,7 @@
       <AppButton
         text="Забронировать от 92 345 ₽"
         :max-width="239"
+        @click="openModal()"
       />
     </footer>
   </div>
@@ -33,6 +34,14 @@
 
 <script setup lang="ts">
 import AppButton from '@/components/ui/AppButton.vue';
+interface Emits {
+  (event: 'open'): void;
+}
+const emits = defineEmits<Emits>();
+
+const openModal = () => {
+  emits('open');
+};
 </script>
 
 <style module>

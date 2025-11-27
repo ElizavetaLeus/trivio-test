@@ -23,7 +23,7 @@
         v-for="aviaVariant in aviaVariants"
         :key="aviaVariant.id"
         :aviaVariant="aviaVariant"
-        @open="openModal()"/>
+        @open="openModal(aviaVariant)"/>
       <SkeletonAviaVariantCard />
     </div>
   </div>
@@ -41,7 +41,7 @@ interface Props {
 interface Emits {
   (event: 'update:CheckedExpensive'): void;
   (event: 'update:CheckedCheap'): void;
-  (event: 'update:Open'): void;
+  (event: 'update:Open', ticket: Ticket): void;
 }
 defineProps<Props>();
 const emits = defineEmits<Emits>();
@@ -51,8 +51,8 @@ const handleUpdateExpensive = (): void => {
 const handleUpdateCheap = (): void => {
   emits('update:CheckedCheap');
 };
-const openModal = () => {
-  emits('update:Open');
+const openModal = (ticket: Ticket): void => {
+  emits('update:Open', ticket);
 };
 </script>
 

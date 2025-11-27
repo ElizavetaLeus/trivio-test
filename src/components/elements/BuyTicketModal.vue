@@ -14,6 +14,7 @@
         <AppButton
           text="Да"
           :maxWidth="79"
+          @click="AddTrip()"
         />
       </div>
     </template>
@@ -30,11 +31,15 @@ interface Props {
 }
 interface Emits {
   (event: 'update:close'): void;
+  (event: 'updateTrip'): void;
 }
 defineProps<Props>();
 const emits = defineEmits<Emits>();
 const closeModal = () => {
   emits('update:close');
+};
+const AddTrip = () => {
+  emits('updateTrip');
 };
 </script>
 

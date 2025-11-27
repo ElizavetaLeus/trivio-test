@@ -7,6 +7,7 @@
           :cities="cities"
           :options="passengers"
           @showTickets="showAviaVariants($event)"
+          @updatePassengerList="getSelectedPassengers($event)"
         />
       </div>
     </Transition>
@@ -19,12 +20,13 @@
           :class="$style.aviaVariants"
           @update:CheckedExpensive="showExpensiveAviaVariants()"
           @update:CheckedCheap="showCheapAviaVariants()"
-          @update:Open="openModal()"
+          @update:Open="openModal($event)"
         />
         <BuyTicketModal
           :isOpen="isOpen"
           text="Вы точно хотите забронировать?"
           @update:close="closeModal()"
+          @updateTrip="addServiceToTrip()"
         />
       </div>
     </Transition>
@@ -42,8 +44,11 @@ import SearchForm from '@/components/SearchForm.vue';
 import BuyTicketModal from '@/components/elements/BuyTicketModal.vue';
 import { type Ticket } from '@/types/Ticket';
 import { AviaVariantApi } from '@/api/avia-variants';
+import { type User } from '@/types/User';
+import { notification } from '@/libs/notification';
 
 const route = useRoute();
+const orderId = String(route.query.orderId);
 
 const cities = ref<string[]>([]);
 const trip = ref<Trip | null>(null);
@@ -51,6 +56,8 @@ const isShownAviaVariants = ref(false);
 const isOpen = ref(false);
 const aviaVariants = ref<Ticket[]>([]);
 const currentSort = ref<'cheap' | 'expensive'>('cheap');
+const selectedPassengers = ref<User[]>([]);
+const selectAviaVariant = ref<Ticket | null>(null);
 
 const passengers = computed(() => {
   if (trip.value) {
@@ -80,15 +87,28 @@ const showAviaVariants = (selectedTickets: Ticket[]) => {
   aviaVariants.value = selectedTickets;
 };
 
-const openModal = () => {
+const openModal = (ticket: Ticket): void => {
   isOpen.value = true;
+  selectAviaVariant.value = ticket;
 };
 const closeModal = () => {
   isOpen.value = false;
 };
+const getSelectedPassengers = (passengers: User[]) => {
+  selectedPassengers.value = passengers;
+};
 
+const addServiceToTrip = async () => {
+  if (selectedPassengers.value.length > 0 && selectAviaVariant.value) {
+    await tripsApi.addServiceToTrip(orderId, selectedPassengers.value, selectAviaVariant.value );
+    closeModal();
+  }
+  else {
+    notification.warning('Выберите хотя бы одного сотрудника');
+    closeModal();
+  }
+};
 const getTripById = async () => {
-  const orderId = String(route.query.orderId);
   trip.value = await tripsApi.getTripById(orderId);
 };
 const fetchAviaVariant = async () => {

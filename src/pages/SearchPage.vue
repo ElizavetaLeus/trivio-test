@@ -6,9 +6,7 @@
           :aviaVariants="aviaVariants"
           :cities="cities"
           :options="passengers"
-          @open="showAviaVariants()"
-          @updateSelectedCityFrom=""
-          @updateSelectedCityTo=""
+          @showTickets="showAviaVariants($event)"
         />
       </div>
     </Transition>
@@ -60,8 +58,9 @@ const passengers = computed(() => {
   return [];
 });
 
-const showAviaVariants = () => {
+const showAviaVariants = (selectedTickets: Ticket[]) => {
   isShownAviaVariants.value = !isShownAviaVariants.value;
+  aviaVariants.value = selectedTickets;
 };
 const showExpensiveAviaVariants = () => {
   console.log('я показываю дорогие варики для мажоров');

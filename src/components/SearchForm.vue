@@ -21,7 +21,7 @@
     <AppButton
       text="Найти"
       :class="$style.buttonSearch"
-      @click="openModal()"
+      @click="showAviaVariants()"
     />
   </div>
 </template>
@@ -33,6 +33,8 @@ import AppButton from '@/components/ui/AppButton.vue';
 import type { User } from '@/types/User';
 import { type Ticket } from '@/types/Ticket';
 import { ref } from 'vue';
+import DateReverse from '@/helper/date-helper/date-reverse';
+import { notification } from '@/libs/notification';
 
 interface Props {
   cities: string[];
@@ -40,18 +42,33 @@ interface Props {
   aviaVariants: Ticket[],
 }
 interface Emits {
-  (event: 'open'): void;
+  (event: 'showTickets', aviaVariants: Ticket[]): void;
 }
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const selectedCityFrom = ref<string>('');
 const selectedCityTo = ref<string>('');
-const selectedDateTo = ref<string>('');
+const selectedDateToReturn = ref<string>('');
 const selectedDateFrom = ref<string>('');
+const validAviaVariants = ref<Ticket[]>([]);
 
-const openModal = () => {
-  emits('open');
+const showAviaVariants = () => {
+  if (!selectedCityFrom.value || !selectedCityTo.value || !selectedDateFrom.value || !selectedDateToReturn.value) {
+    notification.warning('Заполните все поля');
+    return false;
+  }
+  else {
+    validAviaVariants.value = props.aviaVariants.filter((ticket) => {
+      return (ticket.placeFrom === selectedCityFrom.value &&
+      ticket.placeTo === selectedCityTo.value &&
+        ticket.dateFrom === selectedDateFrom.value) ||
+        (ticket.placeTo === selectedCityFrom.value &&
+          ticket.placeFrom === selectedCityTo.value &&
+          ticket.dateFrom === selectedDateToReturn.value);
+    });
+  }
+  emits('showTickets', validAviaVariants.value);
 };
 const updateSelectedCityFrom = (selectedCity: string) => {
   selectedCityFrom.value = props.cities.filter((city) => city === selectedCity)[0];
@@ -60,10 +77,10 @@ const updateSelectedCityTo = (selectedCity: string) => {
   selectedCityTo.value = props.cities.filter((city) => city === selectedCity)[0];
 };
 const updateSelectedDateTo = (selectedDate: string) => {
-  selectedDateTo.value = selectedDate;
+  selectedDateToReturn.value = DateReverse(selectedDate);
 };
 const updateSelectedDateFrom = (selectedDate: string) => {
-  selectedDateFrom.value = selectedDate;
+  selectedDateFrom.value = DateReverse(selectedDate);
 };
 </script>
 

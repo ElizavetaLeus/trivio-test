@@ -1,6 +1,9 @@
 import HTTP from '@/helper/http';
 import { type Trip } from '@/types/Trip';
 import { notification } from '@/libs/notification';
+import { type Service } from '@/types/Service';
+import { type User } from '@/types/User';
+import { type Ticket } from '@/types/Ticket';
 
 const http = new HTTP();
 
@@ -37,4 +40,20 @@ export const tripsApi = {
     }
     return null;
   },
+  async addServiceToTrip(tripId: string, users: User[], ticket: Ticket) {
+    const services: Service[] = users.map((user) =>
+      ({ user, ticket }));
+    for (const service of services) {
+      const response = await http.patch<Trip, { services: Service[] }>(
+        `/trips/${tripId}`,
+        { services: [service] },
+      );
+      if (response.error) {
+        notification.error('Ошибка добавления сервиса в поездку');
+      }
+      if (response.data) {
+        return response.data;
+      }
+      return null;
+    }},
 };

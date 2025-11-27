@@ -3,7 +3,10 @@
     <div :class="$style.iconWrapper">
       <AppIcon name="airplane"/>
     </div>
-    <select :class="$style.citiesSelect">
+    <select
+      :class="$style.citiesSelect"
+      @change="handleOptionChange($event)"
+    >
       <option>{{ text }}</option>
       <option
         v-for="city in cities"
@@ -22,7 +25,18 @@ interface Props {
   cities: string[];
   text: string;
 }
+interface Emits {
+  (event: 'change', city: string): void;
+}
+
 defineProps<Props>();
+const emits = defineEmits<Emits>();
+
+const handleOptionChange = (event: Event) => {
+  const selectElement = event.target as HTMLSelectElement;
+  const city = selectElement.value;
+  emits('change', city);
+};
 </script>
 
 <style module>

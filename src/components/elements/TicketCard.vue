@@ -26,18 +26,18 @@
       </div>
     </div>
     <div :class="$style.passengerList">
-      <PassengerCardSimple :passenger="passenger"/>
+      <PassengerCard :passenger="passenger" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import AppIcon from '@/components/ui/AppIcon.vue';
-import PassengerCardSimple from '@/components/elements/PassengerCardSimple.vue';
 import { type Service } from '@/types/Service';
 import { priceFormatter } from '@/helper/price';
 import { computed } from 'vue';
 import { dateFormat, dateToFormat } from '@/helper/date-helper';
+import PassengerCard from '@/components/elements/PassengerCard.vue';
 
 interface Props {
   service: Service;

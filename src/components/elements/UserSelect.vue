@@ -9,6 +9,7 @@
       v-for="passenger in selectedPassengers"
       :key="passenger.id"
       :passenger="passenger"
+      :isButtonShown="true"
       @delete="deletePassenger($event)"
     />
   </div>

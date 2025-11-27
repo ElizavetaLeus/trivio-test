@@ -3,11 +3,16 @@
     <div :class="$style.passengerCardContent">
       {{ getPassengerName() }}
     </div>
-    <div :class="$style.deletePassenger" @click="deletePassenger()">
-      <AppIcon
-        name="cross"
-        :size="10"
-      />
+    <div v-if="isButtonShown">
+      <div
+        :class="$style.deletePassenger"
+        @click="deletePassenger()"
+      >
+        <AppIcon
+          name="cross"
+          :size="10"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -19,13 +24,16 @@ import { type User } from '@/types/User';
 
 interface Props {
   passenger: User;
+  isButtonShown?: boolean;
 }
 
 interface Emits {
   (event: 'delete', id: string): void;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  isButtonShown: false,
+});
 const emits = defineEmits<Emits>();
 
 const getPassengerName = () => {

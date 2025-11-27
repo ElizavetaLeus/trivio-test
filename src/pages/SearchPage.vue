@@ -7,6 +7,8 @@
           :cities="cities"
           :options="passengers"
           @open="showAviaVariants()"
+          @updateSelectedCityFrom=""
+          @updateSelectedCityTo=""
         />
       </div>
     </Transition>
@@ -15,8 +17,6 @@
       <div>
         <AviaVariants
           v-if="isShownAviaVariants"
-          :is-checked-expensive="isCheckedExpensive"
-          :is-checked-cheap="isCheckedCheap"
           :aviaVariants="aviaVariants"
           :class="$style.aviaVariants"
           @update:checked-expensive="showExpensiveAviaVariants()"
@@ -49,8 +49,6 @@ const route = useRoute();
 
 const cities = ref<string[]>([]);
 const trip = ref<Trip | null>(null);
-const isCheckedExpensive = ref(false);
-const isCheckedCheap = ref(true); // По умолчанию выбраны дешёвые
 const isShownAviaVariants = ref(false);
 const isOpen = ref(false);
 const aviaVariants = ref<Ticket[]>([]);
@@ -66,10 +64,10 @@ const showAviaVariants = () => {
   isShownAviaVariants.value = !isShownAviaVariants.value;
 };
 const showExpensiveAviaVariants = () => {
-  isCheckedExpensive.value = !isCheckedExpensive.value;
+  console.log('я показываю дорогие варики для мажоров');
 };
 const showCheapAviaVariants = () => {
-  isCheckedCheap.value = !isCheckedCheap.value;
+  console.log('я показываю дешевые билеты для нищеебов');
 };
 const openModal = () => {
   isOpen.value = true;

@@ -2,6 +2,7 @@
   <label :class="$style.root">
     <input
       type="radio"
+      :name="name"
       :class="$style.originRadioButton"
       :checked="isChecked"
       @change="handleChange()"
@@ -14,6 +15,7 @@
 interface Props {
   isChecked: boolean;
   label: string;
+  name: string;
 }
 interface Emits {
   (event: 'update:isChecked'): void;

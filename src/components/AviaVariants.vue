@@ -5,18 +5,20 @@
       <span :class="$style.sumVariants">349</span>
       вариантов
     </h1>
-    <div :class="$style.filterVariants">
+    <form :class="$style.filterVariants">
       <AppRadioButton
+        name="filterVariants"
         :isChecked="isCheckedCheap"
         @update:isChecked="handleUpdateCheap()"
         label="Сначала дешёвые"
       />
       <AppRadioButton
+        name="filterVariants"
         :isChecked="isCheckedExpensive"
         @update:isChecked="handleUpdateExpensive()"
         label="Сначала дорогие"
       />
-    </div>
+    </form>
     <div :class="$style.aviaVariantWrapper">
       <AviaVariantCard
         v-for="aviaVariant in aviaVariants"

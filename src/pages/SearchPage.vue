@@ -3,6 +3,7 @@
     <Transition name="slide-up-out">
       <div v-if="!isShownAviaVariants" :class="$style.formContainer">
         <SearchForm
+          :aviaVariants="aviaVariants"
           :cities="cities"
           :options="passengers"
           @open="showAviaVariants()"

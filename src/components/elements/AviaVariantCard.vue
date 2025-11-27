@@ -48,9 +48,9 @@ const emits = defineEmits<Emits>();
 const openModal = () => {
   emits('open');
 };
-const DateFormatter = (ticket: Ticket) => {
-  const dateFrom = `${dateToFormat(dateReverse(ticket.dateFrom), 'DD.MM')}`;
-  const dateTo = `${dateToFormat(dateReverse(ticket.dateTo), 'DD.MM')}`;
+const DateFormatter = (aviaVariant: Ticket) => {
+  const dateFrom = `${dateToFormat(dateReverse(aviaVariant.dateFrom), 'DD.MM')}`;
+  const dateTo = `${dateToFormat(dateReverse(aviaVariant.dateTo), 'DD.MM')}`;
   return {
     dateFrom,
     dateTo,

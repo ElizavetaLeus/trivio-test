@@ -2,6 +2,7 @@
   <AppModal
     :text="text"
     :isOpen="isOpen"
+    @close="closeModal()"
   >
     <template v-slot:content>
       <div :class="$style.modalContent">
@@ -28,12 +29,12 @@ interface Props {
   text: string;
 }
 interface Emits {
-  (event: 'close'): void;
+  (event: 'update:close'): void;
 }
 defineProps<Props>();
 const emits = defineEmits<Emits>();
 const closeModal = () => {
-  emits('close');
+  emits('update:close');
 };
 </script>
 

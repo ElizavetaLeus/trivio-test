@@ -25,7 +25,7 @@
         <BuyTicketModal
           :isOpen="isOpen"
           text="Вы точно хотите забронировать?"
-          @close="closeModal()"
+          @update:close="closeModal()"
         />
       </div>
     </Transition>

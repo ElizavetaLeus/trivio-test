@@ -29,15 +29,17 @@ import AppDatePicker from '@/components/ui/AppDatePicker.vue';
 import CitiesSelect from '@/components/elements/CitiesSelect.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import type { User } from '@/types/User';
+import { type Ticket } from '@/types/Ticket';
 
 interface Props {
   cities: string[];
   options: User[],
+  aviaVariants: Ticket[],
 }
 interface Emits {
   (event: 'open'): void;
 }
-defineProps<Props>();
+const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 const openModal = () => {
   emits('open');

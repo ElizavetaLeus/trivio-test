@@ -13,14 +13,16 @@
 </template>
 <script setup lang="ts">
 interface Props {
-  isChecked: boolean;
+  isChecked?: boolean;
   label: string;
   name: string;
 }
 interface Emits {
   (event: 'update:isChecked'): void;
 }
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  isChecked: false,
+});
 const emits = defineEmits<Emits>();
 const handleChange = (): void => {
   emits('update:isChecked');

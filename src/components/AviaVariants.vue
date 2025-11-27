@@ -8,13 +8,12 @@
     <form :class="$style.filterVariants">
       <AppRadioButton
         name="filterVariants"
-        :isChecked="isCheckedCheap"
+        :isChecked="true"
         @update:isChecked="handleUpdateCheap()"
         label="Сначала дешёвые"
       />
       <AppRadioButton
         name="filterVariants"
-        :isChecked="isCheckedExpensive"
         @update:isChecked="handleUpdateExpensive()"
         label="Сначала дорогие"
       />
@@ -37,8 +36,6 @@ import SkeletonAviaVariantCard from '@/components/elements/SkeletonAviaVariantCa
 import { type Ticket } from '@/types/Ticket';
 
 interface Props {
-  isCheckedExpensive: boolean;
-  isCheckedCheap: boolean;
   aviaVariants: Ticket[];
 }
 interface Emits {

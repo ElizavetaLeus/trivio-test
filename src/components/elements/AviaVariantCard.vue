@@ -4,7 +4,7 @@
     <div :class="$style.tripContent">
       <div :class="$style.dateTime">
         <div :class="$style.time">{{ aviaVariant.timeFrom }}</div>
-        <div :class="$style.date">{{ DateFormatter(aviaVariant).dateFrom }}</div>
+        <div :class="$style.date">{{ dateFormatter(aviaVariant).dateFrom }}</div>
       </div>
       <div :class="$style.roadMap">
         <div :class="$style.cities">
@@ -19,12 +19,12 @@
       </div>
       <div :class="$style.dateTime">
         <div :class="$style.time">{{ aviaVariant.timerTo }}</div>
-        <div :class="$style.date">{{ DateFormatter(aviaVariant).dateTo }}</div>
+        <div :class="$style.date">{{ dateFormatter(aviaVariant).dateTo }}</div>
       </div>
     </div>
     <footer :class="$style.footer">
       <AppButton
-        text="Забронировать от 92 345 ₽"
+        :text="FormatPrice(aviaVariant)"
         :max-width="239"
         @click="openModal()"
       />
@@ -36,6 +36,7 @@
 import AppButton from '@/components/ui/AppButton.vue';
 import { type Ticket } from '@/types/Ticket';
 import { dateReverse, dateToFormat } from '@/helper/date-helper';
+import { priceFormatter } from '@/helper/price';
 interface Props {
   aviaVariant: Ticket;
 }
@@ -48,13 +49,17 @@ const emits = defineEmits<Emits>();
 const openModal = () => {
   emits('open');
 };
-const DateFormatter = (aviaVariant: Ticket) => {
+const dateFormatter = (aviaVariant: Ticket) => {
   const dateFrom = `${dateToFormat(dateReverse(aviaVariant.dateFrom), 'DD.MM')}`;
   const dateTo = `${dateToFormat(dateReverse(aviaVariant.dateTo), 'DD.MM')}`;
   return {
     dateFrom,
     dateTo,
   };
+};
+const FormatPrice = (aviaVariant: Ticket) => {
+  const price = priceFormatter(aviaVariant.price);
+  return `Забронировать от ${price}`;
 };
 </script>
 

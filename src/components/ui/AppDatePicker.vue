@@ -6,6 +6,7 @@
     <input
       type="date"
       :class="$style.calendar"
+      @change="handlerOptionChange($event)"
     />
   </div>
 </template>
@@ -13,6 +14,15 @@
 <script setup lang="ts">
 import AppIcon from '@/components/ui/AppIcon.vue';
 
+interface Emits {
+  (event: 'change', date: string): void;
+}
+const emits = defineEmits<Emits>();
+const handlerOptionChange = (event: Event) => {
+  const selectDate = event.target as HTMLInputElement;
+  const date = selectDate.value;
+  emits('change', date);
+};
 </script>
 
 <style module>

@@ -2,6 +2,7 @@
   <UserSelect
     :options="options"
     :grid-count-column="3"
+    @updatePassengerList="selectPassengers($event)"
   />
   <div :class="$style.filters">
     <CitiesSelect
@@ -43,6 +44,7 @@ interface Props {
 }
 interface Emits {
   (event: 'showTickets', aviaVariants: Ticket[]): void;
+  (event: 'updatePassengerList', updateSelectedPassengers: User[]): void;
 }
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
@@ -81,6 +83,9 @@ const updateSelectedDateTo = (selectedDate: string) => {
 };
 const updateSelectedDateFrom = (selectedDate: string) => {
   selectedDateFrom.value = DateReverse(selectedDate);
+};
+const selectPassengers = (selectedPassengers: User[]) => {
+  emits('updatePassengerList', selectedPassengers);
 };
 </script>
 

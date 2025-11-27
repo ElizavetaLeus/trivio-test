@@ -15,10 +15,10 @@
       <div>
         <AviaVariants
           v-if="isShownAviaVariants"
-          :aviaVariants="aviaVariants"
+          :aviaVariants="currentAviaVariants"
           :class="$style.aviaVariants"
-          @update:checked-expensive="showExpensiveAviaVariants()"
-          @update:checked-cheap="showCheapAviaVariants()"
+          @update:CheckedExpensive="showExpensiveAviaVariants()"
+          @update:CheckedCheap="showCheapAviaVariants()"
           @update:Open="openModal()"
         />
         <BuyTicketModal
@@ -50,6 +50,7 @@ const trip = ref<Trip | null>(null);
 const isShownAviaVariants = ref(false);
 const isOpen = ref(false);
 const aviaVariants = ref<Ticket[]>([]);
+const currentSort = ref<'cheap' | 'expensive'>('cheap');
 
 const passengers = computed(() => {
   if (trip.value) {
@@ -58,16 +59,27 @@ const passengers = computed(() => {
   return [];
 });
 
+const showExpensiveAviaVariants = () => {
+  currentSort.value = 'expensive';
+};
+
+const showCheapAviaVariants = () => {
+  currentSort.value = 'cheap';
+};
+const currentAviaVariants = computed(() => {
+  const variants = [...aviaVariants.value];
+
+  if (currentSort.value === 'cheap') {
+    return variants.sort((a, b) => a.price - b.price);
+  } else {
+    return variants.sort((a, b) => b.price - a.price);
+  }
+});
 const showAviaVariants = (selectedTickets: Ticket[]) => {
   isShownAviaVariants.value = !isShownAviaVariants.value;
   aviaVariants.value = selectedTickets;
 };
-const showExpensiveAviaVariants = () => {
-  console.log('я показываю дорогие варики для мажоров');
-};
-const showCheapAviaVariants = () => {
-  console.log('я показываю дешевые билеты для нищеебов');
-};
+
 const openModal = () => {
   isOpen.value = true;
 };

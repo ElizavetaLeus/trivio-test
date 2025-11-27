@@ -6,16 +6,18 @@
   <div :class="$style.filters">
     <CitiesSelect
       :cities="cities"
-      :text="'Город вылета'"
+      text="Город вылета"
       :class="$style.citySelect"
+      @change="updateSelectedCityFrom($event)"
     />
     <CitiesSelect
       :cities="cities"
-      :text="'Город прилета'"
+      text="Город прилета"
       :class="$style.citySelect"
+      @change="updateSelectedCityTo($event)"
     />
-    <AppDatePicker />
-    <AppDatePicker />
+    <AppDatePicker @change="updateSelectedDateFrom($event)"/>
+    <AppDatePicker @change="updateSelectedDateTo($event)"/>
     <AppButton
       text="Найти"
       :class="$style.buttonSearch"
@@ -30,6 +32,7 @@ import CitiesSelect from '@/components/elements/CitiesSelect.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import type { User } from '@/types/User';
 import { type Ticket } from '@/types/Ticket';
+import { ref } from 'vue';
 
 interface Props {
   cities: string[];
@@ -41,8 +44,26 @@ interface Emits {
 }
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
+
+const selectedCityFrom = ref<string>('');
+const selectedCityTo = ref<string>('');
+const selectedDateTo = ref<string>('');
+const selectedDateFrom = ref<string>('');
+
 const openModal = () => {
   emits('open');
+};
+const updateSelectedCityFrom = (selectedCity: string) => {
+  selectedCityFrom.value = props.cities.filter((city) => city === selectedCity)[0];
+};
+const updateSelectedCityTo = (selectedCity: string) => {
+  selectedCityTo.value = props.cities.filter((city) => city === selectedCity)[0];
+};
+const updateSelectedDateTo = (selectedDate: string) => {
+  selectedDateTo.value = selectedDate;
+};
+const updateSelectedDateFrom = (selectedDate: string) => {
+  selectedDateFrom.value = selectedDate;
 };
 </script>
 

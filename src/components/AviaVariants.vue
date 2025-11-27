@@ -18,7 +18,11 @@
       />
     </div>
     <div :class="$style.aviaVariantWrapper">
-      <AviaVariantCard @open="openModal()"/>
+      <AviaVariantCard
+        v-for="aviaVariant in aviaVariants"
+        :key="aviaVariant.id"
+        :aviaVariant="aviaVariant"
+        @open="openModal()"/>
       <SkeletonAviaVariantCard />
     </div>
   </div>
@@ -28,10 +32,12 @@
 import AppRadioButton from '@/components/ui/AppRadioButton.vue';
 import AviaVariantCard from '@/components/elements/AviaVariantCard.vue';
 import SkeletonAviaVariantCard from '@/components/elements/SkeletonAviaVariantCard.vue';
+import { type Ticket } from '@/types/Ticket';
 
 interface Props {
   isCheckedExpensive: boolean;
   isCheckedCheap: boolean;
+  aviaVariants: Ticket[];
 }
 interface Emits {
   (event: 'update:CheckedExpensive'): void;

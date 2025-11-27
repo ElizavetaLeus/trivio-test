@@ -16,9 +16,10 @@
           v-if="isShownAviaVariants"
           :is-checked-expensive="isCheckedExpensive"
           :is-checked-cheap="isCheckedCheap"
+          :aviaVariants="aviaVariants"
           :class="$style.aviaVariants"
-          @update:checked-expensive="toggleRadioButtonExpensive"
-          @update:checked-cheap="toggleRadioButtonCheap"
+          @update:checked-expensive="showExpensiveAviaVariants()"
+          @update:checked-cheap="showCheapAviaVariants()"
           @update:Open="openModal()"
         />
         <BuyTicketModal
@@ -40,15 +41,18 @@ import { useRoute } from 'vue-router';
 import AviaVariants from '@/components/AviaVariants.vue';
 import SearchForm from '@/components/SearchForm.vue';
 import BuyTicketModal from '@/components/elements/BuyTicketModal.vue';
+import { type Ticket } from '@/types/Ticket';
+import { AviaVariantApi } from '@/api/avia-variants';
 
 const route = useRoute();
 
 const cities = ref<string[]>([]);
 const trip = ref<Trip | null>(null);
 const isCheckedExpensive = ref(false);
-const isCheckedCheap = ref(false);
+const isCheckedCheap = ref(true); // По умолчанию выбраны дешёвые
 const isShownAviaVariants = ref(false);
 const isOpen = ref(false);
+const aviaVariants = ref<Ticket[]>([]);
 
 const passengers = computed(() => {
   if (trip.value) {
@@ -57,20 +61,13 @@ const passengers = computed(() => {
   return [];
 });
 
-const getTripById = async () => {
-  const orderId = String(route.query.orderId);
-  trip.value = await tripsApi.getTripById(orderId);
-};
-
 const showAviaVariants = () => {
   isShownAviaVariants.value = !isShownAviaVariants.value;
 };
-
-const toggleRadioButtonExpensive = () => {
+const showExpensiveAviaVariants = () => {
   isCheckedExpensive.value = !isCheckedExpensive.value;
 };
-
-const toggleRadioButtonCheap = () => {
+const showCheapAviaVariants = () => {
   isCheckedCheap.value = !isCheckedCheap.value;
 };
 const openModal = () => {
@@ -80,12 +77,20 @@ const closeModal = () => {
   isOpen.value = false;
 };
 
+const getTripById = async () => {
+  const orderId = String(route.query.orderId);
+  trip.value = await tripsApi.getTripById(orderId);
+};
+const fetchAviaVariant = async () => {
+  aviaVariants.value = await AviaVariantApi.getAviaVariants();
+};
 const fetchCity = async () => {
   cities.value = await cityApi.getCities();
 };
 
 getTripById();
 fetchCity();
+fetchAviaVariant();
 </script>
 
 <style module>

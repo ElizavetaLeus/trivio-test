@@ -43,6 +43,7 @@ interface Props {
   service: Service;
 }
 const props = defineProps<Props>();
+
 const passenger = props.service.user;
 
 const formatDate = computed(() => {

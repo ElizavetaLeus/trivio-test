@@ -26,6 +26,7 @@
     />
   </div>
 </template>
+
 <script setup lang="ts">
 import UserSelect from '@/components/elements/UserSelect.vue';
 import AppDatePicker from '@/components/ui/AppDatePicker.vue';
@@ -46,6 +47,7 @@ interface Emits {
   (event: 'showTickets', aviaVariants: Ticket[]): void;
   (event: 'updatePassengerList', updateSelectedPassengers: User[]): void;
 }
+
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 

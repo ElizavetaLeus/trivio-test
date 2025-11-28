@@ -10,6 +10,8 @@ interface Props {
 }
 const props = defineProps<Props>();
 
+const style = useCssModule();
+
 const classList = computed(() => {
   return [
     style.status,
@@ -17,7 +19,6 @@ const classList = computed(() => {
     props.status === 'ended' && style.statusEnded,
   ];
 });
-const style = useCssModule();
 const getText = () => {
   if (props.status === 'new') {
     return 'новая';

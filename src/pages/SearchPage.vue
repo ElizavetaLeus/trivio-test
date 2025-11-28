@@ -65,14 +65,6 @@ const passengers = computed(() => {
   }
   return [];
 });
-
-const showExpensiveAviaVariants = () => {
-  currentSort.value = 'expensive';
-};
-
-const showCheapAviaVariants = () => {
-  currentSort.value = 'cheap';
-};
 const currentAviaVariants = computed(() => {
   const variants = [...aviaVariants.value];
 
@@ -82,11 +74,17 @@ const currentAviaVariants = computed(() => {
     return variants.sort((a, b) => b.price - a.price);
   }
 });
+
+const showExpensiveAviaVariants = () => {
+  currentSort.value = 'expensive';
+};
+const showCheapAviaVariants = () => {
+  currentSort.value = 'cheap';
+};
 const showAviaVariants = (selectedTickets: Ticket[]) => {
   isShownAviaVariants.value = !isShownAviaVariants.value;
   aviaVariants.value = selectedTickets;
 };
-
 const openModal = (ticket: Ticket): void => {
   isOpen.value = true;
   selectAviaVariant.value = ticket;
@@ -97,7 +95,6 @@ const closeModal = () => {
 const getSelectedPassengers = (passengers: User[]) => {
   selectedPassengers.value = passengers;
 };
-
 const addServiceToTrip = async () => {
   if (selectedPassengers.value.length > 0 && selectAviaVariant.value) {
     await tripsApi.addServiceToTrip(orderId, selectedPassengers.value, selectAviaVariant.value );

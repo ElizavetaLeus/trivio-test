@@ -40,9 +40,9 @@ import { useTripStore } from '@/stores/tripStore';
 import AppButton from '@/components/ui/AppButton.vue';
 
 const route = useRoute();
-const trip = ref<Trip | null>(null);
 const router = useRouter();
 const tripStore = useTripStore();
+const trip = ref<Trip | null>(null);
 
 const getTripById = async () => {
   trip.value = await tripsApi.getTripById(route.params.id);
@@ -73,7 +73,7 @@ getTripById();
 
 <style module>
 .root {
-margin-top: 50px;
+  margin-top: 50px;
 }
 .tripName {
   font-size: 26px;

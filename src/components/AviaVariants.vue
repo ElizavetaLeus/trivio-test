@@ -42,8 +42,10 @@ interface Emits {
   (event: 'update:CheckedCheap'): void;
   (event: 'update:Open', ticket: Ticket): void;
 }
+
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
+
 const handleUpdateExpensive = (): void => {
   emits('update:CheckedExpensive');
 };

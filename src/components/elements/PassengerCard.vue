@@ -26,7 +26,6 @@ interface Props {
   passenger: User;
   isButtonShown?: boolean;
 }
-
 interface Emits {
   (event: 'delete', id: string): void;
 }
@@ -42,7 +41,6 @@ const getPassengerName = () => {
 const deletePassenger = () => {
   emits('delete', props.passenger.id);
 };
-
 </script>
 
 <style module>

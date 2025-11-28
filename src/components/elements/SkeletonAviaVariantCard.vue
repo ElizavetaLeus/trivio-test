@@ -38,7 +38,6 @@
   width: 70px;
   height: 43px;
 }
-
 .roadMap {
   max-width: 580px;
   width: 100%;

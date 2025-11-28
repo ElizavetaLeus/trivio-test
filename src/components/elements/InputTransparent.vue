@@ -20,8 +20,8 @@ interface Emits {
 withDefaults(defineProps<Props>(), {
   value: '',
 });
-
 const emits = defineEmits<Emits>();
+
 const handlerInput = (event: Event) => {
   const inputElement = event.target as HTMLInputElement;
   emits('input', inputElement.value);

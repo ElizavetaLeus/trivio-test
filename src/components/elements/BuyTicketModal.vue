@@ -35,6 +35,7 @@ interface Emits {
 }
 defineProps<Props>();
 const emits = defineEmits<Emits>();
+
 const closeModal = () => {
   emits('update:close');
 };

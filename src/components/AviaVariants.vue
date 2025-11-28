@@ -1,9 +1,9 @@
 <template>
   <div :class="$style.root">
     <h1 :class="$style.title">
-      Найдено
-      <span :class="$style.sumVariants">349</span>
-      вариантов
+      {{ plural('найден', props.aviaVariants.length) }}
+      <span :class="$style.sumVariants">{{ props.aviaVariants.length }}</span>
+      {{ plural('вариант', props.aviaVariants.length) }}
     </h1>
     <form :class="$style.filterVariants">
       <AppRadioButton
@@ -24,7 +24,6 @@
         :key="aviaVariant.id"
         :aviaVariant="aviaVariant"
         @open="openModal(aviaVariant)"/>
-      <SkeletonAviaVariantCard />
     </div>
   </div>
 </template>
@@ -32,8 +31,8 @@
 <script setup lang="ts">
 import AppRadioButton from '@/components/ui/AppRadioButton.vue';
 import AviaVariantCard from '@/components/elements/AviaVariantCard.vue';
-import SkeletonAviaVariantCard from '@/components/elements/SkeletonAviaVariantCard.vue';
 import { type Ticket } from '@/types/Ticket';
+import { plural } from '@/libs/plural';
 
 interface Props {
   aviaVariants: Ticket[];
@@ -43,7 +42,7 @@ interface Emits {
   (event: 'update:CheckedCheap'): void;
   (event: 'update:Open', ticket: Ticket): void;
 }
-defineProps<Props>();
+const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 const handleUpdateExpensive = (): void => {
   emits('update:CheckedExpensive');

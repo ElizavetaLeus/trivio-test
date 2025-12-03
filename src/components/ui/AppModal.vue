@@ -38,7 +38,9 @@ const closeModal = () => {
 
 <style module>
 .modal {
-  position: absolute;
+  position: fixed;
+  left: 0;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,17 +58,14 @@ const closeModal = () => {
 .modalWrapper {
   display: flex;
   flex-direction: column;
-  gap: 45px;
-  height: 140px;
-  width: 400px;
+  gap: 40px;
+  min-width: 400px;
   position: absolute;
-  max-width: 90%;
   background-color: var(--color-gray-light);
   padding: 20px;
   border-radius: 10px;
   transform: translateY(100px);
   opacity: 0;
-  top: 250px;
 }
 .modalOpen .modalWrapper {
   transform: translateY(0);

@@ -1,21 +1,21 @@
 <template>
-  <div :class="$style.root">
+  <div>
     <h1 :class="$style.title">
       {{ plural('найден', props.aviaVariants.length) }}
       <span :class="$style.sumVariants">{{ props.aviaVariants.length }}</span>
       {{ plural('вариант', props.aviaVariants.length) }}
     </h1>
-    <form :class="$style.filterVariants">
+    <form :class="$style.filterVariants" @submit.prevent>
       <AppRadioButton
         name="filterVariants"
         :isChecked="true"
-        @update:isChecked="handleUpdateCheap()"
         label="Сначала дешёвые"
+        @update:isChecked="handleUpdateCheap()"
       />
       <AppRadioButton
         name="filterVariants"
-        @update:isChecked="handleUpdateExpensive()"
         label="Сначала дорогие"
+        @update:isChecked="handleUpdateExpensive()"
       />
     </form>
     <div :class="$style.aviaVariantWrapper">
@@ -58,9 +58,6 @@ const openModal = (ticket: Ticket): void => {
 </script>
 
 <style module>
-.root {
-  margin-top: 50px;
-}
 .title {
   font-weight: 700;
   font-size: 26px;

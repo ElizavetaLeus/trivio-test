@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.root">
     <div :class="$style.iconWrapper">
-      <AppIcon name="airplane" />
+      <AppIcon name="calendar" />
     </div>
     <input
       type="date"

@@ -12,7 +12,7 @@
 import { computed, useCssModule } from 'vue';
 
 type ButtonSize = 'large' | 'default' | 'small';
-type ButtonType = 'default' | 'text';
+type ButtonType = 'default' | 'text' | 'gray';
 
 interface Props {
   text: string,
@@ -38,6 +38,7 @@ const classList = computed(() => {
     props.size === 'large' && $style.buttonSizeLarge,
     props.size === 'small' && $style.buttonSizeSmall,
     props.type === 'text' && $style.buttonTypeText,
+    props.type === 'gray' && $style.buttonTypeGray,
   ];
 });
 const styleList = computed(() => {
@@ -82,5 +83,12 @@ const emitListener = () => {
   color: var(--color-primary);
   height: fit-content;
   width: fit-content;
+}
+.buttonTypeGray {
+  background-color: var(--color-gray);
+}
+.buttonTypeGray:hover {
+  background-color: var(--color-primary);
+  opacity: 1;
 }
 </style>

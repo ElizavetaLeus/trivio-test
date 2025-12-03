@@ -9,12 +9,14 @@
         <AppButton
           text="Нет"
           :maxWidth="85"
+          type="gray"
           @click="closeModal()"
         />
         <AppButton
           text="Да"
           :maxWidth="79"
-          @click="AddTrip()"
+          type="gray"
+          @click="addAviaVariant()"
         />
       </div>
     </template>
@@ -31,7 +33,7 @@ interface Props {
 }
 interface Emits {
   (event: 'update:close'): void;
-  (event: 'updateTrip'): void;
+  (event: 'addAviaVariant'): void;
 }
 defineProps<Props>();
 const emits = defineEmits<Emits>();
@@ -39,8 +41,8 @@ const emits = defineEmits<Emits>();
 const closeModal = () => {
   emits('update:close');
 };
-const AddTrip = () => {
-  emits('updateTrip');
+const addAviaVariant = () => {
+  emits('addAviaVariant');
 };
 </script>
 

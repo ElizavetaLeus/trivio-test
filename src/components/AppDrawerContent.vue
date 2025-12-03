@@ -9,6 +9,7 @@
     <div :class="$style.selectContent">
       <UserSelect
         :options="passengers"
+        defaultValue="Выберите сотрудников"
         :isSelectInvalid="isSelectInvalid"
         @updatePassengerList="updateSelectedPassengers($event)"
       />

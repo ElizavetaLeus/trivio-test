@@ -1,6 +1,7 @@
 <template>
   <UserSelect
     :options="options"
+    defaultValue="Выберите пассажира"
     :grid-count-column="3"
     @updatePassengerList="selectPassengers($event)"
   />
@@ -64,21 +65,26 @@ const showAviaVariants = () => {
   }
   else {
     validAviaVariants.value = props.aviaVariants.filter((ticket) => {
-      return (ticket.placeFrom === selectedCityFrom.value &&
-      ticket.placeTo === selectedCityTo.value &&
-        ticket.dateFrom === selectedDateFrom.value) ||
-        (ticket.placeTo === selectedCityFrom.value &&
-          ticket.placeFrom === selectedCityTo.value &&
-          ticket.dateFrom === selectedDateToReturn.value);
+      const placesFromEqual = ticket.placeFrom === selectedCityFrom.value || ticket.placeFrom === selectedCityTo.value;
+      const placesToEqual = ticket.placeTo === selectedCityTo.value || ticket.placeTo === selectedCityFrom.value;
+      const places = placesToEqual || placesFromEqual;
+
+      const datesFromEqual = ticket.dateFrom === selectedDateFrom.value;
+      const datesToEqual = ticket.dateTo === selectedDateToReturn.value;
+      const dates = datesToEqual || datesFromEqual;
+
+      return places && dates;
     });
   }
   emits('showTickets', validAviaVariants.value);
 };
 const updateSelectedCityFrom = (selectedCity: string) => {
-  selectedCityFrom.value = props.cities.filter((city) => city === selectedCity)[0];
+  const[one] = props.cities.filter((city) => city === selectedCity);
+  selectedCityFrom.value = one;
 };
 const updateSelectedCityTo = (selectedCity: string) => {
-  selectedCityTo.value = props.cities.filter((city) => city === selectedCity)[0];
+  const[one] = props.cities.filter((city) => city === selectedCity);
+  selectedCityTo.value = one;
 };
 const updateSelectedDateTo = (selectedDate: string) => {
   selectedDateToReturn.value = DateReverse(selectedDate);

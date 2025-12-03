@@ -26,7 +26,7 @@
           :isOpen="isOpen"
           text="Вы точно хотите забронировать?"
           @update:close="closeModal()"
-          @updateTrip="addServiceToTrip()"
+          @addAviaVariant="addServiceToTrip()"
         />
       </div>
     </Transition>

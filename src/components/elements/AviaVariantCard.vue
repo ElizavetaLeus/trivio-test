@@ -50,8 +50,9 @@ const openModal = () => {
   emits('open');
 };
 const dateFormatter = (aviaVariant: Ticket) => {
-  const dateFrom = `${dateToFormat(dateReverse(aviaVariant.dateFrom), 'DD.MM')}`;
-  const dateTo = `${dateToFormat(dateReverse(aviaVariant.dateTo), 'DD.MM')}`;
+  const dateFrom = dateToFormat(dateReverse(aviaVariant.dateFrom), 'DD.MM');
+  const dateTo = dateToFormat(dateReverse(aviaVariant.dateTo), 'DD.MM');
+
   return {
     dateFrom,
     dateTo,

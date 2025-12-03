@@ -62,7 +62,7 @@ const getCountPrice = (allServices: Service[]) => {
 };
 const getRoute = (ticket: Ticket) => {
   const route = `${ticket.placeFrom} ➝ ${ticket.placeTo}`;
-  const date = `${dateToFormat(dateReverse(ticket.dateFrom), 'DD.MM')}`;
+  const date = dateToFormat(dateReverse(ticket.dateFrom), 'DD.MM');
   return `${route} ${date}`;
 };
 const routeToTrip = () => {

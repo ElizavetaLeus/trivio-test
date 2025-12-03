@@ -2,6 +2,7 @@
   <div :class="$style.root" :style="{ '--count-column': gridCountColumn }">
     <AppSelect
       :options="options"
+      :defaultValue="defaultValue"
       :class="[$style.select, isSelectInvalid && $style.selectInvalid, ]"
       @change="selectPassenger($event)"
     />
@@ -25,6 +26,7 @@ interface Props {
   isSelectInvalid?: boolean;
   gridCountColumn?: number,
   options: User[],
+  defaultValue: string,
 }
 interface Emits {
   (event: 'updatePassengerList', selectedPassengers: User[]): void;

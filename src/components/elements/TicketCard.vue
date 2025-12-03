@@ -26,7 +26,7 @@
       </div>
     </div>
     <div :class="$style.passengerList">
-      <PassengerCard :passenger="passenger" />
+      <PassengerCard :passenger="service.user" />
     </div>
   </div>
 </template>
@@ -44,10 +44,9 @@ interface Props {
 }
 const props = defineProps<Props>();
 
-const passenger = props.service.user;
-
 const formatDate = computed(() => {
   const dateTimeIso = dateFormat(props.service.ticket.dateFrom, props.service.ticket.timeFrom);
+
   return dateToFormat(dateTimeIso.dateTime, 'DD.MM.YYYY');
 });
 </script>

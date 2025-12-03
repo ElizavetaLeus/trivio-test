@@ -5,7 +5,7 @@
     @change="handleOptionChange($event)"
   >
     <option value="">
-      Выберите сотрудников
+      {{ defaultValue }}
     </option>
     <option
       v-for="option in options"
@@ -23,6 +23,7 @@ import { type User } from '@/types/User';
 
 interface Props {
   options: User[];
+  defaultValue: string;
 }
 
 interface Emits {

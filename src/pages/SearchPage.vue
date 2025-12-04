@@ -45,7 +45,7 @@ import BuyTicketModal from '@/components/elements/BuyTicketModal.vue';
 import { type Ticket } from '@/types/Ticket';
 import { AviaVariantApi } from '@/api/avia-variants';
 import { type User } from '@/types/User';
-import { notification } from '@/libs/notification';
+import { EnumSortName } from '@/enums/enum-sort-name';
 
 const route = useRoute();
 const orderId = String(route.query.orderId);
@@ -55,7 +55,7 @@ const trip = ref<Trip | null>(null);
 const isShownAviaVariants = ref(false);
 const isOpen = ref(false);
 const aviaVariants = ref<Ticket[]>([]);
-const currentSort = ref<'cheap' | 'expensive'>('cheap');
+const currentSort = ref<EnumSortName>(EnumSortName.CHEAP);
 const selectedPassengers = ref<User[]>([]);
 const selectAviaVariant = ref<Ticket | null>(null);
 
@@ -68,7 +68,7 @@ const passengers = computed(() => {
 const currentAviaVariants = computed(() => {
   const variants = [...aviaVariants.value];
 
-  if (currentSort.value === 'cheap') {
+  if (currentSort.value === EnumSortName.CHEAP) {
     return variants.sort((a, b) => a.price - b.price);
   } else {
     return variants.sort((a, b) => b.price - a.price);
@@ -76,10 +76,10 @@ const currentAviaVariants = computed(() => {
 });
 
 const showExpensiveAviaVariants = () => {
-  currentSort.value = 'expensive';
+  currentSort.value = EnumSortName.EXPENSIVE;
 };
 const showCheapAviaVariants = () => {
-  currentSort.value = 'cheap';
+  currentSort.value = EnumSortName.CHEAP;
 };
 const showAviaVariants = (selectedTickets: Ticket[]) => {
   isShownAviaVariants.value = !isShownAviaVariants.value;
@@ -96,14 +96,11 @@ const getSelectedPassengers = (passengers: User[]) => {
   selectedPassengers.value = passengers;
 };
 const addServiceToTrip = async () => {
-  if (selectedPassengers.value.length > 0 && selectAviaVariant.value) {
+  if (selectAviaVariant.value) {
     await tripsApi.addServiceToTrip(orderId, selectedPassengers.value, selectAviaVariant.value );
     closeModal();
   }
-  else {
-    notification.warning('Выберите хотя бы одного сотрудника');
-    closeModal();
-  }
+  return;
 };
 const getTripById = async () => {
   trip.value = await tripsApi.getTripById(orderId);

@@ -63,7 +63,7 @@ import AppButton from '@/components/ui/AppButton.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
 import { useRoute, useRouter } from 'vue-router';
 import { computed } from 'vue';
-import { EnumRouteName } from '@/router/types';
+import { EnumRouteName } from '@/enums/enum-route-name';
 import { useTripStore } from '@/stores/tripStore';
 
 const drawer = useDrawerCreateTrip();

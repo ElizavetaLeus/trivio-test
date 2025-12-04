@@ -43,10 +43,14 @@ export const tripsApi = {
   async addServiceToTrip(tripId: string, users: User[], ticket: Ticket) {
     const services: Service[] = users.map((user) =>
       ({ user, ticket }));
+
     for (const service of services) {
-      const response = await http.patch<Trip, { services: Service[] }>(
+      const response = await http.patch<Trip, { services: Service[], status: string }>(
         `/trips/${tripId}`,
-        { services: [service] },
+        {
+          services: [service],
+          status: '', // Добавляем изменение статуса
+        },
       );
       if (response.error) {
         notification.error('Ошибка добавления сервиса в поездку');
@@ -55,5 +59,6 @@ export const tripsApi = {
         return response.data;
       }
       return null;
-    }},
+    }
+  },
 };

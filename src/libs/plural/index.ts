@@ -1,14 +1,13 @@
 const dictionaryWords = {
   'вариант': 'вариант|варианта|вариатов',
-  'найден': 'Найден|Найдено|Найдено',
+  'найден': 'найден|найдено|найдено',
 };
-export const plural = (word: string, count: number) => {
-  const dictionaryKey = word as keyof typeof dictionaryWords;
-  if (!dictionaryWords[dictionaryKey]) {
-    console.log('Такого слова нет в словаре');
+export const plural = (key: keyof typeof dictionaryWords, count: number) => {
+  if (!dictionaryWords[key]) {
+    console.error('Такого слова нет в словаре');
     return;
   }
-  const [one, few, many] = dictionaryWords[dictionaryKey].split('|');
+  const [one, few, many] = dictionaryWords[key].split('|');
   const mod10 = count % 10;
   const mod100 = count % 100;
 

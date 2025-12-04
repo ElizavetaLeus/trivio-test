@@ -45,7 +45,7 @@ import { type Ticket } from '@/types/Ticket';
 import { dateToFormat, getStartTrip, dateReverse } from '@/helper/date-helper/index';
 import { useRouter } from 'vue-router';
 import { priceFormatter } from '@/helper/price';
-import { EnumRouteName } from '@/router/types';
+import { EnumRouteName } from '@/enums/enum-route-name';
 
 const router = useRouter();
 

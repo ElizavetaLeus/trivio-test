@@ -64,6 +64,9 @@ const openModal = (ticket: Ticket): void => {
   line-height: 1;
   color: var(--color-black);
 }
+.title::first-letter {
+  text-transform: uppercase;
+}
 .sumVariants {
   color: var(--color-primary);
 }

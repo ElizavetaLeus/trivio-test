@@ -52,14 +52,17 @@ interface Emits {
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
-const selectedCityFrom = ref<string>('');
-const selectedCityTo = ref<string>('');
-const selectedDateToReturn = ref<string>('');
-const selectedDateFrom = ref<string>('');
+const selectedCityFrom = ref('');
+const selectedCityTo = ref('');
+const selectedDateToReturn = ref('');
+const selectedDateFrom = ref('');
 const validAviaVariants = ref<Ticket[]>([]);
+const selectedPassengers = ref<User[]>([]);
 
 const showAviaVariants = () => {
-  if (!selectedCityFrom.value || !selectedCityTo.value || !selectedDateFrom.value || !selectedDateToReturn.value) {
+  if (!selectedCityFrom.value || !selectedCityTo.value
+      || !selectedDateFrom.value || !selectedDateToReturn.value
+      || selectedPassengers.value.length === 0) {
     notification.warning('Заполните все поля');
     return false;
   }
@@ -67,7 +70,7 @@ const showAviaVariants = () => {
     validAviaVariants.value = props.aviaVariants.filter((ticket) => {
       const placesFromEqual = ticket.placeFrom === selectedCityFrom.value || ticket.placeFrom === selectedCityTo.value;
       const placesToEqual = ticket.placeTo === selectedCityTo.value || ticket.placeTo === selectedCityFrom.value;
-      const places = placesToEqual || placesFromEqual;
+      const places = placesToEqual && placesFromEqual;
 
       const datesFromEqual = ticket.dateFrom === selectedDateFrom.value;
       const datesToEqual = ticket.dateTo === selectedDateToReturn.value;
@@ -92,8 +95,9 @@ const updateSelectedDateTo = (selectedDate: string) => {
 const updateSelectedDateFrom = (selectedDate: string) => {
   selectedDateFrom.value = DateReverse(selectedDate);
 };
-const selectPassengers = (selectedPassengers: User[]) => {
-  emits('updatePassengerList', selectedPassengers);
+const selectPassengers = (passengers: User[]) => {
+  selectedPassengers.value = passengers;
+  emits('updatePassengerList', selectedPassengers.value);
 };
 </script>
 

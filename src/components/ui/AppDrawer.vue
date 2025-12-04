@@ -45,7 +45,7 @@ import { tripsApi } from '@/api/trips';
 import type { Trip } from '@/types/Trip';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
-import { EnumRouteName } from '@/router/types';
+import { EnumRouteName } from '@/enums/enum-route-name';
 import { notification } from '@/libs/notification';
 
 type TripWithoutId = Omit<Trip, 'id'> & { id?: Trip['id'] };
@@ -60,7 +60,7 @@ const drawer = useDrawerCreateTrip();
 const router = useRouter();
 
 const passengerList = ref<User[]>([]);
-const tripName = ref<string>('');
+const tripName = ref('');
 const isTripNameInvalid = ref(false);
 const isSelectInvalid = ref(false);
 

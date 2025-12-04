@@ -35,7 +35,7 @@ import { tripsApi } from '@/api/trips';
 import { onUnmounted, ref } from 'vue';
 import { type Trip } from '@/types/Trip';
 import TicketCard from '@/components/elements/TicketCard.vue';
-import { EnumRouteName } from '@/router/types';
+import { EnumRouteName } from '@/enums/enum-route-name';
 import { useTripStore } from '@/stores/tripStore';
 import AppButton from '@/components/ui/AppButton.vue';
 

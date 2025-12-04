@@ -24,14 +24,14 @@ import { type User } from '@/types/User';
 
 interface Props {
   passenger: User;
-  isButtonShown?: boolean;
+  isShownDeleteButton?: boolean;
 }
 interface Emits {
   (event: 'delete', id: string): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  isButtonShown: false,
+  isShownDeleteButton: false,
 });
 const emits = defineEmits<Emits>();
 

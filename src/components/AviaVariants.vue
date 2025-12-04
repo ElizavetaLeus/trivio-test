@@ -38,22 +38,22 @@ interface Props {
   aviaVariants: Ticket[];
 }
 interface Emits {
-  (event: 'update:CheckedExpensive'): void;
-  (event: 'update:CheckedCheap'): void;
-  (event: 'update:Open', ticket: Ticket): void;
+  (event: 'update:checkedExpensive'): void;
+  (event: 'update:checkedCheap'): void;
+  (event: 'update:open', ticket: Ticket): void;
 }
 
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const handleUpdateExpensive = (): void => {
-  emits('update:CheckedExpensive');
+  emits('update:checkedExpensive');
 };
 const handleUpdateCheap = (): void => {
-  emits('update:CheckedCheap');
+  emits('update:checkedCheap');
 };
 const openModal = (ticket: Ticket): void => {
-  emits('update:Open', ticket);
+  emits('update:open', ticket);
 };
 </script>
 

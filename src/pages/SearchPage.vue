@@ -18,9 +18,9 @@
           v-if="isShownAviaVariants"
           :aviaVariants="currentAviaVariants"
           :class="$style.aviaVariants"
-          @update:CheckedExpensive="showExpensiveAviaVariants()"
-          @update:CheckedCheap="showCheapAviaVariants()"
-          @update:Open="openModal($event)"
+          @update:checkedExpensive="showExpensiveAviaVariants()"
+          @update:checkedCheap="showCheapAviaVariants()"
+          @update:open="openModal($event)"
         />
         <BuyTicketModal
           :isOpen="isOpen"

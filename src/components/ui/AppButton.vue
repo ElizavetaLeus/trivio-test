@@ -87,8 +87,4 @@ const emitListener = () => {
 .buttonTypeGray {
   background-color: var(--color-gray);
 }
-.buttonTypeGray:hover {
-  background-color: var(--color-primary);
-  opacity: 1;
-}
 </style>

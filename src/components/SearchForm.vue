@@ -3,6 +3,7 @@
     :options="options"
     defaultValue="Выберите пассажира"
     :grid-count-column="3"
+    :disabled="selectedPassengers.length > 0"
     @updatePassengerList="selectPassengers($event)"
   />
   <div :class="$style.filters">

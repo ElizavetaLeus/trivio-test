@@ -3,6 +3,7 @@
     <AppSelect
       :options="options"
       :defaultValue="defaultValue"
+      :disabled="disabled"
       :class="[$style.select, isSelectInvalid && $style.selectInvalid, ]"
       @change="selectPassenger($event)"
     />
@@ -25,6 +26,7 @@ import type { User } from '@/types/User';
 interface Props {
   isSelectInvalid?: boolean;
   gridCountColumn?: number,
+  disabled?: boolean;
   options: User[],
   defaultValue: string,
 }
@@ -34,6 +36,7 @@ interface Emits {
 const props = withDefaults(defineProps<Props>(), {
   isSelectInvalid: false,
   gridCountColumn: 1,
+  disabled: false,
 });
 const emits = defineEmits<Emits>();
 

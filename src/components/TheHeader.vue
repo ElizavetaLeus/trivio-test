@@ -24,7 +24,7 @@
       >
         <div
           :class="$style.airplane"
-          @click="goToSearchPage"
+          @click="goToSearchPage()"
         >
           <AppIcon name="airplane" />
         </div>
@@ -85,7 +85,13 @@ const openDrawer = () => {
   drawer.openDrawer();
 };
 const goToSearchPage = () => {
-  router.push({ name: EnumRouteName.SEARCH });
+  const orderId = String(route.params.id);
+  router.push({
+    name: EnumRouteName.SEARCH,
+    query: {
+      orderId: orderId,
+    },
+  });
 };
 const goToTripPage = () => {
   const orderId = String(route.query.orderId);

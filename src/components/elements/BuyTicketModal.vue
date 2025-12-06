@@ -15,7 +15,6 @@
         <AppButton
           text="Да"
           :maxWidth="79"
-          type="gray"
           @click="addAviaVariant()"
         />
       </div>

@@ -3,7 +3,7 @@
     <div :class="$style.passengerCardContent">
       {{ getPassengerName() }}
     </div>
-    <div v-if="isButtonShown">
+    <div v-if="isShownDeleteButton">
       <div
         :class="$style.deletePassenger"
         @click="deletePassenger()"

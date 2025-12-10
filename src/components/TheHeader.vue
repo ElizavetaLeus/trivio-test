@@ -139,7 +139,7 @@ const changeLanguage = (value: string) => {
   background: var(--color-white);
   height: 64px;
   position: relative;
-  z-index: 20;
+  z-index: 4;
 }
 .navigation {
   display: flex;

@@ -128,14 +128,14 @@ fetchAviaVariant();
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 3;
 }
 .aviaVariants {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 5;
+  z-index: 2;
 }
 </style>
 

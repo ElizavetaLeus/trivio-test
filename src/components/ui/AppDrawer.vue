@@ -127,6 +127,7 @@ const createTrip = async () => {
   visibility: hidden;
   opacity: 0;
   transition: 0.3s ease;
+  z-index: 5;
 }
 .open.drawer {
   opacity: 1;

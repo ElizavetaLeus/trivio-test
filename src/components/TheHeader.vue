@@ -12,9 +12,9 @@
       >
         <AppIcon name="baggage" />
         <AppButton
-          text="Создать поездку"
+          :text="translator('создать',localizationStore.locale)"
           type="text"
-          :class="$style.button"
+          :class="[$style.button, $style.firstLetter]"
         />
       </div>
 
@@ -28,18 +28,9 @@
         >
           <AppIcon name="airplane" />
         </div>
-        <AppButton
-          v-if="tripStore.isShownButtonCloseTrip"
-          text="завершить поездку"
-          type="default"
-          size="small"
-          :class="$style.button"
-          :max-width="189"
-          @click="tripStore.completeTrip()"
-        />
       </div>
 
-      <div v-if="isShownOnSearchPagePage">
+      <div v-if="isShownOnSearchPage">
         <AppButton
           text="вернуться в поездку"
           type="default"
@@ -51,7 +42,30 @@
       </div>
 
     </div>
-    <div :class="$style.userLogo">AA</div>
+
+    <div :class="$style.navigationSelect">
+      <div
+        v-if="isShownOnHomePage"
+      >
+        <AppSelectLanguage
+          :selectedLang="selectedLanguage"
+          :languages="languages"
+          @change="changeLanguage($event)"
+        />
+      </div>
+      <div v-if="isShownOnTripPage">
+        <AppButton
+          v-if="tripStore.isShownButtonCloseTrip"
+          text="завершить поездку"
+          type="default"
+          size="small"
+          :class="$style.button"
+          :max-width="189"
+          @click="tripStore.completeTrip()"
+        />
+      </div>
+      <div :class="$style.userLogo">AA</div>
+    </div>
   </header>
 </template>
 
@@ -62,14 +76,20 @@ import AppIcon from '@/components/ui/AppIcon.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import useDrawerCreateTrip from '@/composables/useDrawerCreateTrip';
 import { useRoute, useRouter } from 'vue-router';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { EnumRouteName } from '@/enums/enum-route-name';
 import { useTripStore } from '@/stores/tripStore';
+import AppSelectLanguage from '@/components/ui/AppSelectLanguage.vue';
+import { useLocalizationStore } from '@/stores/localisationStore';
+import { translator } from '@/libs/translator/translator';
 
 const drawer = useDrawerCreateTrip();
 const route = useRoute();
 const tripStore = useTripStore();
+const localizationStore = useLocalizationStore();
 const router = useRouter();
+const languages = ['ru', 'en'];
+const selectedLanguage = ref<string>('ru');
 
 const isShownOnTripPage = computed(() => {
   return route.name === EnumRouteName.TRIP;
@@ -77,8 +97,11 @@ const isShownOnTripPage = computed(() => {
 const isShownOnTripListPage = computed(() => {
   return route.name === EnumRouteName.HOME;
 });
-const isShownOnSearchPagePage = computed(() => {
+const isShownOnSearchPage = computed(() => {
   return route.name === EnumRouteName.SEARCH;
+});
+const isShownOnHomePage = computed(() => {
+  return route.name === EnumRouteName.HOME;
 });
 
 const openDrawer = () => {
@@ -99,6 +122,10 @@ const goToTripPage = () => {
     name: EnumRouteName.TRIP,
     params: { id: orderId },
   });
+};
+const changeLanguage = (value: string) => {
+  selectedLanguage.value = value;
+  localizationStore.setLocale(selectedLanguage.value);
 };
 </script>
 
@@ -153,10 +180,21 @@ const goToTripPage = () => {
   line-height: 1;
   font-weight: 400;
 }
+.firstLetter::first-letter {
+  text-transform: uppercase;
+}
 .goToTripButton {
   background-color: var(--color-gray-light);
   color: var(--color-black);
   margin-inline: 20px;
+}
+.navigationSelect {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 50px;
+  width: 100%;
+  height: 100%;
 }
 .userLogo {
   --size: 36px;

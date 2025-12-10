@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.content">
-    <h1 :class="$style.title">Поездки</h1>
+    <h1 :class="$style.title">{{ translator('поездки',localizationStore.locale) }}</h1>
     <div :class="$style.searchContainer">
       <div :class="$style.searchInputContainer">
         <AppInputText
@@ -11,7 +11,7 @@
         />
       </div>
       <AppButton
-        text="Найти"
+        :text="translator('найти',localizationStore.locale)"
         size="large"
         :class="$style.searchButton"
         @click="searchTrip()"
@@ -44,8 +44,11 @@ import AppInputText from '@/components/ui/AppInputText.vue';
 import TripCard from '@/components/elements/TripCard.vue';
 import { type Trip } from '@/types/Trip';
 import { tripsApi } from '@/api/trips';
+import { translator } from '@/libs/translator/translator';
+import { useLocalizationStore } from '@/stores/localisationStore';
 
 const drawer = useDrawerCreateTrip();
+const localizationStore = useLocalizationStore();
 const inputValue = ref('');
 const tripList = ref<Trip[]>([]);
 
@@ -75,6 +78,9 @@ fetchUser();
   font-size: 26px;
   line-height: 1;
 }
+.title::first-letter {
+  text-transform: uppercase;
+}
 .searchContainer {
   display: flex;
   align-items: flex-end;
@@ -91,6 +97,9 @@ fetchUser();
 }
 .searchButton {
   max-width: 130px;
+}
+.searchButton::first-letter {
+  text-transform: uppercase;
 }
 .buttonCreateTrip {
   font-size: 16px;

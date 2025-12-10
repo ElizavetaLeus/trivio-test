@@ -1,3 +1,7 @@
+export interface CacheItem<T> {
+  ended: number;
+  value: T;
+}
 export class BaseCacheManager {
   protected manager = localStorage;
 
@@ -21,10 +25,10 @@ export class BaseCacheManager {
       value: value,
     }));
   }
-  protected get(key: keyof typeof this.keys) {
+  protected get<T>(key: keyof typeof this.keys) {
     const itemBase = this.manager.getItem(keyName);
     if (itemBase !== null) {
-      const item = JSON.parse(itemBase);
+      const item: CacheItem<T> = JSON.parse(itemBase);
       if (item.ended > new Date().getTime()) {
         return item.value;
       } else {

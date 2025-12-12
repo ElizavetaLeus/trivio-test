@@ -3,7 +3,7 @@ body {
   --font-family-primary: 'Roboto', sans-serif;
   /* Colors base */
   --color-white-base: 255, 255, 255;
-  --color-white-smoke-base: 245, 245. 245;
+  --color-white-smoke-base: 245, 245, 245;
   --color-gray-base: 179, 193, 209;
   --color-gray-light-base: 246, 248, 252;
   --color-gray-bright-base: 233, 233, 233;
@@ -27,4 +27,7 @@ body {
   --color-black-40: rgb(var(--color-black-base), 40%);
   --color-black-20: rgb(var(--color-black-base), 20%);
   --color-black-10: rgb(var(--color-black-base), 10%);
+
+  /* Skeleton */
+  --color-skeleton: linear-gradient(270deg, var(--color-white-smoke), var(--color-gray-bright), var(--color-white-smoke));
 }

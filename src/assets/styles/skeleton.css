@@ -1,0 +1,16 @@
+.skeleton-block {
+  width: var(--width);
+  height: var(--height);
+  border-radius: var(--border-radius, 4px);
+  background: var(--color-skeleton);
+  animation: skeleton-animation 1.2s infinite;
+  background-size: 400% 100%;
+}
+@keyframes skeleton-animation {
+  0% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: 0;
+  }
+}
